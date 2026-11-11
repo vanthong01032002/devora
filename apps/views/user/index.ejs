@@ -16,6 +16,19 @@
     <% } %>
   </div>
 
+  <!-- Chu + CTA tren hero -->
+  <div class="hero-overlay">
+    <div class="hero-overlay__inner">
+      <p class="hero-overlay__kick">Công ty thiết kế website Devora</p>
+      <h1>Thiết Kế Website Chuyên Nghiệp <span>Chuẩn SEO</span></h1>
+      <p class="hero-overlay__sub">Website đẹp, tải nhanh, dễ quản trị — bàn giao toàn bộ mã nguồn, bảo hành trọn đời. Devora đồng hành cùng doanh nghiệp Việt trên hành trình chuyển đổi số.</p>
+      <div class="hero-overlay__cta">
+        <a href="#tu-van" class="hero-btn hero-btn--primary">Nhận tư vấn miễn phí</a>
+        <a href="tel:0866475366" class="hero-btn hero-btn--ghost">Gọi 0866.475.366</a>
+      </div>
+    </div>
+  </div>
+
   <!-- Prev / Next -->
   <button class="slide-btn slide-btn--prev" id="slidePrev" aria-label="Ảnh trước">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
@@ -222,18 +235,18 @@ document.getElementById('domainInput').addEventListener('keydown', function(e) {
     <!-- Stats row -->
     <div class="stats-row">
       <div class="stat-item">
-        <span class="stat-number">100+</span>
-        <span class="stat-label">Website triển khai thành công</span>
+        <span class="stat-number">20+</span>
+        <span class="stat-label">Dự án website đã bàn giao</span>
       </div>
       <div class="stat-divider"></div>
       <div class="stat-item">
         <span class="stat-number">100%</span>
-        <span class="stat-label">Tỷ lệ hài lòng</span>
+        <span class="stat-label">Bàn giao mã nguồn</span>
       </div>
       <div class="stat-divider"></div>
       <div class="stat-item">
-        <span class="stat-number">95%</span>
-        <span class="stat-label">Tăng trưởng doanh thu</span>
+        <span class="stat-number">24/7</span>
+        <span class="stat-label">Hỗ trợ kỹ thuật</span>
       </div>
       <div class="stat-divider"></div>
       <div class="stat-item">
@@ -390,6 +403,34 @@ document.getElementById('domainInput').addEventListener('keydown', function(e) {
 
   </div>
 </section>
+
+<!-- ===== DỊCH VỤ CỦA DEVORA ===== -->
+<% if (services && services.length > 0) { %>
+<section class="dv-services">
+  <div class="dv-services__inner">
+    <p class="dv-sec__kick">Dịch vụ của chúng tôi</p>
+    <h2 class="dv-sec__title">Giải Pháp Số Trọn Gói Cho Doanh Nghiệp</h2>
+    <p class="dv-sec__sub">Từ thiết kế website, SEO đến nhận diện thương hiệu — một đội ngũ, một quy trình, đồng hành từ ý tưởng đến vận hành.</p>
+    <div class="dv-services__grid">
+      <% services.forEach(function(sv, i) { %>
+      <article class="dv-service-card">
+        <% if (sv.image_path) { %><div class="dv-service-card__img"><img src="<%= sv.image_path %>" alt="<%= sv.title %>" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?q=80&w=1200&auto=format&fit=crop'"></div><% } %>
+        <div class="dv-service-card__body">
+          <span class="dv-service-card__num"><%= String(i + 1).padStart(2, '0') %></span>
+          <h3><%= sv.title %></h3>
+          <p><%= sv.description %></p>
+          <a href="/dich-vu" class="dv-service-card__link">Tìm hiểu thêm →</a>
+        </div>
+      </article>
+      <% }); %>
+    </div>
+    <div class="dv-tech">
+      <span class="dv-tech__label">Nền tảng &amp; công nghệ Devora sử dụng:</span>
+      <div class="dv-tech__chips"><span>Node.js</span><span>JavaScript</span><span>MySQL</span><span>PHP</span><span>HTML5 &amp; CSS3</span><span>Figma</span><span>SEO Onpage</span><span>Google Maps</span><span>Zalo OA</span><span>Facebook</span></div>
+    </div>
+  </div>
+</section>
+<% } %>
 
 <!-- ===== QUY TRÌNH THIẾT KẾ ===== -->
 <section class="process-section">
@@ -580,6 +621,75 @@ document.getElementById('domainInput').addEventListener('keydown', function(e) {
   </div>
 </section>
 <% } %>
+
+<!-- ===== KHÁCH HÀNG NÓI VỀ DEVORA ===== -->
+<section class="dv-testi">
+  <div class="dv-testi__inner">
+    <p class="dv-sec__kick">Khách hàng nói về Devora</p>
+    <h2 class="dv-sec__title">Được Tin Tưởng Bởi Các Thương Hiệu</h2>
+    <div class="dv-testi__grid">
+      <figure class="dv-testi-card">
+        <div class="dv-testi-card__stars">★★★★★</div>
+        <blockquote>Website song ngữ Việt – Trung giúp khách hàng Trung Quốc tìm thấy và liên hệ đặt phòng dễ dàng hơn hẳn. Đội ngũ hỗ trợ nhanh, chỉnh sửa tận tâm theo đúng nhu cầu vận hành của chuỗi.</blockquote>
+        <figcaption><strong>Chinatown Karaoke</strong><span>Chuỗi KTV — TP. Hồ Chí Minh</span></figcaption>
+      </figure>
+      <figure class="dv-testi-card">
+        <div class="dv-testi-card__stars">★★★★★</div>
+        <blockquote>Trang web tải nhanh, giao diện đúng chất lounge cao cấp, khách xem phòng và gọi đặt bàn ngay trên điện thoại rất tiện. Từ ngày có website, lượng khách biết đến quán qua Google tăng rõ rệt.</blockquote>
+        <figcaption><strong>90S House - Private Lounge</strong><span>Karaoke &amp; Lounge — Quận 1</span></figcaption>
+      </figure>
+      <figure class="dv-testi-card">
+        <div class="dv-testi-card__stars">★★★★★</div>
+        <blockquote>Devora quản trị nội dung và làm SEO đều tay cho quán, bài viết lên đều, khách quốc tế tìm thấy quán qua Google nhiều hơn trước. Có vấn đề gì nhắn là được hỗ trợ ngay.</blockquote>
+        <figcaption><strong>Golden Jazz KTV</strong><span>KTV phục vụ khách Hoa — Quận 5</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CÂU HỎI THƯỜNG GẶP ===== -->
+<section class="dv-faq">
+  <div class="dv-faq__inner">
+    <p class="dv-sec__kick">Giải đáp thắc mắc</p>
+    <h2 class="dv-sec__title">Câu Hỏi Thường Gặp</h2>
+    <div class="dv-faq__list">
+      <div class="dv-faq-item">
+        <button class="dv-faq-item__q" type="button">Thiết kế một website mất bao lâu?<span class="dv-faq-item__icon">+</span></button>
+        <div class="dv-faq-item__a"><p>Landing page khoảng 5–7 ngày, website doanh nghiệp 10–15 ngày, website thương mại điện tử hoặc theo yêu cầu riêng 20–30 ngày tuỳ phạm vi. Tiến độ từng giai đoạn được cập nhật rõ ràng để bạn theo dõi.</p></div>
+      </div>
+      <div class="dv-faq-item">
+        <button class="dv-faq-item__q" type="button">Chi phí làm website gồm những gì, có phát sinh không?<span class="dv-faq-item__icon">+</span></button>
+        <div class="dv-faq-item__a"><p>Giá trọn gói đã gồm thiết kế, lập trình, tối ưu tốc độ và SEO cơ bản. Hosting và tên miền tính riêng theo nhu cầu thực tế. Mọi hạng mục được báo giá rõ ràng trước khi triển khai, không phát sinh ngoài thoả thuận.</p></div>
+      </div>
+      <div class="dv-faq-item">
+        <button class="dv-faq-item__q" type="button">Tôi có được bàn giao mã nguồn và quyền quản trị không?<span class="dv-faq-item__icon">+</span></button>
+        <div class="dv-faq-item__a"><p>Có. Devora bàn giao 100% mã nguồn, tài khoản quản trị và hướng dẫn sử dụng chi tiết. Website là tài sản của doanh nghiệp bạn, không phụ thuộc vào Devora.</p></div>
+      </div>
+      <div class="dv-faq-item">
+        <button class="dv-faq-item__q" type="button">Website có chuẩn SEO và xem tốt trên điện thoại không?<span class="dv-faq-item__icon">+</span></button>
+        <div class="dv-faq-item__a"><p>Mọi website Devora thực hiện đều hiển thị tốt trên mọi thiết bị (responsive), tối ưu tốc độ tải trang và cấu trúc SEO onpage cơ bản ngay từ đầu — nền tảng để triển khai SEO nâng cao về sau.</p></div>
+      </div>
+      <div class="dv-faq-item">
+        <button class="dv-faq-item__q" type="button">Sau khi bàn giao, Devora còn hỗ trợ không?<span class="dv-faq-item__icon">+</span></button>
+        <div class="dv-faq-item__a"><p>Có. Website được bảo hành kỹ thuật trọn đời đối với lỗi phát sinh từ hệ thống, hỗ trợ vận hành 24/7 qua hotline và Zalo. Nếu cần, Devora có thêm gói chăm sóc website và SEO hằng tháng để bạn yên tâm tập trung kinh doanh.</p></div>
+      </div>
+      <div class="dv-faq-item">
+        <button class="dv-faq-item__q" type="button">Tôi chưa có nội dung và hình ảnh thì có làm website được không?<span class="dv-faq-item__icon">+</span></button>
+        <div class="dv-faq-item__a"><p>Được. Bạn chỉ cần cung cấp thông tin cơ bản về doanh nghiệp, đội ngũ Devora sẽ hỗ trợ biên soạn nội dung chuẩn SEO và xử lý hình ảnh phù hợp với thương hiệu.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+document.querySelectorAll('.dv-faq-item__q').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    var item = btn.closest('.dv-faq-item');
+    var wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.dv-faq-item.open').forEach(function (i) { i.classList.remove('open'); });
+    if (!wasOpen) item.classList.add('open');
+  });
+});
+</script>
 
 <!-- ===== LIÊN HỆ / TƯ VẤN (kiểu digiz, tông xanh DEVORA) ===== -->
 <section class="dv-contact" id="tu-van">
