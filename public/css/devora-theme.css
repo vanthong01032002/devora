@@ -344,3 +344,6 @@ h1, h2, h3 { font-weight: 800; }
 .advantage-section { background-image: radial-gradient(520px 280px at 104% -40px, rgba(231,155,181,.15), transparent 60%), linear-gradient(180deg, #ffffff, #f4fafe); background-size: 100% 100%, 100% 100%; }
 .stats-section { background-image: radial-gradient(rgba(11,95,165,.04) 1.5px, transparent 1.7px); background-size: 22px 22px; }
 .domain-check::after { content: ''; position: absolute; top: 16px; right: 14px; width: 210px; height: 210px; background-image: radial-gradient(rgba(11,95,165,.12) 1.6px, transparent 1.8px); background-size: 18px 18px; pointer-events: none; }
+
+/* Du an: dung 4 cai noi bat — the thu 4 (cuoi) tran hang cho can */
+.dv-projects__grid > *:nth-child(4):last-child { grid-column: 1 / -1; }

@@ -35,7 +35,6 @@ const HOME_PROJECTS = [
     { name: '90S House - Private Lounge', url: '90shousektv.com', cat: 'Karaoke / Lounge', desc: 'Website karaoke lounge tại Quận 1 — giới thiệu hạng phòng, video và đặt phòng nhanh.', image: 'https://90shousektv.com/thumbs/470x440x1/upload/photo/2026/10/27/s2net-1793063717-1257.webp', chips: ['Đặt phòng', 'Video', 'SEO'] },
     { name: 'VIP Center Karaoke', url: 'vipcenter.id.vn', cat: 'Karaoke KTV', desc: 'Website KTV tại Trung Sơn với thư viện ảnh phòng hát và QR liên hệ Zalo / WeChat.', image: 'https://vipcenter.id.vn/thumbs/1200/upload/photo/real/vip-01.webp', chips: ['Thư viện ảnh', 'Đa ngôn ngữ', 'QR liên hệ'] },
     { name: 'Golden Jazz KTV', url: 'goldenjazzktv.com', cat: 'Karaoke KTV', desc: 'KTV thương vụ phục vụ khách Hoa tại Quận 5 — giao diện sang trọng, song ngữ Việt – Trung.', image: 'http://goldenjazzktv.com/thumbs/7008x4672x1/upload/seopage/2026/10/07/ahs03880-1-1791332546-5070.webp', chips: ['Song ngữ Việt–Trung', 'SEO', 'Đặt phòng'] },
-    { name: 'DU XUÂN KTV', url: 'duxuanktvhcm.com', cat: 'Karaoke KTV', desc: 'KTV tại Quận 1 — hệ thống bài viết SEO từ khoá ngành và đặt phòng trực tuyến.', image: 'https://duxuanktvhcm.com/thumbs/751x187x1/upload/photo/2026/09/25/group-1000002915-1790328005.webp', chips: ['SEO', 'Tin tức', 'Google Maps'] },
 ];
 
 // trang chủ
