@@ -556,7 +556,7 @@ exports.logoIndex = async (req, res) => {
         const settings = await SettingsModel.getAll();
         res.render('admin/media/logo', {
             layout: 'layouts/admin', title: 'Quản lý Logo',
-            logo: settings.logo_path || '/images/logo.png',
+            logo: settings.logo_path || '/images/logodavora.jpg',
             success: req.query.success || null, error: req.query.error || null
         });
     } catch (err) { res.redirect('/admin?error=Lỗi tải logo'); }

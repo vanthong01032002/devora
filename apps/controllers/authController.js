@@ -1,11 +1,15 @@
 const AdminUserModel = require('../models/adminUserModel');
+const SettingsModel = require('../models/settingsModel');
 
-exports.loginPage = (req, res) => {
+exports.loginPage = async (req, res) => {
     if (req.session && req.session.adminUser) return res.redirect('/admin');
+    let logoPath = null;
+    try { const s = await SettingsModel.getAll(); logoPath = s.logo_path || null; } catch (e) { /* bo qua */ }
     res.render('admin/auth/login', {
         layout: false,
         error: req.session.loginError || null,
-        siteUrl: process.env.SITE_URL || '/'
+        siteUrl: process.env.SITE_URL || '/',
+        logoPath
     });
     delete req.session.loginError;
 };

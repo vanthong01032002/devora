@@ -91,6 +91,7 @@ app.use('/admin', async (req, res, next) => {
     try {
         const s = await SettingsModel.getAll();
         res.locals.adminSiteUrl = s.website || '/';
+        res.locals.siteSettings = s;
     } catch {
         res.locals.adminSiteUrl = '/';
     }
