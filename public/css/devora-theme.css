@@ -329,3 +329,18 @@ h1, h2, h3 { font-weight: 800; }
 .stats-section::before { content: ''; position: absolute; top: -130px; right: -110px; width: 330px; height: 330px; border-radius: 50%; background: radial-gradient(circle, rgba(87,168,236,.16), transparent 65%); pointer-events: none; }
 .domain-check { position: relative; overflow: hidden; }
 .domain-check::before { content: ''; position: absolute; bottom: -120px; left: -100px; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(252,226,108,.20), transparent 65%); pointer-events: none; }
+
+/* ===== DECOR BATCH 2 (22:38): ghost lui xuong goc duoi, nen giau hoa tiet hon ===== */
+.dv-services::before { top: auto; bottom: 4px; right: -12px; font-size: clamp(60px, 9vw, 118px); -webkit-text-stroke-color: rgba(11,95,165,.07); }
+.dv-faq::before { top: auto; bottom: 4px; left: -10px; -webkit-text-stroke-color: rgba(11,95,165,.07); }
+.dv-services { background-image: radial-gradient(rgba(11,95,165,.05) 1.5px, transparent 1.7px), linear-gradient(180deg, #ffffff, #e9f4fd); background-size: 22px 22px, 100% 100%; }
+.dv-testi { background-image: radial-gradient(rgba(11,95,165,.04) 1.5px, transparent 1.7px); background-size: 22px 22px; }
+.dv-faq { background-image: radial-gradient(rgba(11,95,165,.04) 1.5px, transparent 1.7px), linear-gradient(180deg, #f4fafe, #e9f3fc); background-size: 22px 22px, 100% 100%; }
+.dv-projects { background: linear-gradient(180deg, #ffffff, #edf6fd); position: relative; overflow: hidden; }
+.dv-projects::before { content: ''; position: absolute; top: -120px; left: -110px; width: 330px; height: 330px; border-radius: 50%; background: radial-gradient(circle, rgba(87,168,236,.17), transparent 65%); pointer-events: none; }
+.dv-projects::after { content: ''; position: absolute; bottom: 16px; right: 14px; width: 230px; height: 230px; background-image: radial-gradient(rgba(11,95,165,.12) 1.6px, transparent 1.8px); background-size: 18px 18px; pointer-events: none; }
+.pricing-section { background-image: radial-gradient(560px 260px at 6% -40px, rgba(87,168,236,.13), transparent 60%), radial-gradient(640px 300px at 102% 108%, rgba(252,226,108,.13), transparent 60%); }
+.vision-section { background-image: radial-gradient(500px 260px at -60px 110%, rgba(87,168,236,.13), transparent 60%), linear-gradient(160deg, #eef6fd, #f7fbff); background-size: 100% 100%, 100% 100%; }
+.advantage-section { background-image: radial-gradient(520px 280px at 104% -40px, rgba(231,155,181,.15), transparent 60%), linear-gradient(180deg, #ffffff, #f4fafe); background-size: 100% 100%, 100% 100%; }
+.stats-section { background-image: radial-gradient(rgba(11,95,165,.04) 1.5px, transparent 1.7px); background-size: 22px 22px; }
+.domain-check::after { content: ''; position: absolute; top: 16px; right: 14px; width: 210px; height: 210px; background-image: radial-gradient(rgba(11,95,165,.12) 1.6px, transparent 1.8px); background-size: 18px 18px; pointer-events: none; }
