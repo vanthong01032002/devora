@@ -3,20 +3,6 @@
    (sourcephp85_v5): font Anton + Arsenal, bố cục topbar/header/
    menu/footer giống mẫu; màu chủ đạo đổi sang xanh DEVORA.
    ============================================================ */
-@font-face {
-  font-family: 'Arsenal-R';
-  src: url('/fonts/Arsenal-Regular.woff2') format('woff2'),
-       url('/fonts/Arsenal-Regular.woff') format('woff');
-  font-weight: 400;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Arsenal-B';
-  src: url('/fonts/Arsenal-Bold.woff2') format('woff2'),
-       url('/fonts/Arsenal-Bold.woff') format('woff');
-  font-weight: 700;
-  font-display: swap;
-}
 
 :root {
   --dv-blue: #0b5fa5;        /* màu chủ đạo DEVORA (thay đỏ #e20702 của mẫu) */
@@ -27,12 +13,12 @@
 }
 
 body {
-  font-family: 'Arsenal-R', 'Arsenal', Arial, Helvetica, sans-serif;
+  font-family: 'Arsenal', Arial, Helvetica, sans-serif;
 }
-strong, b { font-family: 'Arsenal-B', Arial, sans-serif; }
+strong, b { font-family: 'Arsenal', Arial, sans-serif; font-weight: 700; }
 
 h1, h2 {
-  font-family: 'Anton', 'Arsenal-B', sans-serif;
+  font-family: 'Anton', 'Arsenal', sans-serif;
   text-transform: uppercase;
   letter-spacing: .02em;
   font-weight: 400;
@@ -54,7 +40,7 @@ h1, h2 {
   gap: 12px;
 }
 .dv-topbar a { color: #fff; text-decoration: none; }
-.dv-topbar__phone { font-family: 'Arsenal-B', sans-serif; letter-spacing: .03em; }
+.dv-topbar__phone { font-family: 'Arsenal', sans-serif; font-weight: 700; letter-spacing: .03em; }
 @media (max-width: 768px) {
   .dv-topbar__addr { display: none; }
 }
