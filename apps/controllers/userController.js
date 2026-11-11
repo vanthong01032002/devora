@@ -1,4 +1,4 @@
-﻿const userService = require('../services/userService');
+const userService = require('../services/userService');
 const SlideshowModel = require('../models/slideshowModel');
 const PricingModel   = require('../models/pricingModel');
 const ServicesModel  = require('../models/servicesModel');
@@ -32,7 +32,7 @@ exports.login = (req, res) => {
 // trang chủ
 exports.home = async (req, res) => {
     try {
-        const [users, slides, pricing, socialButtons, socialFooter, settings, featuredPosts, seo, processSteps] = await Promise.all([
+        const [users, slides, pricing, socialButtons, socialFooter, settings, featuredPosts, seo, processSteps, homeTemplates] = await Promise.all([
             userService.getAllUsers(),
             SlideshowModel.getAllActive(),
             PricingModel.getAllActive(),
@@ -41,9 +41,10 @@ exports.home = async (req, res) => {
             getSettings(),
             BlogModel.getFeatured(6),
             SeoModel.getByKey('home'),
-            ProcessModel.getAllActive()
+            ProcessModel.getAllActive(),
+            TemplateModel.getAllActive()
         ]);
-        res.render('user/index', { layout: 'layouts/main', title: seo.title || 'Trang chủ', users, slides, pricing, socialButtons, socialFooter, settings, featuredPosts, seo, processSteps });
+        res.render('user/index', { layout: 'layouts/main', title: seo.title || 'Trang chủ', users, slides, pricing, socialButtons, socialFooter, settings, featuredPosts, seo, processSteps, homeTemplates });
     } catch (error) {
         console.error(error);
         res.send("Lỗi database");
