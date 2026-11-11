@@ -1,0 +1,68 @@
+<section class="admin-panel">
+  <div class="admin-panel__head">
+    <h1 class="admin-panel__title">Công cụ SEO / Điều hướng link</h1>
+    <hr class="admin-panel__rule">
+  </div>
+
+  <% if (success) { %><div class="admin-alert admin-alert--success"><%= success %></div><% } %>
+  <% if (error) { %><div class="admin-alert admin-alert--error"><%= error %></div><% } %>
+
+  <p style="color:#66727f; max-width:860px;">Khi đổi URL hoặc xóa trang cũ, khai báo điều hướng để khách và Google tự chuyển sang link mới, giữ nguyên sức mạnh SEO. Dùng <strong>301</strong> cho chuyển vĩnh viễn, <strong>302</strong> cho chuyển tạm thời.</p>
+
+  <form action="/admin/seo-tools/redirects/save" method="POST" class="admin-form" style="background:#f7fbff; border:1px solid #e3edf7; border-radius:12px; padding:18px; margin:16px 0 22px;">
+    <% if (editItem) { %><input type="hidden" name="id" value="<%= editItem.id %>"><% } %>
+    <div style="display:grid; grid-template-columns: 1.2fr 1.6fr .45fr .6fr auto; gap:12px; align-items:end;">
+      <div class="admin-form__row" style="margin:0;">
+        <label class="admin-form__label">Link cũ (đường dẫn)</label>
+        <input type="text" name="from_path" class="admin-form__input" required placeholder="/bai-viet-cu" value="<%= editItem ? editItem.from_path : '' %>">
+      </div>
+      <div class="admin-form__row" style="margin:0;">
+        <label class="admin-form__label">Link đích</label>
+        <input type="text" name="to_url" class="admin-form__input" required placeholder="/bai-viet-moi hoặc https://..." value="<%= editItem ? editItem.to_url : '' %>">
+      </div>
+      <div class="admin-form__row" style="margin:0;">
+        <label class="admin-form__label">Loại</label>
+        <select name="type" class="admin-form__input">
+          <option value="301" <%= editItem && editItem.type === 301 ? 'selected' : '' %>>301</option>
+          <option value="302" <%= editItem && editItem.type === 302 ? 'selected' : '' %>>302</option>
+        </select>
+      </div>
+      <div class="admin-form__row" style="margin:0;">
+        <label class="admin-form__label">Hiển thị</label>
+        <label style="display:flex; gap:6px; align-items:center; padding:9px 0;"><input type="checkbox" name="is_active" value="1" <%= !editItem || editItem.is_active ? 'checked' : '' %>> Đang bật</label>
+      </div>
+      <div>
+        <button type="submit" class="admin-btn admin-btn--green"><%= editItem ? 'Cập nhật' : 'Thêm mới' %></button>
+        <% if (editItem) { %><a href="/admin/seo-tools/redirects" class="admin-btn">Hủy</a><% } %>
+      </div>
+    </div>
+  </form>
+
+  <div class="admin-table-wrap">
+    <table class="admin-table">
+      <thead><tr><th width="60">STT</th><th>LINK CŨ</th><th>LINK ĐÍCH</th><th width="80">LOẠI</th><th width="110">TRẠNG THÁI</th><th width="150">THAO TÁC</th></tr></thead>
+      <tbody>
+        <% if (!items.length) { %><tr><td colspan="6" class="admin-table__empty">Chưa có điều hướng nào</td></tr><% } %>
+        <% items.forEach(function(it, i) { %>
+        <tr>
+          <td><%= i + 1 %></td>
+          <td><code><%= it.from_path %></code></td>
+          <td><a href="<%= it.to_url %>" target="_blank" rel="noopener"><%= it.to_url %></a></td>
+          <td><%= it.type %></td>
+          <td>
+            <form action="/admin/seo-tools/redirects/toggle/<%= it.id %>" method="POST" style="display:inline;">
+              <button type="submit" class="admin-btn" style="padding:4px 12px; <%= it.is_active ? 'background:#e7f6ee; color:#15803d;' : 'background:#f3f4f6; color:#6b7280;' %>"><%= it.is_active ? 'Đang bật' : 'Đang tắt' %></button>
+            </form>
+          </td>
+          <td>
+            <a href="/admin/seo-tools/redirects?edit=<%= it.id %>" class="admin-btn" style="padding:4px 12px;">Sửa</a>
+            <form action="/admin/seo-tools/redirects/delete/<%= it.id %>" method="POST" style="display:inline;" onsubmit="return confirm('Xóa điều hướng này?');">
+              <button type="submit" class="admin-btn admin-btn--red" style="padding:4px 12px;">Xóa</button>
+            </form>
+          </td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+</section>

@@ -1,0 +1,65 @@
+<section class="admin-panel">
+  <div class="admin-panel__head">
+    <h1 class="admin-panel__title">Công cụ SEO / Link nội dung</h1>
+    <hr class="admin-panel__rule">
+  </div>
+
+  <% if (success) { %><div class="admin-alert admin-alert--success"><%= success %></div><% } %>
+  <% if (error) { %><div class="admin-alert admin-alert--error"><%= error %></div><% } %>
+
+  <p style="color:#66727f; max-width:860px;">Khai báo từ khóa và link đích: hệ thống tự gắn link vào từ khóa mỗi khi khách đọc bài viết Tin tức (không gắn trong tiêu đề và không lồng trong link khác). Từ khóa dài được ưu tiên trước.</p>
+
+  <form action="/admin/seo-tools/links/save" method="POST" class="admin-form" style="background:#f7fbff; border:1px solid #e3edf7; border-radius:12px; padding:18px; margin:16px 0 22px;">
+    <% if (editItem) { %><input type="hidden" name="id" value="<%= editItem.id %>"><% } %>
+    <div style="display:grid; grid-template-columns: 1.2fr 1.6fr .5fr .6fr auto; gap:12px; align-items:end;">
+      <div class="admin-form__row" style="margin:0;">
+        <label class="admin-form__label">Từ khóa</label>
+        <input type="text" name="keyword" class="admin-form__input" required placeholder="thiết kế website" value="<%= editItem ? editItem.keyword : '' %>">
+      </div>
+      <div class="admin-form__row" style="margin:0;">
+        <label class="admin-form__label">Link đích</label>
+        <input type="text" name="url" class="admin-form__input" required placeholder="/thiet-ke-website hoặc https://..." value="<%= editItem ? editItem.url : '' %>">
+      </div>
+      <div class="admin-form__row" style="margin:0;">
+        <label class="admin-form__label">Số lần gắn</label>
+        <input type="number" name="max_links" class="admin-form__input" min="1" max="10" value="<%= editItem ? editItem.max_links : 1 %>">
+      </div>
+      <div class="admin-form__row" style="margin:0;">
+        <label class="admin-form__label">Hiển thị</label>
+        <label style="display:flex; gap:6px; align-items:center; padding:9px 0;"><input type="checkbox" name="is_active" value="1" <%= !editItem || editItem.is_active ? 'checked' : '' %>> Đang bật</label>
+      </div>
+      <div>
+        <button type="submit" class="admin-btn admin-btn--green"><%= editItem ? 'Cập nhật' : 'Thêm mới' %></button>
+        <% if (editItem) { %><a href="/admin/seo-tools/links" class="admin-btn">Hủy</a><% } %>
+      </div>
+    </div>
+  </form>
+
+  <div class="admin-table-wrap">
+    <table class="admin-table">
+      <thead><tr><th width="60">STT</th><th>TỪ KHÓA</th><th>LINK ĐÍCH</th><th width="100">SỐ LẦN GẮN</th><th width="110">TRẠNG THÁI</th><th width="150">THAO TÁC</th></tr></thead>
+      <tbody>
+        <% if (!items.length) { %><tr><td colspan="6" class="admin-table__empty">Chưa có link nội dung nào</td></tr><% } %>
+        <% items.forEach(function(it, i) { %>
+        <tr>
+          <td><%= i + 1 %></td>
+          <td><strong><%= it.keyword %></strong></td>
+          <td><a href="<%= it.url %>" target="_blank" rel="noopener"><%= it.url %></a></td>
+          <td><%= it.max_links %></td>
+          <td>
+            <form action="/admin/seo-tools/links/toggle/<%= it.id %>" method="POST" style="display:inline;">
+              <button type="submit" class="admin-btn" style="padding:4px 12px; <%= it.is_active ? 'background:#e7f6ee; color:#15803d;' : 'background:#f3f4f6; color:#6b7280;' %>"><%= it.is_active ? 'Đang bật' : 'Đang tắt' %></button>
+            </form>
+          </td>
+          <td>
+            <a href="/admin/seo-tools/links?edit=<%= it.id %>" class="admin-btn" style="padding:4px 12px;">Sửa</a>
+            <form action="/admin/seo-tools/links/delete/<%= it.id %>" method="POST" style="display:inline;" onsubmit="return confirm('Xóa link nội dung này?');">
+              <button type="submit" class="admin-btn admin-btn--red" style="padding:4px 12px;">Xóa</button>
+            </form>
+          </td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+</section>

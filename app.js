@@ -4,6 +4,7 @@ const express = require('express');
 const path = require('path');
 const expressLayouts = require('express-ejs-layouts');
 const session = require('express-session');
+const { seoRedirectMiddleware } = require('./apps/middleware/seoTools');
 
 const app = express();
 
@@ -71,6 +72,7 @@ app.use(async (req, res, next) => {
 
 // routes
 const userRoutes = require('./apps/routes/userRoutes');
+app.use(seoRedirectMiddleware);
 app.use('/', userRoutes);
 
 // Auth routes (không cần middleware)

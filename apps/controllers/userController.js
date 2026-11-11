@@ -6,6 +6,7 @@ const SocialModel    = require('../models/socialModel');
 const SocialFooterModel = require('../models/socialFooterModel');
 const SettingsModel     = require('../models/settingsModel');
 const BlogModel         = require('../models/blogModel');
+const { applyAutoLinks } = require('../middleware/seoTools');
 const SeoModel          = require('../models/seoModel');
 const ProcessModel      = require('../models/processModel');
 const TeamModel         = require('../models/teamModel');
@@ -108,6 +109,7 @@ exports.blogDetail = async (req, res) => {
             BlogModel.getBySlug(req.params.slug), getSocialButtons(), getSocialFooter(), getSettings()
         ]);
         if (!post) return res.status(404).render('user/blog', { layout: 'layouts/main', title: 'Không tìm thấy', posts: [], socialButtons, socialFooter, settings });
+        if (post.content) { try { post.content = await applyAutoLinks(post.content); } catch (e) { /* bo qua neu loi */ } }
         await BlogModel.incrementViews(post.id);
         res.render('user/blog-detail', {
             layout: 'layouts/main',

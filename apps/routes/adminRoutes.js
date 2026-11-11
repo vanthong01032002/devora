@@ -5,6 +5,7 @@ const path = require('path');
 const fs = require('fs');
 
 const adminController = require('../controllers/adminController');
+const seoToolsController = require('../controllers/seoToolsController');
 
 // ===== MULTER ERROR HANDLER MIDDLEWARE =====
 function handleMulterError(err, req, res, next) {
@@ -156,6 +157,18 @@ const uploadSeo = multer({
 
 router.get('/admin/seo-pages/:key',  adminController.seoPageIndex);
 router.post('/admin/seo-pages/:key', uploadSeo.single('og_image'), adminController.seoPageSave);
+
+// ===== CONG CU SEO =====
+router.get('/admin/seo-tools/check', seoToolsController.checkPage);
+router.post('/admin/seo-tools/check', seoToolsController.checkRun);
+router.get('/admin/seo-tools/links', seoToolsController.linksPage);
+router.post('/admin/seo-tools/links/save', seoToolsController.linksSave);
+router.post('/admin/seo-tools/links/delete/:id', seoToolsController.linksDelete);
+router.post('/admin/seo-tools/links/toggle/:id', seoToolsController.linksToggle);
+router.get('/admin/seo-tools/redirects', seoToolsController.redirectsPage);
+router.post('/admin/seo-tools/redirects/save', seoToolsController.redirectsSave);
+router.post('/admin/seo-tools/redirects/delete/:id', seoToolsController.redirectsDelete);
+router.post('/admin/seo-tools/redirects/toggle/:id', seoToolsController.redirectsToggle);
 
 // Process steps
 const procUploadDir = path.join(__dirname, '../../public/uploads/process');

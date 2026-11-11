@@ -1,0 +1,98 @@
+<style>
+  .seock-score { width: 128px; height: 128px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex: none; }
+  .seock-score__in { width: 102px; height: 102px; border-radius: 50%; background: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .seock-score__num { font-size: 34px; font-weight: 800; line-height: 1; font-family: 'Montserrat', sans-serif; }
+  .seock-pill { display: inline-block; padding: 3px 12px; border-radius: 999px; font-size: 12.5px; font-weight: 700; white-space: nowrap; }
+  .seock-pill--pass { background: #e7f6ee; color: #15803d; }
+  .seock-pill--warn { background: #fdf3e0; color: #b45309; }
+  .seock-pill--fail { background: #fdecec; color: #b91c1c; }
+  .seock-pill--info { background: #eef2f7; color: #5b6b7c; }
+  .seock-chip { border: 1px solid #cfe1f1; background: #f2f8fd; color: #0b5fa5; border-radius: 999px; padding: 6px 14px; font-size: 13.5px; cursor: pointer; }
+  .seock-chip:hover { background: #0b5fa5; color: #fff; }
+  .seock-stat { background: #f7fbff; border: 1px solid #e3edf7; border-radius: 10px; padding: 10px 14px; }
+  .seock-stat small { display: block; color: #8494a5; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; }
+  .seock-stat strong { font-size: 16px; color: #0a2e52; }
+</style>
+
+<section class="admin-panel">
+  <div class="admin-panel__head">
+    <h1 class="admin-panel__title">Công cụ SEO / Check SEO</h1>
+    <hr class="admin-panel__rule">
+  </div>
+
+  <% if (success) { %><div class="admin-alert admin-alert--success"><%= success %></div><% } %>
+  <% if (error) { %><div class="admin-alert admin-alert--error"><%= error %></div><% } %>
+
+  <p style="color:#66727f; max-width:860px;">Nhập URL bất kỳ (trang của mình hoặc của đối thủ) và từ khóa mục tiêu — hệ thống tải trang thật và chấm điểm onpage theo chuẩn Devora: meta description đúng 160 ký tự, từ khóa mở đầu nội dung, mỗi trang đúng 1 H1, ảnh có alt…</p>
+
+  <form action="/admin/seo-tools/check" method="POST" class="admin-form" style="background:#f7fbff; border:1px solid #e3edf7; border-radius:12px; padding:18px; margin:16px 0 14px;">
+    <div style="display:grid; grid-template-columns: 1.8fr 1fr auto; gap:12px; align-items:end;">
+      <div class="admin-form__row" style="margin:0;">
+        <label class="admin-form__label">URL cần kiểm tra</label>
+        <input type="text" id="seockUrl" name="url" class="admin-form__input" required placeholder="https://devora.vn/thiet-ke-website hoặc /dich-vu" value="<%= form.url %>">
+      </div>
+      <div class="admin-form__row" style="margin:0;">
+        <label class="admin-form__label">Từ khóa mục tiêu</label>
+        <input type="text" name="keyword" class="admin-form__input" placeholder="thiết kế website" value="<%= form.keyword %>">
+      </div>
+      <div><button type="submit" class="admin-btn admin-btn--green" style="padding:11px 22px;">Phân tích SEO</button></div>
+    </div>
+  </form>
+
+  <div style="display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-bottom:22px;">
+    <span style="color:#8494a5; font-size:13.5px;">Check nhanh trang của site:</span>
+    <% quickPages.forEach(function(p) { %>
+      <button type="button" class="seock-chip" data-url="<%= p.url %>"><%= p.label %></button>
+    <% }); %>
+  </div>
+
+  <% if (result) { %>
+  <div style="display:flex; gap:22px; align-items:center; background:#fff; border:1px solid #e3edf7; border-radius:14px; padding:20px; flex-wrap:wrap;">
+    <div class="seock-score" style="background: conic-gradient(<%= result.gradeColor %> <%= result.score %>%, #e8eef4 0);">
+      <div class="seock-score__in">
+        <span class="seock-score__num" style="color:<%= result.gradeColor %>;"><%= result.score %></span>
+        <small style="color:#8494a5;">/ 100 điểm</small>
+      </div>
+    </div>
+    <div style="flex:1; min-width:260px;">
+      <h2 style="margin:0 0 4px; font-size:21px; color:#0a2e52;">Mức độ SEO: <span style="color:<%= result.gradeColor %>;"><%= result.grade %></span><% if (result.keyword) { %> · Từ khóa: "<%= result.keyword %>"<% } %></h2>
+      <p style="margin:0; color:#66727f; word-break:break-all;">Đã phân tích: <a href="<%= result.finalUrl %>" target="_blank" rel="noopener"><%= result.finalUrl %></a></p>
+      <p style="margin:6px 0 0; color:#66727f;">Title (<%= result.titleLen %> ký tự): <strong style="color:#0a2e52;"><%= result.title || '(trống)' %></strong></p>
+      <p style="margin:4px 0 0; color:#66727f;">Meta description (<%= result.descLen %>/160 ký tự): <%= result.desc || '(trống)' %></p>
+    </div>
+  </div>
+
+  <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap:10px; margin:14px 0 20px;">
+    <div class="seock-stat"><small>Thời gian tải</small><strong><%= result.loadMs %> ms</strong></div>
+    <div class="seock-stat"><small>Dung lượng trang</small><strong><%= result.sizeKb %> KB</strong></div>
+    <div class="seock-stat"><small>Số từ</small><strong><%= result.words %></strong></div>
+    <div class="seock-stat"><small>Thẻ H1</small><strong><%= result.h1Count %></strong></div>
+    <div class="seock-stat"><small>Ảnh thiếu alt</small><strong><%= result.imgNoAlt %> / <%= result.imgTotal %></strong></div>
+    <div class="seock-stat"><small>Link nội / ngoại</small><strong><%= result.internal %> / <%= result.external %></strong></div>
+  </div>
+
+  <div class="admin-table-wrap">
+    <table class="admin-table">
+      <thead><tr><th width="120">TRẠNG THÁI</th><th width="280">HẠNG MỤC</th><th>CHI TIẾT &amp; GỢI Ý</th></tr></thead>
+      <tbody>
+        <% result.checks.forEach(function(c) { %>
+        <tr>
+          <td><span class="seock-pill seock-pill--<%= c.status %>"><%= c.status === 'pass' ? 'Đạt' : c.status === 'warn' ? 'Cần sửa' : c.status === 'fail' ? 'Lỗi' : 'Thông tin' %></span></td>
+          <td><strong><%= c.label %></strong></td>
+          <td style="color:#41505f;"><%= c.detail %></td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+  <% } %>
+</section>
+
+<script>
+  document.querySelectorAll('.seock-chip').forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      document.getElementById('seockUrl').value = chip.getAttribute('data-url');
+      document.getElementById('seockUrl').focus();
+    });
+  });
+</script>

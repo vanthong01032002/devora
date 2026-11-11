@@ -5,6 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Admin - <%= title %></title>
     <link rel="stylesheet" href="/css/admin-menu.css" />
+    <style>
+    .dv-toasts { position: fixed; top: 18px; right: 18px; z-index: 99999; display: flex; flex-direction: column; gap: 10px; pointer-events: none; }
+    .dv-toast { pointer-events: auto; display: flex; gap: 12px; align-items: flex-start; min-width: 300px; max-width: 430px; background: #fff; border-radius: 12px; box-shadow: 0 18px 44px rgba(8,61,110,.22); padding: 14px 16px; border-left: 5px solid #16a34a; animation: dvToastIn .35s cubic-bezier(.2,.9,.3,1.2); }
+    .dv-toast--error { border-left-color: #dc2626; }
+    .dv-toast__ico { flex: none; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 16px; background: #16a34a; }
+    .dv-toast--error .dv-toast__ico { background: #dc2626; }
+    .dv-toast__body { flex: 1; }
+    .dv-toast__title { font-weight: 800; color: #0a2e52; font-size: 14.5px; margin: 1px 0 2px; }
+    .dv-toast__msg { color: #41505f; font-size: 13.5px; line-height: 1.45; word-break: break-word; }
+    .dv-toast__close { flex: none; border: 0; background: transparent; color: #94a3b8; font-size: 18px; line-height: 1; cursor: pointer; padding: 2px 4px; }
+    .dv-toast__close:hover { color: #0a2e52; }
+    .dv-toast--out { opacity: 0; transform: translateX(24px); transition: all .3s; }
+    @keyframes dvToastIn { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: none; } }
+    </style>
 </head>
 <body class="admin-body">
 
@@ -156,6 +170,39 @@
             });
         }
     });
+    </script>
+    <script>
+    (function () {
+        function ensureStack() {
+            var st = document.querySelector('.dv-toasts');
+            if (!st) { st = document.createElement('div'); st.className = 'dv-toasts'; document.body.appendChild(st); }
+            return st;
+        }
+        window.adminToast = function (msg, type) {
+            var stack = ensureStack();
+            var t = document.createElement('div');
+            t.className = 'dv-toast' + (type === 'error' ? ' dv-toast--error' : '');
+            var ico = document.createElement('span'); ico.className = 'dv-toast__ico'; ico.textContent = type === 'error' ? '!' : '\u2713';
+            var body = document.createElement('div'); body.className = 'dv-toast__body';
+            var title = document.createElement('div'); title.className = 'dv-toast__title'; title.textContent = type === 'error' ? 'Có lỗi xảy ra' : 'Thành công';
+            var m = document.createElement('div'); m.className = 'dv-toast__msg'; m.textContent = msg;
+            body.appendChild(title); body.appendChild(m);
+            var x = document.createElement('button'); x.className = 'dv-toast__close'; x.innerHTML = '&times;';
+            x.addEventListener('click', function () { dismiss(); });
+            t.appendChild(ico); t.appendChild(body); t.appendChild(x);
+            stack.appendChild(t);
+            var done = false;
+            function dismiss() { if (done) return; done = true; t.classList.add('dv-toast--out'); setTimeout(function () { t.remove(); }, 320); }
+            setTimeout(dismiss, 5200);
+        };
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.admin-alert').forEach(function (al) {
+                var isErr = al.classList.contains('admin-alert--error');
+                window.adminToast(al.textContent.trim(), isErr ? 'error' : 'success');
+                al.remove();
+            });
+        });
+    })();
     </script>
 </body>
 </html>
