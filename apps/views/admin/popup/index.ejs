@@ -1,0 +1,160 @@
+<section class="admin-panel">
+  <div class="admin-panel__head">
+    <h1 class="admin-panel__title">Cấu hình Popup</h1>
+    <hr class="admin-panel__rule">
+  </div>
+
+  <% if (success) { %><div class="admin-alert admin-alert--success"><%= success %></div><% } %>
+  <% if (error) { %><div class="admin-alert admin-alert--error"><%= error %></div><% } %>
+
+  <form action="/admin/pages/popup" method="POST" enctype="multipart/form-data">
+    <div class="popup-admin-layout">
+
+      <!-- Left: thông tin -->
+      <div class="popup-admin-info">
+
+        <!-- Toggle bật/tắt -->
+        <div class="popup-toggle-row">
+          <span class="popup-toggle-label">Trạng thái Popup</span>
+          <label class="popup-big-toggle">
+            <input type="checkbox" name="is_active" value="1" id="popupToggle" <%= popup.is_active ? 'checked' : '' %>>
+            <span class="popup-big-toggle__slider">
+              <span class="popup-big-toggle__on">BẬT</span>
+              <span class="popup-big-toggle__off">TẮT</span>
+            </span>
+          </label>
+        </div>
+
+        <div class="admin-form__section" style="background:#fff;border:1px solid #e0e0e0;border-radius:12px;padding:20px;margin-top:16px;">
+          <h3 style="font-size:0.9rem;font-weight:700;color:#1565c0;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid #e8f0fe;">Thông tin Popup</h3>
+
+          <div class="admin-form__row">
+            <label class="admin-form__label">Tiêu đề (vi)</label>
+            <input type="text" name="title" class="admin-form__input"
+                   value="<%= popup.title || '' %>" placeholder="VD: Ưu đãi đặc biệt!">
+          </div>
+
+          <div class="admin-form__row">
+            <label class="admin-form__label">Nội dung (vi)</label>
+            <textarea name="content" class="admin-form__input admin-form__textarea" rows="4"
+                      placeholder="Nội dung hiển thị trong popup..."><%= popup.content || '' %></textarea>
+          </div>
+
+          <div class="admin-form__row">
+            <label class="admin-form__label">Link (vi)</label>
+            <input type="text" name="link" class="admin-form__input"
+                   value="<%= popup.link || '' %>" placeholder="https://... hoặc /lien-he hoặc tel:...">
+          </div>
+
+          <div class="admin-form__row admin-form__row--half">
+            <div>
+              <label class="admin-form__label">Hiển thị sau (giây)</label>
+              <input type="number" name="delay_seconds" class="admin-form__input" min="0" max="60"
+                     value="<%= popup.delay_seconds || 3 %>">
+            </div>
+            <div>
+              <label class="admin-form__label">Chỉ hiện 1 lần / phiên</label>
+              <select name="show_once" class="admin-form__input">
+                <option value="1" <%= popup.show_once !== 0 ? 'selected' : '' %>>Có (dùng cookie)</option>
+                <option value="0" <%= popup.show_once === 0 ? 'selected' : '' %>>Không (luôn hiện)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-form__actions" style="margin-top:16px;">
+          <button type="submit" class="admin-btn admin-btn--green">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>
+            Lưu
+          </button>
+          <button type="button" class="admin-btn admin-btn--gray" id="previewBtn">Xem trước</button>
+        </div>
+      </div>
+
+      <!-- Right: hình ảnh -->
+      <div class="popup-admin-image">
+        <div class="admin-form__section" style="background:#fff;border:1px solid #e0e0e0;border-radius:12px;padding:20px;">
+          <h3 style="font-size:0.9rem;font-weight:700;color:#1565c0;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid #e8f0fe;">Hình ảnh</h3>
+
+          <% if (popup.image_path) { %>
+            <img src="<%= popup.image_path %>" id="currentImg" style="width:100%;border-radius:8px;margin-bottom:12px;" alt="">
+          <% } else { %>
+            <img src="" id="currentImg" style="display:none;width:100%;border-radius:8px;margin-bottom:12px;" alt="">
+          <% } %>
+
+          <div class="admin-upload-area" id="uploadArea">
+            <img src="" class="admin-upload-preview" id="imgPreview" style="display:none">
+            <div class="admin-upload-placeholder" id="uploadPlaceholder">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.35 10.04A7.49 7.49 0 0012 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 000 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/></svg>
+              <p>Kéo và thả hình vào đây</p>
+              <p>Hoặc</p>
+              <button type="button" class="admin-btn admin-btn--green" id="chooseBtn">Chọn hình</button>
+              <small>JPG, PNG, WEBP — tối đa 5MB</small>
+            </div>
+            <input type="file" name="image" id="fileInput" accept="image/*" style="display:none">
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </form>
+</section>
+
+<!-- Preview modal -->
+<div class="popup-preview-overlay" id="popupPreview" style="display:none;">
+  <div class="popup-preview-box">
+    <button class="popup-preview-close" id="closePreview">✕</button>
+    <div id="popupPreviewContent"></div>
+  </div>
+</div>
+
+<script>
+// Upload
+const uploadArea = document.getElementById('uploadArea');
+const fileInput  = document.getElementById('fileInput');
+const imgPreview = document.getElementById('imgPreview');
+const placeholder = document.getElementById('uploadPlaceholder');
+const currentImg = document.getElementById('currentImg');
+
+document.getElementById('chooseBtn').addEventListener('click', () => fileInput.click());
+uploadArea.addEventListener('dragover', e => { e.preventDefault(); uploadArea.classList.add('drag-over'); });
+uploadArea.addEventListener('dragleave', () => uploadArea.classList.remove('drag-over'));
+uploadArea.addEventListener('drop', e => { e.preventDefault(); uploadArea.classList.remove('drag-over'); if (e.dataTransfer.files[0]) preview(e.dataTransfer.files[0]); });
+fileInput.addEventListener('change', function() { if (this.files[0]) preview(this.files[0]); });
+
+function preview(file) {
+  const reader = new FileReader();
+  reader.onload = e => {
+    imgPreview.src = e.target.result; imgPreview.style.display = 'block';
+    placeholder.style.display = 'none';
+    if (currentImg) { currentImg.src = e.target.result; currentImg.style.display = 'block'; }
+  };
+  reader.readAsDataURL(file);
+  const dt = new DataTransfer(); dt.items.add(file); fileInput.files = dt.files;
+}
+
+// Preview popup
+document.getElementById('previewBtn').addEventListener('click', function() {
+  const title   = document.querySelector('[name="title"]').value;
+  const content = document.querySelector('[name="content"]').value;
+  const link    = document.querySelector('[name="link"]').value;
+  const imgSrc  = currentImg && currentImg.src && !currentImg.src.endsWith('/') ? currentImg.src : '';
+
+  document.getElementById('popupPreviewContent').innerHTML = `
+    <div style="text-align:center;">
+      ${imgSrc ? `<img src="${imgSrc}" style="width:100%;border-radius:8px;margin-bottom:16px;" alt="">` : ''}
+      ${title ? `<h3 style="font-size:1.2rem;font-weight:800;color:#1a1a2e;margin-bottom:10px;">${title}</h3>` : ''}
+      ${content ? `<p style="font-size:0.92rem;color:#555;line-height:1.7;margin-bottom:16px;">${content}</p>` : ''}
+      ${link ? `<a href="${link}" style="display:inline-flex;padding:11px 24px;background:#1565c0;color:#fff;border-radius:999px;text-decoration:none;font-weight:700;font-size:0.9rem;">Xem ngay</a>` : ''}
+    </div>`;
+  document.getElementById('popupPreview').style.display = 'flex';
+});
+
+document.getElementById('closePreview').addEventListener('click', () => {
+  document.getElementById('popupPreview').style.display = 'none';
+});
+document.getElementById('popupPreview').addEventListener('click', function(e) {
+  if (e.target === this) this.style.display = 'none';
+});
+</script>
+    

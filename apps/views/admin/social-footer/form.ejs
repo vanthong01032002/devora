@@ -1,0 +1,78 @@
+<section class="admin-panel">
+  <div class="admin-panel__head">
+    <h1 class="admin-panel__title"><%= item ? 'Sửa mạng xã hội' : 'Thêm mạng xã hội mới' %></h1>
+    <hr class="admin-panel__rule">
+  </div>
+
+  <form action="<%= action %>" method="POST" class="admin-form">
+
+    <div class="admin-form__row">
+      <label class="admin-form__label">Tên mạng xã hội <span>*</span></label>
+      <input type="text" name="title" class="admin-form__input" required
+             value="<%= item ? item.title : '' %>" placeholder="VD: Facebook, Zalo, YouTube...">
+    </div>
+
+    <div class="admin-form__row">
+      <label class="admin-form__label">Link <span>*</span></label>
+      <input type="text" name="link" class="admin-form__input" required
+             value="<%= item ? item.link : '' %>" placeholder="https://...">
+    </div>
+
+    <div class="admin-form__row">
+      <label class="admin-form__label">Loại icon</label>
+      <div class="sf-icon-grid">
+        <% const icons = [
+          { value: 'facebook', label: 'Facebook' },
+          { value: 'youtube',  label: 'YouTube'  },
+          { value: 'zalo',     label: 'Zalo'     },
+          { value: 'instagram',label: 'Instagram'},
+          { value: 'tiktok',   label: 'TikTok'   },
+          { value: 'twitter',  label: 'Twitter'  },
+          { value: 'linkedin', label: 'LinkedIn' },
+          { value: 'telegram', label: 'Telegram' },
+          { value: 'custom',   label: 'Khác'     },
+        ]; %>
+        <% icons.forEach(function(ic) { %>
+        <label class="sf-icon-option <%= item && item.icon_type === ic.value ? 'selected' : (!item && ic.value === 'facebook' ? 'selected' : '') %>">
+          <input type="radio" name="icon_type" value="<%= ic.value %>"
+                 <%= item && item.icon_type === ic.value ? 'checked' : (!item && ic.value === 'facebook' ? 'checked' : '') %>>
+          <div class="sf-icon-option__icon"><%- getSocialIcon(ic.value) %></div>
+          <span><%= ic.label %></span>
+        </label>
+        <% }); %>
+      </div>
+    </div>
+
+    <div class="admin-form__row admin-form__row--half">
+      <div>
+        <label class="admin-form__label">Thứ tự</label>
+        <input type="number" name="display_order" class="admin-form__input" min="0"
+               value="<%= item ? item.display_order : 0 %>">
+      </div>
+      <div>
+        <label class="admin-form__label">Trạng thái</label>
+        <select name="is_active" class="admin-form__input">
+          <option value="1" <%= !item || item.is_active ? 'selected' : '' %>>Hiển thị</option>
+          <option value="0" <%= item && !item.is_active ? 'selected' : '' %>>Ẩn</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="admin-form__actions">
+      <button type="submit" class="admin-btn admin-btn--green">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>
+        Lưu
+      </button>
+      <a href="/admin/media/social-footer" class="admin-btn admin-btn--gray">Hủy</a>
+    </div>
+  </form>
+</section>
+
+<script>
+document.querySelectorAll('.sf-icon-option input').forEach(function(radio) {
+  radio.addEventListener('change', function() {
+    document.querySelectorAll('.sf-icon-option').forEach(el => el.classList.remove('selected'));
+    this.closest('.sf-icon-option').classList.add('selected');
+  });
+});
+</script>

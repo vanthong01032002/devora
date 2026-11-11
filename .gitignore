@@ -1,0 +1,17 @@
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# môi trường / bí mật
+.env
+.env.*
+
+# logs
+*.log
+
+# hệ điều hành
+.DS_Store
+Thumbs.db
+

@@ -1,0 +1,172 @@
+﻿<!-- ===== HERO ===== -->
+<section class="kh-hero">
+  <div class="kh-hero__inner">
+    <p class="kh-hero__tag">100+ Dự án thành công</p>
+    <h1>Khách hàng của <span>Devora</span></h1>
+    <p>Với Devora, mỗi dự án hoàn thành không chỉ là một sản phẩm công nghệ, mà là một lời cảm ơn gửi đến Quý khách hàng. Chúng tôi trân trọng cơ hội được lắng nghe, thấu hiểu và cùng bạn xây dựng một nền tảng website chuyên nghiệp, vững chắc cho sự phát triển lâu dài.</p>
+  </div>
+</section>
+
+<!-- ===== STATS ===== -->
+<section class="kh-stats">
+  <div class="kh-stats__inner">
+    <div class="kh-stat">
+      <span class="kh-stat__num">100+</span>
+      <span class="kh-stat__label">Website đã triển khai</span>
+    </div>
+    <div class="kh-stat">
+      <span class="kh-stat__num">100%</span>
+      <span class="kh-stat__label">Khách hàng hài lòng</span>
+    </div>
+    <div class="kh-stat">
+      <span class="kh-stat__num">95%</span>
+      <span class="kh-stat__label">Tăng trưởng doanh thu</span>
+    </div>
+    <div class="kh-stat">
+      <span class="kh-stat__num">10+</span>
+      <span class="kh-stat__label">Lĩnh vực đa ngành</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TESTIMONIALS ===== -->
+<section class="kh-testimonials">
+  <div class="kh-section__inner">
+    <div class="kh-section__heading">
+      <h2>Những câu chuyện thành công từ các dự án thực tế</h2>
+      <p>Cảm ơn vì đã tin tưởng và đồng hành cùng Devora. Mỗi lời chia sẻ là sự ghi nhận quý giá dành cho chúng tôi.</p>
+    </div>
+
+    <div class="kh-testimonials__grid">
+      <% if (typeof clients !== 'undefined' && clients && clients.length > 0) { %>
+        <% clients.forEach(function(c, i) { %>
+        <div class="kh-testi-card <%= i === 0 ? 'kh-testi-card--featured' : '' %>">
+          <div class="kh-testi-card__quote">"</div>
+          <p><%= c.testimonial || '' %></p>
+          <div class="kh-testi-card__author">
+            <% if (c.avatar) { %>
+              <img src="<%= c.avatar %>" class="kh-testi-card__avatar" style="width:44px;height:44px;min-width:44px;border-radius:50%;object-fit:cover;flex-shrink:0;" alt="<%= c.full_name %>">
+            <% } else { %>
+              <div class="kh-testi-card__avatar"><%= c.full_name.charAt(0).toUpperCase() %></div>
+            <% } %>
+            <div>
+              <strong><%= c.full_name %></strong>
+              <span><%= [c.position, c.company].filter(Boolean).join(' - ') %></span>
+            </div>
+          </div>
+          <div class="kh-testi-card__stars">
+            <% for(let s=0;s<5;s++){ %><%= s < c.rating ? '★' : '☆' %><% } %>
+          </div>
+        </div>
+        <% }); %>
+      <% } else { %>
+        <p style="grid-column:1/-1;text-align:center;color:#aaa;padding:40px 0;">Chưa có đánh giá nào.</p>
+      <% } %>
+    </div>
+  </div>
+</section>
+
+<!-- ===== DỰ ÁN TIÊU BIỂU ===== -->
+<section class="kh-projects">
+  <div class="kh-section__inner">
+    <div class="kh-section__heading">
+      <h2>Mỗi dự án website là một câu chuyện thành công</h2>
+      <p>Các dự án thiết kế website chuẩn SEO do Devora triển khai đều được xây dựng dựa trên mục tiêu kinh doanh, trải nghiệm người dùng và khả năng mở rộng lâu dài.</p>
+    </div>
+
+    <div class="kh-projects__grid">
+      <div class="kh-project-card">
+        <div class="kh-project-card__img">
+          <img src="/images/tab-combo1.png" alt="Nội thất Mộc Nguyên Cường">
+          <div class="kh-project-card__overlay">
+            <span>Xem dự án</span>
+          </div>
+        </div>
+        <div class="kh-project-card__body">
+          <span class="kh-project-card__cat">Nội thất</span>
+          <h4>Nội thất Mộc Nguyên Cường</h4>
+          <p>Website giới thiệu sản phẩm nội thất cao cấp, chuẩn SEO, tối ưu chuyển đổi.</p>
+        </div>
+      </div>
+
+      <div class="kh-project-card">
+        <div class="kh-project-card__img">
+          <img src="/images/tab-combo2.png" alt="Nhà hàng Mộc Chay">
+          <div class="kh-project-card__overlay">
+            <span>Xem dự án</span>
+          </div>
+        </div>
+        <div class="kh-project-card__body">
+          <span class="kh-project-card__cat">Ẩm thực</span>
+          <h4>Chuỗi nhà hàng Mộc Chay</h4>
+          <p>Website đặt bàn online, menu đẹp, tích hợp Google Maps và fanpage.</p>
+        </div>
+      </div>
+
+      <div class="kh-project-card">
+        <div class="kh-project-card__img">
+          <img src="/images/tab-monchay.png" alt="Spa Thiên Nhiên">
+          <div class="kh-project-card__overlay">
+            <span>Xem dự án</span>
+          </div>
+        </div>
+        <div class="kh-project-card__body">
+          <span class="kh-project-card__cat">Làm đẹp</span>
+          <h4>Spa Thiên Nhiên</h4>
+          <p>Website booking dịch vụ spa, giao diện sang trọng, tối ưu mobile.</p>
+        </div>
+      </div>
+
+      <div class="kh-project-card">
+        <div class="kh-project-card__img">
+          <img src="/images/hero-small.png" alt="Công ty ABC">
+          <div class="kh-project-card__overlay">
+            <span>Xem dự án</span>
+          </div>
+        </div>
+        <div class="kh-project-card__body">
+          <span class="kh-project-card__cat">Doanh nghiệp</span>
+          <h4>Công ty TNHH ABC</h4>
+          <p>Website doanh nghiệp đa ngôn ngữ, tích hợp CRM và hệ thống báo giá.</p>
+        </div>
+      </div>
+
+      <div class="kh-project-card">
+        <div class="kh-project-card__img">
+          <img src="/images/tab-combo1.png" alt="Thời trang XYZ">
+          <div class="kh-project-card__overlay">
+            <span>Xem dự án</span>
+          </div>
+        </div>
+        <div class="kh-project-card__body">
+          <span class="kh-project-card__cat">Thời trang</span>
+          <h4>Thời trang XYZ</h4>
+          <p>Website thương mại điện tử thời trang, tích hợp thanh toán online.</p>
+        </div>
+      </div>
+
+      <div class="kh-project-card">
+        <div class="kh-project-card__img">
+          <img src="/images/tab-combo2.png" alt="Giáo dục EduPro">
+          <div class="kh-project-card__overlay">
+            <span>Xem dự án</span>
+          </div>
+        </div>
+        <div class="kh-project-card__body">
+          <span class="kh-project-card__cat">Giáo dục</span>
+          <h4>Trung tâm EduPro</h4>
+          <p>Website đăng ký khóa học online, quản lý học viên và lịch học.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="kh-cta">
+  <div class="kh-cta__inner">
+    <h2>Bạn đã sẵn sàng để thương hiệu của mình tỏa sáng trên nền tảng số chưa?</h2>
+    <p>Bắt đầu ngay hôm nay và tiến gần hơn đến thành công cùng Devora.</p>
+    <a href="/lien-he" class="kh-cta__btn">Liên hệ tư vấn miễn phí</a>
+  </div>
+</section>

@@ -1,0 +1,36 @@
+﻿<!-- Hero -->
+<section class="blog-hero">
+  <div class="blog-hero__inner">
+    <p class="blog-hero__tag">Tin tức & Kiến thức</p>
+    <h1>Blog <span>Devora</span></h1>
+    <p>Cập nhật kiến thức thiết kế website, SEO và chuyển đổi số cho doanh nghiệp.</p>
+  </div>
+</section>
+
+<!-- Posts grid -->
+<section class="blog-list">
+  <div class="blog-list__inner">
+    <% if (posts && posts.length > 0) { %>
+    <div class="blog-grid">
+      <% posts.forEach(function(post, i) { %>
+      <article class="blog-card <%= i === 0 && post.is_featured ? 'blog-card--featured' : '' %>">
+        <a href="/blog/<%= post.slug %>" class="blog-card__img">
+          <img src="<%= post.thumbnail || '/images/default.png' %>" alt="<%= post.title %>">
+          <% if (post.is_featured) { %><span class="blog-card__badge">Nổi bật</span><% } %>
+        </a>
+        <div class="blog-card__body">
+          <div class="blog-card__meta">
+            <span><%= new Date(post.created_at).toLocaleDateString('vi-VN') %></span>
+          </div>
+          <h2 class="blog-card__title"><a href="/blog/<%= post.slug %>"><%= post.title %></a></h2>
+          <p class="blog-card__desc"><%= post.description || '' %></p>
+          <a href="/blog/<%= post.slug %>" class="blog-card__btn">Đọc tiếp</a>
+        </div>
+      </article>
+      <% }); %>
+    </div>
+    <% } else { %>
+    <div style="text-align:center;padding:60px;color:#888;">Chưa có bài viết nào.</div>
+    <% } %>
+  </div>
+</section>

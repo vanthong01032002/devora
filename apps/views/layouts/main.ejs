@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= (typeof seo !== 'undefined' && seo && seo.title) ? seo.title : ((typeof settings !== 'undefined' && settings.site_title) ? settings.site_title : title) %></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <% if (typeof seo !== 'undefined' && seo) { %>
+      <% if (seo.keywords) { %><meta name="keywords" content="<%= seo.keywords %>"><% } %>
+      <% if (seo.description) { %><meta name="description" content="<%= seo.description %>"><% } %>
+      <% if (seo.og_image) { %>
+        <meta property="og:image" content="<%= seo.og_image %>">
+        <meta property="og:title" content="<%= seo.title || title %>">
+        <meta property="og:description" content="<%= seo.description || '' %>">
+        <meta property="og:type" content="website">
+      <% } %>
+    <% } %>
+    <% const faviconPath = (typeof settings !== 'undefined' && settings.favicon_path) ? settings.favicon_path : '/images/favicon.ico'; %>
+    <link rel="icon" type="image/x-icon" href="<%= faviconPath %>">
+    <link rel="shortcut icon" href="<%= faviconPath %>">
+    <% if (typeof settings !== 'undefined') { %>
+      <% if (settings.google_webmaster) { %><%- settings.google_webmaster %><% } %>
+      <% if (settings.google_analytics) { %>
+        <% if (settings.google_analytics.trim().startsWith('<')) { %>
+          <%- settings.google_analytics %>
+        <% } else { %>
+          <script async src="https://www.googletagmanager.com/gtag/js?id=<%= settings.google_analytics.trim() %>"></script>
+          <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','<%= settings.google_analytics.trim() %>');</script>
+        <% } %>
+      <% } %>
+      <% if (settings.head_js) { %><%- settings.head_js %><% } %>
+    <% } %>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/dich-vu.css">
+    <link rel="stylesheet" href="/css/khach-hang.css">
+    <link rel="stylesheet" href="/css/ve-chung-toi.css">
+    <link rel="stylesheet" href="/css/kho-giao-dien.css">
+    <link rel="stylesheet" href="/css/blog.css">
+    <link rel="stylesheet" href="/css/lien-he.css">
+    <link rel="stylesheet" href="/css/tkw.css">
+</head>
+<body>
+
+    <%- include('../partials/header') %>
+
+    <main>
+        <%- body %> <!-- 🔥 QUAN TRỌNG -->
+    </main>
+
+    <%- include('../partials/footer') %>
+    <script src="/js/animations.js" defer></script>
+
+    <% if (typeof settings !== 'undefined' && settings.body_js) { %>
+    <%- settings.body_js %>
+    <% } %>
+
+    <% if (typeof sitePopup !== 'undefined' && sitePopup) { %>
+    <div class="site-popup-overlay" id="sitePopupOverlay">
+      <div class="site-popup-box">
+        <button class="site-popup-close" id="sitePopupClose" aria-label="Đóng">✕</button>
+        <% if (sitePopup.image_path) { %>
+          <div class="site-popup-img"><img src="<%= sitePopup.image_path %>" alt="<%= sitePopup.title || '' %>"></div>
+        <% } %>
+        <% if (sitePopup.title || sitePopup.content) { %>
+        <div class="site-popup-body">
+          <% if (sitePopup.title) { %><h3><%= sitePopup.title %></h3><% } %>
+          <% if (sitePopup.content) { %><p><%= sitePopup.content %></p><% } %>
+          <% if (sitePopup.link) { %><a href="<%= sitePopup.link %>" class="site-popup-btn">Xem ngay</a><% } %>
+        </div>
+        <% } %>
+      </div>
+    </div>
+    <script>
+    (function() {
+      const delay = <%= sitePopup.delay_seconds || 3 %> * 1000;
+      const showOnce = <%= sitePopup.show_once ? 'true' : 'false' %>;
+      const cookieKey = 'popup_shown_v1';
+      if (showOnce && document.cookie.includes(cookieKey + '=1')) return;
+      setTimeout(function() {
+        document.getElementById('sitePopupOverlay').classList.add('is-open');
+        if (showOnce) document.cookie = cookieKey + '=1;path=/;max-age=86400';
+      }, delay);
+      document.getElementById('sitePopupClose').addEventListener('click', function() {
+        document.getElementById('sitePopupOverlay').classList.remove('is-open');
+      });
+      document.getElementById('sitePopupOverlay').addEventListener('click', function(e) {
+        if (e.target === this) this.classList.remove('is-open');
+      });
+    })();
+    </script>
+    <% } %>
+
+</body>
+</html>

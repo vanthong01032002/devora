@@ -1,0 +1,91 @@
+<section class="admin-panel">
+  <div class="admin-panel__head">
+    <h1 class="admin-panel__title">Quản lý / Bảng giá dịch vụ</h1>
+    <hr class="admin-panel__rule">
+  </div>
+
+  <% if (success) { %><div class="admin-alert admin-alert--success"><%= success %></div><% } %>
+  <% if (error) { %><div class="admin-alert admin-alert--error"><%= error %></div><% } %>
+
+  <div class="admin-panel__toolbar">
+    <a href="/admin/media/pricing/create" class="admin-btn admin-btn--green">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+      Thêm gói mới
+    </a>
+  </div>
+
+  <div class="admin-table-wrap">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th width="50">STT</th>
+          <th>TÊN GÓI</th>
+          <th width="140">GIÁ</th>
+          <th width="80">ĐƠN VỊ</th>
+          <th width="100">NỔI BẬT</th>
+          <th width="100">HIỂN THỊ</th>
+          <th width="100">THAO TÁC</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (packages.length === 0) { %>
+        <tr><td colspan="7" class="admin-table__empty">Chưa có gói dịch vụ nào</td></tr>
+        <% } %>
+        <% packages.forEach(function(pkg, i) { %>
+        <tr>
+          <td><%= i + 1 %></td>
+          <td>
+            <strong><%= pkg.name %></strong>
+            <% if (pkg.badge) { %><span class="admin-badge"><%= pkg.badge %></span><% } %>
+            <div class="admin-table__sub"><%= pkg.description || '' %></div>
+          </td>
+          <td><strong class="admin-price"><%= Number(pkg.price).toLocaleString('vi-VN') %>đ</strong></td>
+          <td><%= pkg.unit %></td>
+          <td>
+            <% if (pkg.is_featured) { %>
+              <span class="admin-badge admin-badge--gold">⭐ Nổi bật</span>
+            <% } else { %>
+              <span style="color:#aaa;font-size:0.8rem;">—</span>
+            <% } %>
+          </td>
+          <td>
+            <label class="admin-toggle">
+              <input type="checkbox" class="toggle-active" data-id="<%= pkg.id %>" <%= pkg.is_active ? 'checked' : '' %>>
+              <span class="admin-toggle__slider"></span>
+            </label>
+          </td>
+          <td class="admin-table__actions">
+            <a href="/admin/media/pricing/edit/<%= pkg.id %>" class="admin-action admin-action--edit" title="Sửa">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 000-1.41l-2.34-2.34a1 1 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+            </a>
+            <button class="admin-action admin-action--delete btn-delete" data-id="<%= pkg.id %>" title="Xóa">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+            </button>
+          </td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<script>
+document.querySelectorAll('.toggle-active').forEach(function (t) {
+  t.addEventListener('change', function () {
+    fetch('/admin/media/pricing/toggle/' + this.dataset.id, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ is_active: this.checked ? 1 : 0 })
+    });
+  });
+});
+
+document.querySelectorAll('.btn-delete').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    if (!confirm('Xóa gói dịch vụ này?')) return;
+    fetch('/admin/media/pricing/' + this.dataset.id, { method: 'DELETE' })
+      .then(r => r.json())
+      .then(d => { if (d.success) location.reload(); });
+  });
+});
+</script>

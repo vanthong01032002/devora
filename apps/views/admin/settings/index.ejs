@@ -1,0 +1,224 @@
+﻿<section class="admin-panel">
+  <div class="admin-panel__head">
+    <h1 class="admin-panel__title">Thiết lập thông tin website</h1>
+    <hr class="admin-panel__rule">
+  </div>
+
+  <% if (success) { %><div class="admin-alert admin-alert--success"><%= success %></div><% } %>
+  <% if (error) { %><div class="admin-alert admin-alert--error"><%= error %></div><% } %>
+
+  <form action="/admin/settings" method="POST" class="admin-form settings-form">
+
+    <!-- Tab nav -->
+    <div class="settings-tabs">
+      <button type="button" class="settings-tab active" data-tab="general">Thông tin chung</button>
+      <button type="button" class="settings-tab" data-tab="contact">Liên hệ</button>
+      <button type="button" class="settings-tab" data-tab="social">Mạng xã hội</button>
+      <button type="button" class="settings-tab" data-tab="footer">Footer</button>
+      <button type="button" class="settings-tab" data-tab="scripts">Script & SEO</button>
+    </div>
+
+    <!-- Tab: Thông tin chung -->
+    <div class="settings-tab-content active" id="tab-general">
+      <div class="admin-form__row">
+        <label class="admin-form__label">Tên công ty / thương hiệu</label>
+        <input type="text" name="site_name" class="admin-form__input"
+               value="<%= settings.site_name || '' %>" placeholder="VD: Công ty TNHH Công Nghệ Devora">
+      </div>
+      <div class="admin-form__row">
+        <label class="admin-form__label">Tiêu đề trang (SEO title)</label>
+        <input type="text" name="site_title" class="admin-form__input"
+               value="<%= settings.site_title || '' %>" placeholder="VD: Devora - Thiết kế website chuyên nghiệp">
+      </div>
+      <div class="admin-form__row">
+        <label class="admin-form__label">Địa chỉ</label>
+        <input type="text" name="address" class="admin-form__input"
+               value="<%= settings.address || '' %>" placeholder="Địa chỉ công ty">
+      </div>
+      <div class="admin-form__row">
+        <label class="admin-form__label">Giờ làm việc</label>
+        <input type="text" name="working_hours" class="admin-form__input"
+               value="<%= settings.working_hours || '' %>" placeholder="VD: 8h00 đến 17h30 (Thứ 2 - Thứ 7)">
+      </div>
+    </div>
+
+    <!-- Tab: Liên hệ -->
+    <div class="settings-tab-content" id="tab-contact">
+      <div class="admin-form__row admin-form__row--half">
+        <div>
+          <label class="admin-form__label">Điện thoại 1</label>
+          <input type="text" name="phone" class="admin-form__input"
+                 value="<%= settings.phone || '' %>" placeholder="028.3715.4879">
+        </div>
+        <div>
+          <label class="admin-form__label">Điện thoại 2</label>
+          <input type="text" name="phone2" class="admin-form__input"
+                 value="<%= settings.phone2 || '' %>" placeholder="028.3715.4878">
+        </div>
+      </div>
+      <div class="admin-form__row admin-form__row--half">
+        <div>
+          <label class="admin-form__label">Hotline tư vấn</label>
+          <input type="text" name="hotline" class="admin-form__input"
+                 value="<%= settings.hotline || '' %>" placeholder="0912.817.117">
+        </div>
+        <div>
+          <label class="admin-form__label">Hotline phản hồi</label>
+          <input type="text" name="hotline2" class="admin-form__input"
+                 value="<%= settings.hotline2 || '' %>" placeholder="0915.101.017">
+        </div>
+      </div>
+      <div class="admin-form__row admin-form__row--half">
+        <div>
+          <label class="admin-form__label">Email</label>
+          <input type="email" name="email" class="admin-form__input"
+                 value="<%= settings.email || '' %>" placeholder="info@devora.vn">
+        </div>
+        <div>
+          <label class="admin-form__label">Website</label>
+          <input type="text" name="website" class="admin-form__input"
+                 value="<%= settings.website || '' %>" placeholder="https://devora.vn">
+        </div>
+      </div>
+      <div class="admin-form__row admin-form__row--half">
+        <div>
+          <label class="admin-form__label">Link Google Maps</label>
+          <input type="text" name="google_maps" class="admin-form__input"
+                 value="<%= settings.google_maps || '' %>" placeholder="https://maps.google.com/...">
+        </div>
+        <div>
+          <label class="admin-form__label">Zalo</label>
+          <input type="text" name="zalo" class="admin-form__input"
+                 value="<%= settings.zalo || '' %>" placeholder="https://zalo.me/...">
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab: Mạng xã hội -->
+    <div class="settings-tab-content" id="tab-social">
+      <div class="admin-form__row">
+        <label class="admin-form__label">Link Fanpage Facebook</label>
+        <input type="text" name="fanpage" class="admin-form__input"
+               value="<%= settings.fanpage || '' %>" placeholder="https://www.facebook.com/...">
+      </div>
+      <div class="admin-form__row">
+        <label class="admin-form__label">Embed Fanpage (iframe src)</label>
+        <textarea name="fanpage_embed" class="admin-form__input admin-form__textarea" rows="3"
+                  placeholder="https://www.facebook.com/plugins/page.php?..."><%= settings.fanpage_embed || '' %></textarea>
+        <small class="admin-form__hint">Dán URL embed từ Facebook Page Plugin</small>
+      </div>
+    </div>
+
+    <!-- Tab: Footer -->
+    <div class="settings-tab-content" id="tab-footer">
+      <div class="admin-form__row">
+        <label class="admin-form__label">Nội dung Copyright</label>
+        <input type="text" name="copyright" class="admin-form__input"
+               value="<%= settings.copyright || '' %>" placeholder="Copyright © 2024. Bản quyền website Devora">
+      </div>
+
+      <div class="admin-form__row">
+        <label class="admin-form__label">Google Maps Embed (iframe)</label>
+        <textarea name="map_embed" class="admin-form__input admin-form__textarea" rows="5"
+                  placeholder='<iframe src="https://www.google.com/maps/embed?..." width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>'><%= settings.map_embed || '' %></textarea>
+        <small class="admin-form__hint">
+          Vào <a href="https://maps.google.com" target="_blank">Google Maps</a> → Chia sẻ → Nhúng bản đồ → Sao chép HTML iframe dán vào đây.
+        </small>
+      </div>
+
+      <% if (settings.map_embed) { %>
+      <div class="admin-form__row">
+        <label class="admin-form__label">Xem trước bản đồ:</label>
+        <div class="map-preview-wrap">
+          <%- settings.map_embed %>
+        </div>
+      </div>
+      <% } %>
+
+      <div class="settings-preview">
+        <p class="settings-preview__label">Xem trước footer:</p>
+        <div class="settings-preview__footer">
+          <div class="settings-preview__row">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
+            <span id="prev-address"><%= settings.address || '—' %></span>
+          </div>
+          <div class="settings-preview__row">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+            <span id="prev-phone"><%= settings.phone || '—' %></span>
+          </div>
+          <div class="settings-preview__row">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            <span id="prev-email"><%= settings.email || '—' %></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab: Script & SEO -->
+    <div class="settings-tab-content" id="tab-scripts">
+
+      <div class="admin-form__row">
+        <label class="admin-form__label">Google Analytics (Tracking ID hoặc đoạn script)</label>
+        <textarea name="google_analytics" class="admin-form__input admin-form__textarea" rows="4"
+                  placeholder="VD: G-XXXXXXXXXX hoặc dán toàn bộ thẻ &lt;script&gt;...&lt;/script&gt;"><%= settings.google_analytics || '' %></textarea>
+        <small class="admin-form__hint">Dán Measurement ID (G-XXXXXXX) hoặc toàn bộ đoạn script từ Google Analytics.</small>
+      </div>
+
+      <div class="admin-form__row">
+        <label class="admin-form__label">Google Search Console (Webmaster Tools)</label>
+        <textarea name="google_webmaster" class="admin-form__input admin-form__textarea" rows="3"
+                  placeholder='VD: &lt;meta name="google-site-verification" content="XXXXXXX" /&gt;'><%= settings.google_webmaster || '' %></textarea>
+        <small class="admin-form__hint">Dán thẻ meta xác minh từ Google Search Console.</small>
+      </div>
+
+      <div class="admin-form__row">
+        <label class="admin-form__label">Head JS / CSS (chèn vào &lt;head&gt;)</label>
+        <textarea name="head_js" class="admin-form__input admin-form__textarea" rows="5"
+                  placeholder="Dán script, style hoặc meta tag vào đây — sẽ được chèn vào &lt;head&gt;"><%= settings.head_js || '' %></textarea>
+        <small class="admin-form__hint">Ví dụ: Facebook Pixel, custom CSS, font, meta tags...</small>
+      </div>
+
+      <div class="admin-form__row">
+        <label class="admin-form__label">Body JS (chèn trước &lt;/body&gt;)</label>
+        <textarea name="body_js" class="admin-form__input admin-form__textarea" rows="5"
+                  placeholder="Dán script vào đây — sẽ được chèn trước &lt;/body&gt;"><%= settings.body_js || '' %></textarea>
+        <small class="admin-form__hint">Ví dụ: Live chat widget, Zalo SDK, custom JS...</small>
+      </div>
+
+    </div>
+
+    <!-- Actions -->
+    <div class="settings-actions"></div>
+      <button type="submit" class="admin-btn admin-btn--green">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>
+        Lưu thông tin
+      </button>
+      <a href="/admin/settings" class="admin-btn admin-btn--gray">Làm lại</a>
+    </div>
+
+  </form>
+</section>
+
+<script>
+// Tab switching
+document.querySelectorAll('.settings-tab').forEach(function(tab) {
+  tab.addEventListener('click', function() {
+    document.querySelectorAll('.settings-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.settings-tab-content').forEach(c => c.classList.remove('active'));
+    this.classList.add('active');
+    document.getElementById('tab-' + this.dataset.tab).classList.add('active');
+  });
+});
+
+// Live preview
+function livePreview(inputName, previewId) {
+  const input = document.querySelector('[name="' + inputName + '"]');
+  const preview = document.getElementById(previewId);
+  if (input && preview) {
+    input.addEventListener('input', function() { preview.textContent = this.value || '—'; });
+  }
+}
+livePreview('address', 'prev-address');
+livePreview('phone',   'prev-phone');
+livePreview('email',   'prev-email');
+</script>

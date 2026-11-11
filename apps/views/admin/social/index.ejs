@@ -1,0 +1,116 @@
+<section class="admin-panel">
+  <div class="admin-panel__head">
+    <h1 class="admin-panel__title">Quản lý / Mạng xã hội</h1>
+    <hr class="admin-panel__rule">
+  </div>
+
+  <% if (success) { %><div class="admin-alert admin-alert--success"><%= success %></div><% } %>
+  <% if (error) { %><div class="admin-alert admin-alert--error"><%= error %></div><% } %>
+
+  <div class="admin-panel__toolbar">
+    <a href="/admin/media/social/create" class="admin-btn admin-btn--green">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+      Thêm mới
+    </a>
+    <button class="admin-btn admin-btn--red" id="btnDeleteAll">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+      Xóa tất cả
+    </button>
+  </div>
+
+  <div class="admin-panel__search">
+    <label>Tìm kiếm danh mục</label>
+    <div class="admin-search-box">
+      <input type="text" id="searchInput" placeholder="Tìm kiếm...">
+      <button><svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg></button>
+    </div>
+  </div>
+
+  <div class="admin-table-wrap">
+    <table class="admin-table" id="socialTable">
+      <thead>
+        <tr>
+          <th width="36"><input type="checkbox" id="checkAll"></th>
+          <th width="60">STT</th>
+          <th>TIÊU ĐỀ</th>
+          <th width="80">HÌNH ẢNH</th>
+          <th>LINK</th>
+          <th width="80">MÀU</th>
+          <th width="100">HIỂN THỊ</th>
+          <th width="100">THAO TÁC</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (buttons.length === 0) { %>
+        <tr><td colspan="8" class="admin-table__empty">Chưa có nút nào</td></tr>
+        <% } %>
+        <% buttons.forEach(function(btn, i) { %>
+        <tr data-title="<%= btn.title.toLowerCase() %>">
+          <td><input type="checkbox" class="row-check" value="<%= btn.id %>"></td>
+          <td><%= i + 1 %></td>
+          <td><strong><%= btn.title %></strong></td>
+          <td>
+            <% if (btn.image_path) { %>
+              <img src="<%= btn.image_path %>" class="admin-thumb" alt="<%= btn.title %>">
+            <% } else { %>
+              <div class="admin-color-dot" style="background:<%= btn.bg_color %>"><%= btn.title.charAt(0) %></div>
+            <% } %>
+          </td>
+          <td class="admin-table__link"><%= btn.link %></td>
+          <td><span class="admin-color-swatch" style="background:<%= btn.bg_color %>"></span></td>
+          <td>
+            <label class="admin-toggle">
+              <input type="checkbox" class="toggle-active" data-id="<%= btn.id %>" <%= btn.is_active ? 'checked' : '' %>>
+              <span class="admin-toggle__slider"></span>
+            </label>
+          </td>
+          <td class="admin-table__actions">
+            <a href="/admin/media/social/edit/<%= btn.id %>" class="admin-action admin-action--edit" title="Sửa">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 000-1.41l-2.34-2.34a1 1 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+            </a>
+            <button class="admin-action admin-action--delete btn-delete" data-id="<%= btn.id %>" title="Xóa">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+            </button>
+          </td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<script>
+document.getElementById('searchInput').addEventListener('input', function() {
+  const q = this.value.toLowerCase();
+  document.querySelectorAll('#socialTable tbody tr[data-title]').forEach(r => {
+    r.style.display = r.dataset.title.includes(q) ? '' : 'none';
+  });
+});
+
+document.getElementById('checkAll').addEventListener('change', function() {
+  document.querySelectorAll('.row-check').forEach(cb => cb.checked = this.checked);
+});
+
+document.querySelectorAll('.toggle-active').forEach(t => {
+  t.addEventListener('change', function() {
+    fetch('/admin/media/social/toggle/' + this.dataset.id, {
+      method: 'POST', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ is_active: this.checked ? 1 : 0 })
+    });
+  });
+});
+
+document.querySelectorAll('.btn-delete').forEach(btn => {
+  btn.addEventListener('click', function() {
+    if (!confirm('Xóa nút này?')) return;
+    fetch('/admin/media/social/' + this.dataset.id, { method: 'DELETE' })
+      .then(r => r.json()).then(d => { if (d.success) location.reload(); });
+  });
+});
+
+document.getElementById('btnDeleteAll').addEventListener('click', function() {
+  if (!confirm('Xóa tất cả nút?')) return;
+  fetch('/admin/media/social', { method: 'DELETE' })
+    .then(r => r.json()).then(d => { if (d.success) location.reload(); });
+});
+</script>

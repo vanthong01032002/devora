@@ -1,0 +1,64 @@
+﻿<!-- ===== HERO DỊCH VỤ ===== -->
+<section class="sv-hero">
+  <div class="sv-hero__inner">
+    <p class="sv-hero__tag">Giải pháp số toàn diện</p>
+    <h1>Dịch vụ của <span>Devora</span></h1>
+    <p class="sv-hero__desc">Devora cung cấp dịch vụ số toàn diện cho doanh nghiệp, kết hợp thiết kế website cùng nhiều giải pháp nhằm xây dựng nền tảng trực tuyến hiệu quả.</p>
+  </div>
+</section>
+
+<!-- ===== DANH SÁCH DỊCH VỤ ===== -->
+<section class="sv-list">
+  <div class="sv-list__inner">
+
+    <% if (services && services.length > 0) { %>
+      <% services.forEach(function(sv, i) { %>
+      <div class="sv-item <%= i % 2 !== 0 ? 'sv-item--reverse' : '' %>">
+        <div class="sv-item__num"><%= String(i + 1).padStart(2, '0') %></div>
+        <div class="sv-item__body">
+
+          <% if (i % 2 !== 0) { %>
+          <div class="sv-item__img">
+            <img src="<%= sv.image_path || '/images/default.png' %>" alt="<%= sv.title %>">
+          </div>
+          <% } %>
+
+          <div class="sv-item__icon sv-icon--<%= sv.icon_color || 'blue' %>">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+          </div>
+
+          <div class="sv-item__content">
+            <h2><%= sv.title %></h2>
+            <p><%= sv.description %></p>
+            <% if (sv.tagsArray && sv.tagsArray.length > 0) { %>
+            <div class="sv-item__tags">
+              <% sv.tagsArray.forEach(function(tag) { %><span><%= tag %></span><% }); %>
+            </div>
+            <% } %>
+            <a href="/lien-he" class="sv-item__btn">Tư vấn ngay</a>
+          </div>
+
+          <% if (i % 2 === 0) { %>
+          <div class="sv-item__img">
+            <img src="<%= sv.image_path || '/images/default.png' %>" alt="<%= sv.title %>">
+          </div>
+          <% } %>
+
+        </div>
+      </div>
+      <% }); %>
+    <% } else { %>
+      <div style="text-align:center;padding:60px;color:#888;">Chưa có dịch vụ nào được thêm.</div>
+    <% } %>
+
+  </div>
+</section>
+
+<!-- ===== CTA CUỐI TRANG ===== -->
+<section class="sv-cta">
+  <div class="sv-cta__inner">
+    <h2>Bạn đã sẵn sàng để thương hiệu của mình tỏa sáng trên nền tảng số chưa?</h2>
+    <p>Bắt đầu ngay hôm nay và tiến gần hơn đến thành công cùng Devora.</p>
+    <a href="/lien-he" class="sv-cta__btn">Liên hệ tư vấn miễn phí</a>
+  </div>
+</section>

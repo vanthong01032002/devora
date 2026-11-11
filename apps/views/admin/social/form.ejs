@@ -1,0 +1,135 @@
+<section class="admin-panel">
+  <div class="admin-panel__head">
+    <h1 class="admin-panel__title"><%= btn ? 'Sửa nút' : 'Thêm nút mới' %></h1>
+    <hr class="admin-panel__rule">
+  </div>
+
+  <form action="<%= action %>" method="POST" enctype="multipart/form-data" class="admin-form">
+
+    <div class="admin-form__row">
+      <label class="admin-form__label">Tiêu đề <span>*</span></label>
+      <input type="text" name="title" class="admin-form__input" required
+             value="<%= btn ? btn.title : '' %>" placeholder="VD: Zalo, Hotline, Facebook...">
+    </div>
+
+    <div class="admin-form__row">
+      <label class="admin-form__label">Link <span>*</span></label>
+      <input type="text" name="link" class="admin-form__input" required
+             value="<%= btn ? btn.link : '' %>" placeholder="VD: https://zalo.me/... hoặc tel:0912...">
+      <small class="admin-form__hint">Dùng <code>tel:số_điện_thoại</code> cho nút gọi điện</small>
+    </div>
+
+    <div class="admin-form__row">
+      <label class="admin-form__label">Hình ảnh icon (tùy chọn)</label>
+      <div class="admin-upload-area" id="uploadArea">
+        <% if (btn && btn.image_path) { %>
+          <img src="<%= btn.image_path %>" class="admin-upload-preview" id="imgPreview">
+        <% } else { %>
+          <img src="" class="admin-upload-preview" id="imgPreview" style="display:none">
+        <% } %>
+        <div class="admin-upload-placeholder" id="uploadPlaceholder" style="<%= btn && btn.image_path ? 'display:none' : '' %>">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.35 10.04A7.49 7.49 0 0012 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 000 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/></svg>
+          <p>Kéo thả hoặc <span>chọn ảnh</span></p>
+          <small>Nếu không có ảnh, nút sẽ hiển thị chữ cái đầu</small>
+        </div>
+        <input type="file" name="image" id="imageInput" accept="image/*" style="display:none">
+      </div>
+    </div>
+
+    <div class="admin-form__row admin-form__row--half">
+      <div>
+        <label class="admin-form__label">Màu nền nút</label>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <input type="color" name="bg_color" id="bgColor" class="admin-form__input"
+                 value="<%= btn ? btn.bg_color : '#1565c0' %>"
+                 style="width:60px;height:40px;padding:2px;cursor:pointer;">
+          <input type="text" id="bgColorText" class="admin-form__input"
+                 value="<%= btn ? btn.bg_color : '#1565c0' %>"
+                 placeholder="#1565c0" style="flex:1">
+        </div>
+        <small class="admin-form__hint">Màu nền khi không có ảnh icon</small>
+      </div>
+      <div>
+        <label class="admin-form__label">Thứ tự hiển thị</label>
+        <input type="number" name="display_order" class="admin-form__input" min="0"
+               value="<%= btn ? btn.display_order : 0 %>">
+      </div>
+    </div>
+
+    <div class="admin-form__row">
+      <label class="admin-form__label">Trạng thái</label>
+      <select name="is_active" class="admin-form__input" style="max-width:200px">
+        <option value="1" <%= !btn || btn.is_active ? 'selected' : '' %>>Hiển thị</option>
+        <option value="0" <%= btn && !btn.is_active ? 'selected' : '' %>>Ẩn</option>
+      </select>
+    </div>
+
+    <!-- Preview -->
+    <div class="admin-form__row">
+      <label class="admin-form__label">Xem trước nút</label>
+      <div id="btnPreview" class="social-btn-preview" style="background:<%= btn ? btn.bg_color : '#1565c0' %>">
+        <% if (btn && btn.image_path) { %>
+          <img src="<%= btn.image_path %>" id="previewIcon">
+        <% } else { %>
+          <span id="previewText"><%= btn ? btn.title.charAt(0) : 'Z' %></span>
+        <% } %>
+      </div>
+    </div>
+
+    <div class="admin-form__actions">
+      <button type="submit" class="admin-btn admin-btn--green">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>
+        Lưu
+      </button>
+      <a href="/admin/media/social" class="admin-btn admin-btn--gray">Hủy</a>
+    </div>
+  </form>
+</section>
+
+<script>
+// Upload preview
+const uploadArea = document.getElementById('uploadArea');
+const imageInput = document.getElementById('imageInput');
+const imgPreview = document.getElementById('imgPreview');
+const placeholder = document.getElementById('uploadPlaceholder');
+
+uploadArea.addEventListener('click', () => imageInput.click());
+uploadArea.addEventListener('dragover', e => { e.preventDefault(); uploadArea.classList.add('drag-over'); });
+uploadArea.addEventListener('dragleave', () => uploadArea.classList.remove('drag-over'));
+uploadArea.addEventListener('drop', e => { e.preventDefault(); uploadArea.classList.remove('drag-over'); if (e.dataTransfer.files[0]) previewFile(e.dataTransfer.files[0]); });
+imageInput.addEventListener('change', function() { if (this.files[0]) previewFile(this.files[0]); });
+
+function previewFile(file) {
+  const reader = new FileReader();
+  reader.onload = e => {
+    imgPreview.src = e.target.result;
+    imgPreview.style.display = 'block';
+    placeholder.style.display = 'none';
+    document.getElementById('previewIcon') && (document.getElementById('previewIcon').src = e.target.result);
+  };
+  reader.readAsDataURL(file);
+  const dt = new DataTransfer(); dt.items.add(file); imageInput.files = dt.files;
+}
+
+// Color sync
+const bgColor = document.getElementById('bgColor');
+const bgColorText = document.getElementById('bgColorText');
+const btnPreview = document.getElementById('btnPreview');
+
+bgColor.addEventListener('input', function() {
+  bgColorText.value = this.value;
+  btnPreview.style.background = this.value;
+});
+bgColorText.addEventListener('input', function() {
+  if (/^#[0-9a-fA-F]{6}$/.test(this.value)) {
+    bgColor.value = this.value;
+    btnPreview.style.background = this.value;
+  }
+});
+
+// Title preview
+document.querySelector('[name="title"]').addEventListener('input', function() {
+  const t = document.getElementById('previewText');
+  if (t) t.textContent = this.value.charAt(0) || '?';
+});
+</script>

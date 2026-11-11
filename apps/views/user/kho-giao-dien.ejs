@@ -1,0 +1,168 @@
+﻿<!-- ===== HERO ===== -->
+<section class="kgd-hero">
+  <div class="kgd-hero__inner">
+    <p class="kgd-hero__tag">99+ mẫu giao diện</p>
+    <h1>Kho giao diện <span>Website</span></h1>
+    <p style="margin-bottom: 15px; font-size: 14px;color: rgba(0, 0, 0, 0.621);">Thư viện mẫu website đẹp, chuẩn SEO, đa ngành — chọn ngay giao diện phù hợp để sở hữu website chuyên nghiệp.</p>
+    <div class="kgd-hero__search">
+      <input type="text" id="kgdSearch" placeholder="Tìm kiếm mẫu giao diện...">
+      <button>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== KHO THEO LĨNH VỰC ===== -->
+<section class="kgd-catalog">
+  <div class="kgd-inner">
+    <div class="kgd-section__heading">
+      <h2>Khám phá theo <span>lĩnh vực</span></h2>
+      <p>Devora phân chia thư viện mẫu website theo các nhóm ngành hàng thông dụng</p>
+    </div>
+
+    <!-- Filter tabs -->
+    <div class="kgd-filters" id="kgdFilters">
+      <button class="kgd-filter active" data-filter="all">Tất cả</button>
+      <button class="kgd-filter" data-filter="bds">Bất động sản</button>
+      <button class="kgd-filter" data-filter="fnb">F&B</button>
+      <button class="kgd-filter" data-filter="noithat">Nội thất</button>
+      <button class="kgd-filter" data-filter="dulich">Du lịch</button>
+      <button class="kgd-filter" data-filter="giaoduc">Giáo dục</button>
+      <button class="kgd-filter" data-filter="lamdep">Làm đẹp</button>
+      <button class="kgd-filter" data-filter="banhang">Bán hàng</button>
+      <button class="kgd-filter" data-filter="khac">Khác</button>
+    </div>
+
+    <!-- Grid -->
+    <div class="kgd-grid" id="kgdGrid">
+
+      <% if (typeof templates !== 'undefined' && templates && templates.length > 0) { %>
+        <% templates.forEach(function(t) { %>
+        <div class="kgd-card" data-cat="<%= t.category %>" data-name="<%= t.name.toLowerCase() %>">
+          <div class="kgd-card__img">
+            <img src="<%= t.image_path || '/images/default.png' %>" alt="<%= t.name %>">
+            <div class="kgd-card__overlay">
+              <a href="#" class="kgd-card__preview"
+                 data-img="<%= t.image_path || '/images/default.png' %>"
+                 data-name="<%= t.name %>"
+                 data-cat="<%= t.category_label %>">Xem trước</a>
+              <a href="/lien-he" class="kgd-card__use">Dùng mẫu này</a>
+            </div>
+            <% if (t.is_hot) { %><span class="kgd-card__badge">Ưa chuộng</span><% } %>
+          </div>
+          <div class="kgd-card__body">
+            <span class="kgd-card__cat"><%= t.category_label %></span>
+            <h4><%= t.name %></h4>
+            <div class="kgd-card__meta">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+              <%= t.uses %> lượt sử dụng
+            </div>
+          </div>
+        </div>
+        <% }); %>
+      <% } else { %>
+        <div style="grid-column:1/-1;text-align:center;padding:60px;color:#aaa;">Chưa có giao diện nào.</div>
+      <% } %>
+
+    </div>
+
+    <div class="kgd-empty" id="kgdEmpty" style="display:none;">
+      <p>Không tìm thấy mẫu phù hợp.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="kgd-cta">
+  <div class="kgd-cta__inner">
+    <h2>Không tìm thấy mẫu phù hợp?</h2>
+    <p>Devora có thể thiết kế riêng cho bạn một giao diện độc đáo, phù hợp hoàn toàn với thương hiệu và ngành nghề của bạn.</p>
+    <a href="/lien-he" class="kgd-cta__btn">Yêu cầu thiết kế riêng</a>
+  </div>
+</section>
+
+<!-- ===== LIGHTBOX ===== -->
+<div class="kgd-lightbox" id="kgdLightbox">
+  <div class="kgd-lightbox__box">
+    <button class="kgd-lightbox__close" id="lbClose" aria-label="Đóng">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="22" height="22"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="kgd-lightbox__img-wrap">
+      <img id="lbImg" src="" alt="Preview">
+    </div>
+    <div class="kgd-lightbox__footer">
+      <div>
+        <span class="kgd-lightbox__cat" id="lbCat"></span>
+        <h3 class="kgd-lightbox__name" id="lbName"></h3>
+      </div>
+      <a href="/lien-he" class="kgd-lightbox__btn">Dùng mẫu này</a>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const filters = document.querySelectorAll('.kgd-filter');
+  const cards   = document.querySelectorAll('#kgdGrid .kgd-card');
+  const empty   = document.getElementById('kgdEmpty');
+  const search  = document.getElementById('kgdSearch');
+  let activeFilter = 'all';
+
+  function applyFilter() {
+    const q = search.value.toLowerCase().trim();
+    let visible = 0;
+    cards.forEach(function (card) {
+      const matchCat  = activeFilter === 'all' || card.dataset.cat === activeFilter;
+      const matchName = !q || card.dataset.name.includes(q);
+      const show = matchCat && matchName;
+      card.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    empty.style.display = visible === 0 ? 'block' : 'none';
+  }
+
+  filters.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      filters.forEach(function (b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      activeFilter = btn.dataset.filter;
+      applyFilter();
+    });
+  });
+
+  search.addEventListener('input', applyFilter);
+
+  // ===== LIGHTBOX =====
+  const lightbox     = document.getElementById('kgdLightbox');
+  const lbImg        = document.getElementById('lbImg');
+  const lbName       = document.getElementById('lbName');
+  const lbCat        = document.getElementById('lbCat');
+  const lbClose      = document.getElementById('lbClose');
+
+  document.addEventListener('click', function(e) {
+    const btn = e.target.closest('.kgd-card__preview');
+    if (!btn) return;
+    e.preventDefault();
+    lbImg.src  = btn.dataset.img  || '/images/default.png';
+    lbName.textContent = btn.dataset.name || '';
+    lbCat.textContent  = btn.dataset.cat  || '';
+    lightbox.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+  });
+
+  function closeLightbox() {
+    lightbox.classList.remove('is-open');
+    document.body.style.overflow = '';
+    lbImg.src = '';
+  }
+
+  lbClose.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', function(e) {
+    if (e.target === this) closeLightbox();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeLightbox();
+  });
+});
+</script>

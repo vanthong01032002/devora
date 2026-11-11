@@ -1,0 +1,127 @@
+<section class="admin-panel">
+  <div class="admin-panel__head">
+    <h1 class="admin-panel__title"><%= client ? 'Sửa khách hàng' : 'Thêm khách hàng mới' %></h1>
+    <hr class="admin-panel__rule">
+  </div>
+
+  <form action="<%= action %>" method="POST" enctype="multipart/form-data" class="admin-form">
+
+    <div class="admin-form__row">
+      <label class="admin-form__label">Ảnh đại diện</label>
+      <div class="admin-upload-area" id="uploadArea" style="max-width:180px;min-height:180px;">
+        <% if (client && client.avatar) { %>
+          <img src="<%= client.avatar %>" class="admin-upload-preview" id="imgPreview" style="border-radius:50%;">
+        <% } else { %>
+          <img src="" class="admin-upload-preview" id="imgPreview" style="display:none;border-radius:50%;">
+        <% } %>
+        <div class="admin-upload-placeholder" id="uploadPlaceholder" style="<%= client && client.avatar ? 'display:none' : '' %>">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+          <p>Chọn ảnh</p>
+        </div>
+        <input type="file" name="avatar" id="fileInput" accept="image/*" style="display:none">
+      </div>
+    </div>
+
+    <div class="admin-form__row admin-form__row--half">
+      <div>
+        <label class="admin-form__label">Họ và tên <span>*</span></label>
+        <input type="text" name="full_name" class="admin-form__input" required
+               value="<%= client ? client.full_name : '' %>" placeholder="VD: Nguyễn Văn A">
+      </div>
+      <div>
+        <label class="admin-form__label">Chức vụ</label>
+        <input type="text" name="position" class="admin-form__input"
+               value="<%= client ? (client.position||'') : '' %>" placeholder="VD: CEO, Giám đốc...">
+      </div>
+    </div>
+
+    <div class="admin-form__row admin-form__row--half">
+      <div>
+        <label class="admin-form__label">Công ty / Thương hiệu</label>
+        <input type="text" name="company" class="admin-form__input"
+               value="<%= client ? (client.company||'') : '' %>" placeholder="VD: Nội thất Mộc Nguyên">
+      </div>
+      <div>
+        <label class="admin-form__label">Website</label>
+        <input type="text" name="website" class="admin-form__input"
+               value="<%= client ? (client.website||'') : '' %>" placeholder="https://...">
+      </div>
+    </div>
+
+    <div class="admin-form__row">
+      <label class="admin-form__label">Nhận xét / Đánh giá</label>
+      <textarea name="testimonial" class="admin-form__input admin-form__textarea" rows="4"
+                placeholder="Nội dung nhận xét của khách hàng..."><%= client ? (client.testimonial||'') : '' %></textarea>
+    </div>
+
+    <div class="admin-form__row admin-form__row--half">
+      <div>
+        <label class="admin-form__label">Số sao (1-5)</label>
+        <div class="star-picker" id="starPicker">
+          <% for(let s=1;s<=5;s++) { %>
+          <button type="button" class="star-btn <%= (client ? client.rating : 5) >= s ? 'active' : '' %>" data-val="<%= s %>">★</button>
+          <% } %>
+          <input type="hidden" name="rating" id="ratingInput" value="<%= client ? client.rating : 5 %>">
+        </div>
+      </div>
+      <div>
+        <label class="admin-form__label">Thứ tự</label>
+        <input type="number" name="display_order" class="admin-form__input" min="0"
+               value="<%= client ? client.display_order : 0 %>">
+      </div>
+    </div>
+
+    <div class="admin-form__row">
+      <label class="admin-form__label">Trạng thái</label>
+      <select name="is_active" class="admin-form__input" style="max-width:200px">
+        <option value="1" <%= !client || client.is_active ? 'selected' : '' %>>Hiển thị</option>
+        <option value="0" <%= client && !client.is_active ? 'selected' : '' %>>Ẩn</option>
+      </select>
+    </div>
+
+    <div class="admin-form__actions">
+      <button type="submit" class="admin-btn admin-btn--green">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>
+        Lưu
+      </button>
+      <a href="/admin/media/clients" class="admin-btn admin-btn--gray">Hủy</a>
+    </div>
+  </form>
+</section>
+
+<script>
+// Upload preview
+const uploadArea = document.getElementById('uploadArea');
+const fileInput  = document.getElementById('fileInput');
+const imgPreview = document.getElementById('imgPreview');
+const placeholder = document.getElementById('uploadPlaceholder');
+uploadArea.addEventListener('click', () => fileInput.click());
+uploadArea.addEventListener('dragover', e => { e.preventDefault(); uploadArea.classList.add('drag-over'); });
+uploadArea.addEventListener('dragleave', () => uploadArea.classList.remove('drag-over'));
+uploadArea.addEventListener('drop', e => { e.preventDefault(); uploadArea.classList.remove('drag-over'); if (e.dataTransfer.files[0]) preview(e.dataTransfer.files[0]); });
+fileInput.addEventListener('change', function() { if (this.files[0]) preview(this.files[0]); });
+function preview(file) {
+  const reader = new FileReader();
+  reader.onload = e => { imgPreview.src = e.target.result; imgPreview.style.display = 'block'; placeholder.style.display = 'none'; };
+  reader.readAsDataURL(file);
+  const dt = new DataTransfer(); dt.items.add(file); fileInput.files = dt.files;
+}
+
+// Star picker
+const stars = document.querySelectorAll('.star-btn');
+const ratingInput = document.getElementById('ratingInput');
+stars.forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    const val = parseInt(this.dataset.val);
+    ratingInput.value = val;
+    stars.forEach(function(s) { s.classList.toggle('active', parseInt(s.dataset.val) <= val); });
+  });
+  btn.addEventListener('mouseover', function() {
+    const val = parseInt(this.dataset.val);
+    stars.forEach(function(s) { s.classList.toggle('hover', parseInt(s.dataset.val) <= val); });
+  });
+  btn.addEventListener('mouseout', function() {
+    stars.forEach(function(s) { s.classList.remove('hover'); });
+  });
+});
+</script>

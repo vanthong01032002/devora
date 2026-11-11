@@ -1,0 +1,263 @@
+﻿<section class="admin-panel">
+  <div class="admin-panel__head">
+    <h1 class="admin-panel__title"><%= post ? 'Sửa bài viết' : 'Thêm bài viết mới' %></h1>
+    <hr class="admin-panel__rule">
+  </div>
+
+  <form action="<%= action %>" method="POST" enctype="multipart/form-data" class="blog-form" id="blogForm">
+
+    <div class="blog-form__layout">
+
+      <!-- LEFT: Main content -->
+      <div class="blog-form__main">
+
+        <!-- Đường dẫn -->
+        <div class="blog-form__section">
+          <h3 class="blog-form__section-title">Thông tin Tin tức</h3>
+          <div class="admin-form__row">
+            <label class="admin-form__label">Đường dẫn mẫu (vi):</label>
+            <div class="blog-slug-wrap">
+              <span class="blog-slug-prefix">/blog/</span>
+              <input type="text" name="slug" id="slugInput" class="admin-form__input blog-slug-input"
+                     value="<%= post ? post.slug : '' %>" placeholder="duong-dan-bai-viet">
+              <span class="blog-slug-status" id="slugStatus"></span>
+            </div>
+          </div>
+          <div class="admin-form__row">
+            <label class="admin-form__label">Tiêu đề (vi): <span>*</span></label>
+            <input type="text" name="title" id="titleInput" class="admin-form__input" required
+                   value="<%= post ? post.title : '' %>" placeholder="Nhập tiêu đề bài viết">
+          </div>
+          <div class="admin-form__row">
+            <label class="admin-form__label">Mô tả (vi):</label>
+            <textarea name="description" class="admin-form__input admin-form__textarea" rows="3"
+                      placeholder="Mô tả ngắn hiển thị trong danh sách bài viết"><%= post ? post.description : '' %></textarea>
+          </div>
+        </div>
+
+        <!-- Thumbnail -->
+        <div class="blog-form__section">
+          <h3 class="blog-form__section-title">Hình ảnh đại diện</h3>
+          <div class="admin-upload-area" id="uploadArea">
+            <% if (post && post.thumbnail) { %>
+              <img src="<%= post.thumbnail %>" class="admin-upload-preview" id="imgPreview">
+            <% } else { %>
+              <img src="" class="admin-upload-preview" id="imgPreview" style="display:none">
+            <% } %>
+            <div class="admin-upload-placeholder" id="uploadPlaceholder" style="<%= post && post.thumbnail ? 'display:none' : '' %>">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.35 10.04A7.49 7.49 0 0012 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 000 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/></svg>
+              <p>Kéo thả hoặc <span>chọn ảnh</span></p>
+            </div>
+            <input type="file" name="thumbnail" id="fileInput" accept="image/*" style="display:none">
+          </div>
+        </div>
+
+        <!-- TinyMCE Content -->
+        <div class="blog-form__section">
+          <h3 class="blog-form__section-title">Nội dung</h3>
+          <textarea name="content" id="blogContent"><%= post ? post.content : '' %></textarea>
+        </div>
+
+        <!-- SEO -->
+        <div class="blog-form__section">
+          <h3 class="blog-form__section-title">Nội dung SEO</h3>
+
+          <div class="admin-form__row">
+            <label class="admin-form__label">
+              SEO Title:
+              <span class="seo-counter" id="cntSeoTitle">0</span>/70 ký tự
+            </label>
+            <input type="text" name="seo_title" id="seoTitle" class="admin-form__input"
+                   maxlength="70" value="<%= post ? (post.seo_title || '') : '' %>"
+                   placeholder="Tiêu đề SEO (tối đa 70 ký tự)">
+            <div class="seo-bar"><div class="seo-bar__fill" id="barSeoTitle"></div></div>
+          </div>
+
+          <div class="admin-form__row">
+            <label class="admin-form__label">
+              SEO Keywords:
+              <span class="seo-counter" id="cntSeoKeywords">0</span>/70 ký tự
+            </label>
+            <input type="text" name="seo_keywords" id="seoKeywords" class="admin-form__input"
+                   maxlength="70" value="<%= post ? (post.seo_keywords || '') : '' %>"
+                   placeholder="từ khóa 1, từ khóa 2, ...">
+            <div class="seo-bar"><div class="seo-bar__fill" id="barSeoKeywords"></div></div>
+          </div>
+
+          <div class="admin-form__row">
+            <label class="admin-form__label">
+              SEO Description:
+              <span class="seo-counter" id="cntSeoDesc">0</span>/160 ký tự
+            </label>
+            <textarea name="seo_description" id="seoDesc" class="admin-form__input admin-form__textarea" rows="3"
+                      maxlength="160" placeholder="Mô tả SEO (tối đa 160 ký tự)"><%= post ? (post.seo_description || '') : '' %></textarea>
+            <div class="seo-bar"><div class="seo-bar__fill" id="barSeoDesc"></div></div>
+          </div>
+
+          <div class="admin-form__row">
+            <label class="admin-form__label">Keyword chính:</label>
+            <input type="text" name="seo_keyword_main" class="admin-form__input"
+                   value="<%= post ? (post.seo_keyword_main || '') : '' %>"
+                   placeholder="Từ khóa chính của bài viết">
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT: Settings -->
+      <div class="blog-form__sidebar">
+        <div class="blog-form__section">
+          <h3 class="blog-form__section-title">Cài đặt</h3>
+
+          <div class="admin-form__row">
+            <label class="admin-form__label">Trạng thái</label>
+            <select name="is_active" class="admin-form__input">
+              <option value="1" <%= !post || post.is_active ? 'selected' : '' %>>Hiển thị</option>
+              <option value="0" <%= post && !post.is_active ? 'selected' : '' %>>Ẩn</option>
+            </select>
+          </div>
+
+          <div class="admin-form__row">
+            <label class="admin-form__label">Bài viết nổi bật</label>
+            <select name="is_featured" class="admin-form__input">
+              <option value="0" <%= !post || !post.is_featured ? 'selected' : '' %>>Không</option>
+              <option value="1" <%= post && post.is_featured ? 'selected' : '' %>>Có</option>
+            </select>
+          </div>
+
+          <div class="admin-form__row">
+            <label class="admin-form__label">Thứ tự</label>
+            <input type="number" name="display_order" class="admin-form__input" min="0"
+                   value="<%= post ? post.display_order : 0 %>">
+          </div>
+
+          <div class="admin-form__actions" style="flex-direction:column;gap:8px;">
+            <button type="submit" class="admin-btn admin-btn--green" style="width:100%;justify-content:center;">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>
+              Lưu bài viết
+            </button>
+            <a href="/admin/content/news" class="admin-btn admin-btn--gray" style="width:100%;justify-content:center;">Hủy</a>
+          </div>
+        </div>
+
+        <!-- SEO Preview -->
+        <div class="blog-form__section">
+          <h3 class="blog-form__section-title">Xem trước Google</h3>
+          <div class="seo-preview">
+            <div class="seo-preview__title" id="prevTitle"><%= post && post.seo_title ? post.seo_title : (post ? post.title : 'Tiêu đề bài viết') %></div>
+            <div class="seo-preview__url">devora.vn/blog/<span id="prevSlug"><%= post ? post.slug : 'duong-dan' %></span></div>
+            <div class="seo-preview__desc" id="prevDesc"><%= post && post.seo_description ? post.seo_description : 'Mô tả SEO sẽ hiển thị ở đây...' %></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </form>
+</section>
+
+<!-- TinyMCE CDN -->
+<script src="https://cdn.tiny.cloud/1/<%= tinymceKey %>/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+tinymce.init({
+  selector: '#blogContent',
+  language: 'vi',
+  height: 500,
+  plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+  toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat | code',
+  images_upload_url: '/admin/content/news/upload-image',
+  automatic_uploads: true,
+  file_picker_types: 'image',
+  content_style: 'body { font-family: Be Vietnam Pro, Arial, sans-serif; font-size: 15px; line-height: 1.7; }',
+  branding: false,
+  promotion: false
+});
+
+// Upload thumbnail preview
+const uploadArea = document.getElementById('uploadArea');
+const fileInput  = document.getElementById('fileInput');
+const imgPreview = document.getElementById('imgPreview');
+const placeholder = document.getElementById('uploadPlaceholder');
+
+uploadArea.addEventListener('click', () => fileInput.click());
+uploadArea.addEventListener('dragover', e => { e.preventDefault(); uploadArea.classList.add('drag-over'); });
+uploadArea.addEventListener('dragleave', () => uploadArea.classList.remove('drag-over'));
+uploadArea.addEventListener('drop', e => { e.preventDefault(); uploadArea.classList.remove('drag-over'); if (e.dataTransfer.files[0]) previewFile(e.dataTransfer.files[0]); });
+fileInput.addEventListener('change', function() { if (this.files[0]) previewFile(this.files[0]); });
+
+function previewFile(file) {
+  const reader = new FileReader();
+  reader.onload = e => { imgPreview.src = e.target.result; imgPreview.style.display = 'block'; placeholder.style.display = 'none'; };
+  reader.readAsDataURL(file);
+  const dt = new DataTransfer(); dt.items.add(file); fileInput.files = dt.files;
+}
+
+// Auto slug from title
+const titleInput = document.getElementById('titleInput');
+const slugInput  = document.getElementById('slugInput');
+let slugManual = !!(slugInput.value);
+
+titleInput.addEventListener('input', function() {
+  if (!slugManual) slugInput.value = toSlug(this.value);
+  document.getElementById('prevTitle').textContent = document.getElementById('seoTitle').value || this.value;
+  document.getElementById('prevSlug').textContent = slugInput.value || 'duong-dan';
+});
+
+slugInput.addEventListener('input', function() {
+  slugManual = true;
+  document.getElementById('prevSlug').textContent = this.value || 'duong-dan';
+  checkSlug(this.value);
+});
+
+function toSlug(str) {
+  return str.toLowerCase()
+    .replace(/[àáạảãâầấậẩẫăằắặẳẵ]/g,'a').replace(/[èéẹẻẽêềếệểễ]/g,'e')
+    .replace(/[ìíịỉĩ]/g,'i').replace(/[òóọỏõôồốộổỗơờớợởỡ]/g,'o')
+    .replace(/[ùúụủũưừứựửữ]/g,'u').replace(/[ỳýỵỷỹ]/g,'y').replace(/đ/g,'d')
+    .replace(/[^a-z0-9\s-]/g,'').trim().replace(/\s+/g,'-').replace(/-+/g,'-');
+}
+
+let slugTimer;
+function checkSlug(slug) {
+  clearTimeout(slugTimer);
+  if (!slug) return;
+  slugTimer = setTimeout(() => {
+    const excludeId = '<%= post ? post.id : "" %>';
+    fetch('/admin/content/news/slug-check?slug=' + encodeURIComponent(slug) + (excludeId ? '&exclude=' + excludeId : ''))
+      .then(r => r.json()).then(d => {
+        const el = document.getElementById('slugStatus');
+        el.textContent = d.exists ? '⚠ Đã tồn tại' : '✓ Hợp lệ';
+        el.style.color = d.exists ? '#e53935' : '#2e7d32';
+      });
+  }, 500);
+}
+
+// SEO counters
+function seoCounter(inputId, counterId, barId, max) {
+  const input = document.getElementById(inputId);
+  const counter = document.getElementById(counterId);
+  const bar = document.getElementById(barId);
+  function update() {
+    const len = input.value.length;
+    counter.textContent = len;
+    const pct = Math.min(len / max * 100, 100);
+    bar.style.width = pct + '%';
+    bar.style.background = pct > 90 ? '#e53935' : pct > 70 ? '#f59e0b' : '#1565c0';
+  }
+  input.addEventListener('input', update);
+  update();
+}
+seoCounter('seoTitle', 'cntSeoTitle', 'barSeoTitle', 70);
+seoCounter('seoKeywords', 'cntSeoKeywords', 'barSeoKeywords', 70);
+seoCounter('seoDesc', 'cntSeoDesc', 'barSeoDesc', 160);
+
+// SEO preview live
+document.getElementById('seoTitle').addEventListener('input', function() {
+  document.getElementById('prevTitle').textContent = this.value || titleInput.value || 'Tiêu đề bài viết';
+});
+document.getElementById('seoDesc').addEventListener('input', function() {
+  document.getElementById('prevDesc').textContent = this.value || 'Mô tả SEO sẽ hiển thị ở đây...';
+});
+
+// Init slug check
+if (slugInput.value) checkSlug(slugInput.value);
+</script>

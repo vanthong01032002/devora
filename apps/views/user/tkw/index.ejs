@@ -1,0 +1,144 @@
+﻿<!-- Hero -->
+<section class="tkw-hero">
+  <div class="tkw-hero__inner">
+    <div class="tkw-breadcrumb">
+      <a href="/">Trang chủ</a> <span>/</span>
+      <span>Thiết kế Website</span>
+    </div>
+    <h1>Thiết kế <span>Website</span> chuyên nghiệp</h1>
+    <p>Devora cung cấp dịch vụ thiết kế website chuẩn SEO, responsive, tốc độ cao — giúp doanh nghiệp bứt phá trên nền tảng số.</p>
+    <div class="tkw-hero__actions">
+      <a href="/lien-he" class="tkw-btn tkw-btn--primary">Tư vấn miễn phí</a>
+      <a href="/thiet-ke-website/bang-gia" class="tkw-btn tkw-btn--outline">Xem bảng giá</a>
+    </div>
+  </div>
+  <div class="tkw-hero__img">
+    <img src="/images/hero-main.png" alt="Thiết kế website chuyên nghiệp">
+  </div>
+</section>
+
+<!-- Sub-nav -->
+<nav class="tkw-subnav">
+  <div class="tkw-subnav__inner">
+    <a href="/thiet-ke-website" class="tkw-subnav__link tkw-subnav__link--active">Tổng quan</a>
+    <a href="/thiet-ke-website/gioi-thieu" class="tkw-subnav__link">Giới thiệu</a>
+    <a href="/thiet-ke-website/bang-gia" class="tkw-subnav__link">Bảng giá</a>
+    <a href="/thiet-ke-website/portfolio" class="tkw-subnav__link">Portfolio</a>
+  </div>
+</nav>
+
+<!-- Dịch vụ nổi bật -->
+<section class="tkw-why" style="padding-top:56px;">
+  <div class="tkw-inner">
+    <div class="tkw-section-head">
+      <p class="tkw-tag">Dịch vụ của chúng tôi</p>
+      <h2>Giải pháp thiết kế website <span>toàn diện</span></h2>
+      <p>Từ website giới thiệu đến thương mại điện tử, Devora có giải pháp phù hợp cho mọi ngành nghề.</p>
+    </div>
+    <div class="tkw-why__grid">
+      <% if (typeof services !== 'undefined' && services && services.length > 0) { %>
+        <% services.slice(0,6).forEach(function(sv) { %>
+        <div class="tkw-why-card">
+          <div class="tkw-why-card__icon" style="background:#e8f0fe;color:#1565c0;">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-5 14H4v-4h11v4zm0-6H4V8h11v4zm5 6h-4V8h4v10z"/></svg>
+          </div>
+          <h4><%= sv.title %></h4>
+          <p><%= (sv.description || '').substring(0, 100) %>...</p>
+        </div>
+        <% }); %>
+      <% } else { %>
+        <% [
+          {title:'Website doanh nghiệp', desc:'Giao diện chuyên nghiệp, chuẩn SEO, dễ quản trị.'},
+          {title:'Website thương mại điện tử', desc:'Bán hàng online, tích hợp thanh toán, quản lý đơn hàng.'},
+          {title:'Landing page', desc:'Trang đích tối ưu chuyển đổi, tăng tỷ lệ mua hàng.'},
+          {title:'Website tin tức', desc:'Hệ thống quản lý nội dung mạnh mẽ, SEO tốt.'},
+          {title:'Website đặt lịch', desc:'Booking online, quản lý lịch hẹn tự động.'},
+          {title:'Website giới thiệu', desc:'Showcase thương hiệu, sản phẩm và dịch vụ.'},
+        ].forEach(function(s) { %>
+        <div class="tkw-why-card">
+          <div class="tkw-why-card__icon" style="background:#e8f0fe;color:#1565c0;">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-5 14H4v-4h11v4zm0-6H4V8h11v4zm5 6h-4V8h4v10z"/></svg>
+          </div>
+          <h4><%= s.title %></h4>
+          <p><%= s.desc %></p>
+        </div>
+        <% }); %>
+      <% } %>
+    </div>
+    <div style="text-align:center;margin-top:32px;">
+      <a href="/thiet-ke-website/gioi-thieu" class="tkw-btn tkw-btn--primary" style="background:#1565c0;color:#fff;">Xem chi tiết dịch vụ</a>
+    </div>
+  </div>
+</section>
+
+<!-- Bảng giá tóm tắt -->
+<% if (typeof pricing !== 'undefined' && pricing && pricing.length > 0) { %>
+<section class="tkw-pricing-section" style="background:#fff;">
+  <div class="tkw-inner">
+    <div class="tkw-section-head">
+      <p class="tkw-tag">Bảng giá</p>
+      <h2>Gói dịch vụ <span>phù hợp mọi ngân sách</span></h2>
+    </div>
+    <div class="pricing-grid">
+      <% pricing.forEach(function(pkg) { %>
+      <div class="pricing-card <%= pkg.is_featured ? 'pricing-card--featured' : '' %>">
+        <% if (pkg.badge) { %><span class="pricing-card__badge"><%= pkg.badge %></span><% } %>
+        <div class="pricing-card__head">
+          <h3><%= pkg.name %></h3>
+          <p><%= pkg.description %></p>
+        </div>
+        <div class="pricing-card__price">
+          <span class="pricing-card__amount"><%= Number(pkg.price).toLocaleString('vi-VN') %>đ</span>
+          <span class="pricing-card__unit">/ <%= pkg.unit %></span>
+        </div>
+        <ul class="pricing-card__features">
+          <% pkg.features.slice(0,4).forEach(function(f) { %>
+          <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg><%= f %></li>
+          <% }); %>
+          <% if (pkg.features.length > 4) { %><li style="color:#aaa;font-size:0.8rem;">+<%= pkg.features.length - 4 %> tính năng khác...</li><% } %>
+        </ul>
+        <a href="/thiet-ke-website/bang-gia" class="pricing-card__btn">Xem chi tiết</a>
+      </div>
+      <% }); %>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<!-- Links sub-pages -->
+<section style="padding:56px 24px;background:#f8fbff;">
+  <div class="tkw-inner">
+    <div class="tkw-section-head">
+      <h2>Khám phá thêm về <span>dịch vụ của chúng tôi</span></h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
+      <a href="/thiet-ke-website/gioi-thieu" style="display:block;background:#fff;border-radius:14px;padding:28px;text-decoration:none;box-shadow:0 2px 12px rgba(0,0,0,0.07);transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 8px 28px rgba(21,101,192,0.13)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 12px rgba(0,0,0,0.07)'">
+        <div style="font-size:2rem;margin-bottom:12px;">📋</div>
+        <h3 style="font-size:1.1rem;font-weight:700;color:#1a1a2e;margin-bottom:8px;">Giới thiệu dịch vụ</h3>
+        <p style="font-size:0.87rem;color:#666;line-height:1.7;margin:0;">Tìm hiểu chi tiết về quy trình, cam kết và lý do chọn Devora.</p>
+      </a>
+      <a href="/thiet-ke-website/bang-gia" style="display:block;background:#1565c0;border-radius:14px;padding:28px;text-decoration:none;box-shadow:0 8px 24px rgba(21,101,192,0.3);transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform=''">
+        <div style="font-size:2rem;margin-bottom:12px;">💰</div>
+        <h3 style="font-size:1.1rem;font-weight:700;color:#fff;margin-bottom:8px;">Bảng giá chi tiết</h3>
+        <p style="font-size:0.87rem;color:rgba(255,255,255,0.85);line-height:1.7;margin:0;">So sánh các gói dịch vụ và chọn gói phù hợp với ngân sách.</p>
+      </a>
+      <a href="/thiet-ke-website/portfolio" style="display:block;background:#fff;border-radius:14px;padding:28px;text-decoration:none;box-shadow:0 2px 12px rgba(0,0,0,0.07);transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 8px 28px rgba(21,101,192,0.13)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 12px rgba(0,0,0,0.07)'">
+        <div style="font-size:2rem;margin-bottom:12px;">🎨</div>
+        <h3 style="font-size:1.1rem;font-weight:700;color:#1a1a2e;margin-bottom:8px;">Portfolio dự án</h3>
+        <p style="font-size:0.87rem;color:#666;line-height:1.7;margin:0;">Xem các dự án website thực tế đã triển khai thành công.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="tkw-cta">
+  <div class="tkw-cta__inner">
+    <h2>Bắt đầu dự án website của bạn ngay hôm nay</h2>
+    <p>Liên hệ để được tư vấn miễn phí và nhận báo giá chi tiết trong 24 giờ.</p>
+    <div class="tkw-cta__btns">
+      <a href="/lien-he" class="tkw-btn tkw-btn--white">Liên hệ tư vấn</a>
+      <a href="/thiet-ke-website/portfolio" class="tkw-btn tkw-btn--outline-white">Xem Portfolio</a>
+    </div>
+  </div>
+</section>

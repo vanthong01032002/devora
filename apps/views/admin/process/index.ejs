@@ -1,0 +1,90 @@
+<section class="admin-panel">
+  <div class="admin-panel__head">
+    <h1 class="admin-panel__title">Quản lý / Quy trình thiết kế</h1>
+    <hr class="admin-panel__rule">
+  </div>
+
+  <% if (success) { %><div class="admin-alert admin-alert--success"><%= success %></div><% } %>
+  <% if (error) { %><div class="admin-alert admin-alert--error"><%= error %></div><% } %>
+
+  <div class="admin-panel__toolbar">
+    <a href="/admin/pages/process/create" class="admin-btn admin-btn--green">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+      Thêm bước
+    </a>
+  </div>
+
+  <div class="admin-table-wrap">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th width="60">STT</th>
+          <th width="80">BƯỚC</th>
+          <th>TIÊU ĐỀ</th>
+          <th width="100">HÌNH ẢNH</th>
+          <th width="80">MÀU</th>
+          <th width="100">HIỂN THỊ</th>
+          <th width="100">THAO TÁC</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (steps.length === 0) { %>
+        <tr><td colspan="7" class="admin-table__empty">Chưa có bước nào</td></tr>
+        <% } %>
+        <% steps.forEach(function(step, i) { %>
+        <tr>
+          <td><%= i + 1 %></td>
+          <td>
+            <div class="process-cube-mini process-cube--<%= step.color %>"><%= String(step.step_number).padStart(2,'0') %></div>
+          </td>
+          <td>
+            <strong><%= step.title %></strong>
+            <div class="admin-table__sub"><%= (step.description||'').substring(0,60) %>...</div>
+          </td>
+          <td>
+            <% if (step.image_path) { %>
+              <img src="<%= step.image_path %>" class="admin-thumb" alt="">
+            <% } else { %>
+              <div class="admin-thumb-empty"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg></div>
+            <% } %>
+          </td>
+          <td><span class="admin-color-swatch" style="background:var(--cube-<%= step.color %>, #1565c0)"></span></td>
+          <td>
+            <label class="admin-toggle">
+              <input type="checkbox" class="toggle-active" data-id="<%= step.id %>" <%= step.is_active ? 'checked' : '' %>>
+              <span class="admin-toggle__slider"></span>
+            </label>
+          </td>
+          <td class="admin-table__actions">
+            <a href="/admin/pages/process/edit/<%= step.id %>" class="admin-action admin-action--edit" title="Sửa">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 000-1.41l-2.34-2.34a1 1 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+            </a>
+            <button class="admin-action admin-action--delete btn-delete" data-id="<%= step.id %>" title="Xóa">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+            </button>
+          </td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<script>
+document.querySelectorAll('.toggle-active').forEach(t => {
+  t.addEventListener('change', function() {
+    fetch('/admin/pages/process/toggle/' + this.dataset.id, {
+      method: 'POST', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ is_active: this.checked ? 1 : 0 })
+    });
+  });
+});
+document.querySelectorAll('.btn-delete').forEach(btn => {
+  btn.addEventListener('click', function() {
+    if (!confirm('Xóa bước này?')) return;
+    fetch('/admin/pages/process/' + this.dataset.id, { method: 'DELETE' })
+      .then(r => r.json()).then(d => { if (d.success) location.reload(); });
+  });
+});
+</script>
+</div>

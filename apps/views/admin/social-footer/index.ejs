@@ -1,0 +1,103 @@
+<section class="admin-panel">
+  <div class="admin-panel__head">
+    <h1 class="admin-panel__title">Quản lý / Mạng xã hội - Footer</h1>
+    <hr class="admin-panel__rule">
+  </div>
+
+  <% if (success) { %><div class="admin-alert admin-alert--success"><%= success %></div><% } %>
+  <% if (error) { %><div class="admin-alert admin-alert--error"><%= error %></div><% } %>
+
+  <div class="admin-panel__toolbar">
+    <a href="/admin/media/social-footer/create" class="admin-btn admin-btn--green">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+      Thêm mới
+    </a>
+    <button class="admin-btn admin-btn--red" id="btnDeleteAll">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+      Xóa tất cả
+    </button>
+  </div>
+
+  <!-- Preview footer social -->
+  <div class="admin-footer-preview">
+    <p class="admin-footer-preview__label">Xem trước (Follow us):</p>
+    <div class="footer-social" style="display:flex;gap:8px;">
+      <% items.filter(i => i.is_active).forEach(function(item) { %>
+      <a href="<%= item.link %>" class="footer-social__link" target="_blank" title="<%= item.title %>">
+        <%- getSocialIcon(item.icon_type) %>
+      </a>
+      <% }); %>
+    </div>
+  </div>
+
+  <div class="admin-table-wrap" style="margin-top:20px;">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th width="50">STT</th>
+          <th width="60">ICON</th>
+          <th>TIÊU ĐỀ</th>
+          <th>LINK</th>
+          <th width="100">HIỂN THỊ</th>
+          <th width="100">THAO TÁC</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (items.length === 0) { %>
+        <tr><td colspan="6" class="admin-table__empty">Chưa có mạng xã hội nào</td></tr>
+        <% } %>
+        <% items.forEach(function(item, i) { %>
+        <tr>
+          <td><%= i + 1 %></td>
+          <td>
+            <div class="footer-social__link" style="width:34px;height:34px;background:#e8f0fe;color:#1565c0;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+              <%- getSocialIcon(item.icon_type) %>
+            </div>
+          </td>
+          <td><strong><%= item.title %></strong></td>
+          <td class="admin-table__link"><%= item.link %></td>
+          <td>
+            <label class="admin-toggle">
+              <input type="checkbox" class="toggle-active" data-id="<%= item.id %>" <%= item.is_active ? 'checked' : '' %>>
+              <span class="admin-toggle__slider"></span>
+            </label>
+          </td>
+          <td class="admin-table__actions">
+            <a href="/admin/media/social-footer/edit/<%= item.id %>" class="admin-action admin-action--edit" title="Sửa">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 000-1.41l-2.34-2.34a1 1 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+            </a>
+            <button class="admin-action admin-action--delete btn-delete" data-id="<%= item.id %>" title="Xóa">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+            </button>
+          </td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<script>
+document.querySelectorAll('.toggle-active').forEach(t => {
+  t.addEventListener('change', function() {
+    fetch('/admin/media/social-footer/toggle/' + this.dataset.id, {
+      method: 'POST', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ is_active: this.checked ? 1 : 0 })
+    }).then(() => location.reload());
+  });
+});
+
+document.querySelectorAll('.btn-delete').forEach(btn => {
+  btn.addEventListener('click', function() {
+    if (!confirm('Xóa mục này?')) return;
+    fetch('/admin/media/social-footer/' + this.dataset.id, { method: 'DELETE' })
+      .then(r => r.json()).then(d => { if (d.success) location.reload(); });
+  });
+});
+
+document.getElementById('btnDeleteAll').addEventListener('click', function() {
+  if (!confirm('Xóa tất cả?')) return;
+  fetch('/admin/media/social-footer', { method: 'DELETE' })
+    .then(r => r.json()).then(d => { if (d.success) location.reload(); });
+});
+</script>

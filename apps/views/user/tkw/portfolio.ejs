@@ -1,0 +1,106 @@
+﻿<!-- Hero -->
+<section class="tkw-hero tkw-hero--sm">
+  <div class="tkw-hero__inner tkw-hero__inner--center">
+    <div class="tkw-breadcrumb">
+      <a href="/">Trang chủ</a> <span>/</span>
+      <a href="/dich-vu">Dịch vụ</a> <span>/</span>
+      <span>Portfolio</span>
+    </div>
+    <h1>Portfolio <span>Dự án thực tế</span></h1>
+    <p>Những website chúng tôi đã xây dựng — mỗi dự án là một câu chuyện thành công.</p>
+  </div>
+</section>
+
+<!-- Filter + Grid -->
+<section class="tkw-portfolio-section">
+  <div class="tkw-inner">
+
+    <!-- Filter tabs -->
+    <div class="tkw-filter-tabs" id="portfolioFilters">
+      <button class="tkw-filter active" data-filter="all">Tất cả</button>
+      <button class="tkw-filter" data-filter="bds">Bất động sản</button>
+      <button class="tkw-filter" data-filter="fnb">F&B</button>
+      <button class="tkw-filter" data-filter="noithat">Nội thất</button>
+      <button class="tkw-filter" data-filter="giaoduc">Giáo dục</button>
+      <button class="tkw-filter" data-filter="lamdep">Làm đẹp</button>
+      <button class="tkw-filter" data-filter="banhang">Bán hàng</button>
+    </div>
+
+    <!-- Grid -->
+    <div class="tkw-portfolio-grid" id="portfolioGrid">
+      <% const projects = [
+        { cat:'bds',     catLabel:'Bất động sản', name:'Website BĐS Luxury',       desc:'Website bất động sản cao cấp, tích hợp bản đồ và lọc dự án.',  img:'/images/banner_main.jpg',  tags:['SEO','Responsive','Maps'] },
+        { cat:'fnb',     catLabel:'F&B',           name:'Nhà hàng Mộc Chay',        desc:'Website đặt bàn online, menu đẹp, tích hợp fanpage.',           img:'/images/tab-monchay.png',  tags:['Booking','SEO','Mobile'] },
+        { cat:'noithat', catLabel:'Nội thất',       name:'Nội thất Mộc Nguyên',      desc:'Showcase sản phẩm nội thất cao cấp, gallery đẹp.',              img:'/images/tab-combo1.png',   tags:['Gallery','SEO','CMS'] },
+        { cat:'fnb',     catLabel:'F&B',            name:'Chuỗi Cafe Devora',        desc:'Website chuỗi cafe với hệ thống quản lý đơn hàng.',             img:'/images/tab-combo2.png',   tags:['Order','SEO','Responsive'] },
+        { cat:'giaoduc', catLabel:'Giáo dục',       name:'Trung tâm EduPro',         desc:'Website đăng ký khóa học, quản lý học viên và lịch học.',       img:'/images/hero-small.png',   tags:['LMS','SEO','Mobile'] },
+        { cat:'lamdep',  catLabel:'Làm đẹp',        name:'Spa Thiên Nhiên',          desc:'Website booking dịch vụ spa, giao diện sang trọng.',            img:'/images/tab-combo1.png',   tags:['Booking','SEO','Luxury'] },
+        { cat:'banhang', catLabel:'Bán hàng',       name:'Shop Thời Trang XYZ',      desc:'Website thương mại điện tử thời trang, thanh toán online.',     img:'/images/tab-combo2.png',   tags:['Ecommerce','SEO','Payment'] },
+        { cat:'bds',     catLabel:'Bất động sản',   name:'Dự án Căn hộ Green',       desc:'Landing page dự án căn hộ với form đăng ký tư vấn.',           img:'/images/banner_main.jpg',  tags:['Landing','SEO','Form'] },
+        { cat:'noithat', catLabel:'Nội thất',       name:'Nội thất Hiện Đại',        desc:'Website nội thất với bộ lọc sản phẩm và so sánh.',             img:'/images/hero-main.png',    tags:['Filter','SEO','CMS'] },
+      ]; %>
+
+      <% projects.forEach(function(p) { %>
+      <div class="tkw-portfolio-card" data-cat="<%= p.cat %>">
+        <div class="tkw-portfolio-card__img">
+          <img src="<%= p.img %>" alt="<%= p.name %>">
+          <div class="tkw-portfolio-card__overlay">
+            <a href="/lien-he" class="tkw-btn tkw-btn--white-sm">Dự án tương tự</a>
+          </div>
+          <span class="tkw-portfolio-card__cat"><%= p.catLabel %></span>
+        </div>
+        <div class="tkw-portfolio-card__body">
+          <h4><%= p.name %></h4>
+          <p><%= p.desc %></p>
+          <div class="tkw-portfolio-card__tags">
+            <% p.tags.forEach(function(t) { %><span><%= t %></span><% }); %>
+          </div>
+        </div>
+      </div>
+      <% }); %>
+    </div>
+
+  </div>
+</section>
+
+<!-- Stats -->
+<section class="tkw-stats">
+  <div class="tkw-inner">
+    <div class="tkw-stats__grid">
+      <div class="tkw-stat"><span class="stat-number">100+</span><span>Dự án hoàn thành</span></div>
+      <div class="tkw-stat"><span class="stat-number">100%</span><span>Khách hàng hài lòng</span></div>
+      <div class="tkw-stat"><span class="stat-number">10+</span><span>Lĩnh vực đa ngành</span></div>
+      <div class="tkw-stat"><span class="stat-number">5+</span><span>Năm kinh nghiệm</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="tkw-cta">
+  <div class="tkw-cta__inner">
+    <h2>Bạn muốn có website như thế này?</h2>
+    <p>Liên hệ ngay để được tư vấn và nhận báo giá miễn phí cho dự án của bạn.</p>
+    <div class="tkw-cta__btns">
+      <a href="/lien-he" class="tkw-btn tkw-btn--white">Liên hệ tư vấn</a>
+      <a href="/thiet-ke-website/bang-gia" class="tkw-btn tkw-btn--outline-white">Xem bảng giá</a>
+    </div>
+  </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const filters = document.querySelectorAll('.tkw-filter');
+  const cards   = document.querySelectorAll('.tkw-portfolio-card');
+
+  filters.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      filters.forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      cards.forEach(function(card) {
+        card.style.display = (f === 'all' || card.dataset.cat === f) ? '' : 'none';
+      });
+    });
+  });
+});
+</script>

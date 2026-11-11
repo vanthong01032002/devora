@@ -1,0 +1,28 @@
+<article class="blog-detail">
+  <div class="blog-detail__inner">
+
+    <div class="blog-detail__header">
+      <div class="blog-detail__meta">
+        <span><%= new Date(post.created_at).toLocaleDateString('vi-VN') %></span>
+        <% if (post.views) { %><span><%= post.views %> lượt xem</span><% } %>
+      </div>
+      <h1><%= post.title %></h1>
+      <% if (post.description) { %><p class="blog-detail__desc"><%= post.description %></p><% } %>
+    </div>
+
+    <% if (post.thumbnail) { %>
+    <div class="blog-detail__thumb">
+      <img src="<%= post.thumbnail %>" alt="<%= post.title %>">
+    </div>
+    <% } %>
+
+    <div class="blog-detail__content">
+      <%- post.content %>
+    </div>
+
+    <div class="blog-detail__back">
+      <a href="/blog">&larr; Quay lại danh sách</a>
+    </div>
+
+  </div>
+</article>

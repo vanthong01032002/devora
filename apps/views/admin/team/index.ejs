@@ -1,0 +1,84 @@
+<section class="admin-panel">
+  <div class="admin-panel__head">
+    <h1 class="admin-panel__title">Quản lý / Đội ngũ</h1>
+    <hr class="admin-panel__rule">
+  </div>
+
+  <% if (success) { %><div class="admin-alert admin-alert--success"><%= success %></div><% } %>
+  <% if (error) { %><div class="admin-alert admin-alert--error"><%= error %></div><% } %>
+
+  <div class="admin-panel__toolbar">
+    <a href="/admin/media/team/create" class="admin-btn admin-btn--green">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+      Thêm thành viên
+    </a>
+  </div>
+
+  <div class="admin-table-wrap">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th width="50">STT</th>
+          <th width="80">ẢNH</th>
+          <th>HỌ TÊN</th>
+          <th>CHỨC VỤ</th>
+          <th width="100">HIỂN THỊ</th>
+          <th width="100">THAO TÁC</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (members.length === 0) { %>
+        <tr><td colspan="6" class="admin-table__empty">Chưa có thành viên nào</td></tr>
+        <% } %>
+        <% members.forEach(function(m, i) { %>
+        <tr>
+          <td><%= i + 1 %></td>
+          <td>
+            <% if (m.image_path) { %>
+              <img src="<%= m.image_path %>" class="admin-thumb" style="border-radius:50%;width:48px;height:48px;object-fit:cover;" alt="">
+            <% } else { %>
+              <div class="admin-thumb-empty" style="width:48px;height:48px;border-radius:50%;">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+              </div>
+            <% } %>
+          </td>
+          <td><strong><%= m.full_name %></strong></td>
+          <td><%= m.position || '—' %></td>
+          <td>
+            <label class="admin-toggle">
+              <input type="checkbox" class="toggle-active" data-id="<%= m.id %>" <%= m.is_active ? 'checked' : '' %>>
+              <span class="admin-toggle__slider"></span>
+            </label>
+          </td>
+          <td class="admin-table__actions">
+            <a href="/admin/media/team/edit/<%= m.id %>" class="admin-action admin-action--edit" title="Sửa">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 000-1.41l-2.34-2.34a1 1 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+            </a>
+            <button class="admin-action admin-action--delete btn-delete" data-id="<%= m.id %>" title="Xóa">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+            </button>
+          </td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<script>
+document.querySelectorAll('.toggle-active').forEach(t => {
+  t.addEventListener('change', function() {
+    fetch('/admin/media/team/toggle/' + this.dataset.id, {
+      method: 'POST', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ is_active: this.checked ? 1 : 0 })
+    });
+  });
+});
+document.querySelectorAll('.btn-delete').forEach(btn => {
+  btn.addEventListener('click', function() {
+    if (!confirm('Xóa thành viên này?')) return;
+    fetch('/admin/media/team/' + this.dataset.id, { method: 'DELETE' })
+      .then(r => r.json()).then(d => { if (d.success) location.reload(); });
+  });
+});
+</script>

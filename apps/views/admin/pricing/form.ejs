@@ -1,0 +1,79 @@
+<section class="admin-panel">
+  <div class="admin-panel__head">
+    <h1 class="admin-panel__title"><%= pkg ? 'Sửa gói dịch vụ' : 'Thêm gói dịch vụ mới' %></h1>
+    <hr class="admin-panel__rule">
+  </div>
+
+  <form action="<%= action %>" method="POST" class="admin-form">
+
+    <div class="admin-form__row">
+      <label class="admin-form__label">Tên gói <span>*</span></label>
+      <input type="text" name="name" class="admin-form__input" required
+             value="<%= pkg ? pkg.name : '' %>" placeholder="VD: Gói Tiêu Chuẩn">
+    </div>
+
+    <div class="admin-form__row">
+      <label class="admin-form__label">Mô tả ngắn</label>
+      <input type="text" name="description" class="admin-form__input"
+             value="<%= pkg ? pkg.description : '' %>" placeholder="Mô tả ngắn về gói dịch vụ">
+    </div>
+
+    <div class="admin-form__row admin-form__row--half">
+      <div>
+        <label class="admin-form__label">Giá <span>*</span></label>
+        <input type="number" name="price" class="admin-form__input" required min="0"
+               value="<%= pkg ? pkg.price : '' %>" placeholder="VD: 7500000">
+      </div>
+      <div>
+        <label class="admin-form__label">Đơn vị</label>
+        <input type="text" name="unit" class="admin-form__input"
+               value="<%= pkg ? pkg.unit : 'gói' %>" placeholder="gói / tháng / năm">
+      </div>
+    </div>
+
+    <div class="admin-form__row">
+      <label class="admin-form__label">Tính năng <span>*</span></label>
+      <textarea name="features_raw" class="admin-form__input admin-form__textarea" rows="8"
+                placeholder="Mỗi tính năng một dòng&#10;VD:&#10;Thiết kế giao diện chuẩn&#10;Responsive mobile&#10;Tối ưu SEO"><%= pkg ? pkg.features.join('\n') : '' %></textarea>
+      <small class="admin-form__hint">Mỗi dòng là một tính năng</small>
+    </div>
+
+    <div class="admin-form__row admin-form__row--half">
+      <div>
+        <label class="admin-form__label">Badge (nhãn)</label>
+        <input type="text" name="badge" class="admin-form__input"
+               value="<%= pkg ? (pkg.badge || '') : '' %>" placeholder="VD: Phổ biến / Cao cấp">
+      </div>
+      <div>
+        <label class="admin-form__label">Thứ tự</label>
+        <input type="number" name="display_order" class="admin-form__input" min="0"
+               value="<%= pkg ? pkg.display_order : 0 %>">
+      </div>
+    </div>
+
+    <div class="admin-form__row admin-form__row--half">
+      <div>
+        <label class="admin-form__label">Gói nổi bật</label>
+        <select name="is_featured" class="admin-form__input">
+          <option value="0" <%= !pkg || !pkg.is_featured ? 'selected' : '' %>>Không</option>
+          <option value="1" <%= pkg && pkg.is_featured ? 'selected' : '' %>>Có (highlight)</option>
+        </select>
+      </div>
+      <div>
+        <label class="admin-form__label">Trạng thái</label>
+        <select name="is_active" class="admin-form__input">
+          <option value="1" <%= !pkg || pkg.is_active ? 'selected' : '' %>>Hiển thị</option>
+          <option value="0" <%= pkg && !pkg.is_active ? 'selected' : '' %>>Ẩn</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="admin-form__actions">
+      <button type="submit" class="admin-btn admin-btn--green">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>
+        Lưu
+      </button>
+      <a href="/admin/media/pricing" class="admin-btn admin-btn--gray">Hủy</a>
+    </div>
+  </form>
+</section>

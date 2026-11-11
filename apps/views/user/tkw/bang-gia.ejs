@@ -1,0 +1,89 @@
+﻿<!-- Hero -->
+<section class="tkw-hero tkw-hero--sm">
+  <div class="tkw-hero__inner tkw-hero__inner--center">
+    <div class="tkw-breadcrumb">
+      <a href="/">Trang chủ</a> <span>/</span>
+      <a href="/dich-vu">Dịch vụ</a> <span>/</span>
+      <span>Bảng giá</span>
+    </div>
+    <h1>Bảng giá <span>Thiết kế Website</span></h1>
+    <p>Gói dịch vụ đa dạng, phù hợp mọi quy mô doanh nghiệp. Tất cả gói đều bao gồm hỗ trợ sau bàn giao.</p>
+  </div>
+</section>
+
+<!-- Pricing grid -->
+<section class="tkw-pricing-section">
+  <div class="tkw-inner">
+    <% if (pricing && pricing.length > 0) { %>
+    <div class="pricing-grid">
+      <% pricing.forEach(function(pkg) { %>
+      <div class="pricing-card <%= pkg.is_featured ? 'pricing-card--featured' : '' %>">
+        <% if (pkg.badge) { %><span class="pricing-card__badge"><%= pkg.badge %></span><% } %>
+        <div class="pricing-card__head">
+          <h3><%= pkg.name %></h3>
+          <p><%= pkg.description %></p>
+        </div>
+        <div class="pricing-card__price">
+          <span class="pricing-card__amount"><%= Number(pkg.price).toLocaleString('vi-VN') %>đ</span>
+          <span class="pricing-card__unit">/ <%= pkg.unit %></span>
+        </div>
+        <ul class="pricing-card__features">
+          <% pkg.features.forEach(function(f) { %>
+          <li>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+            <%= f %>
+          </li>
+          <% }); %>
+        </ul>
+        <a href="/lien-he" class="pricing-card__btn">Đăng ký ngay</a>
+      </div>
+      <% }); %>
+    </div>
+    <% } else { %>
+    <p style="text-align:center;color:#888;padding:60px 0;">Chưa có gói dịch vụ nào. Vui lòng liên hệ để được báo giá.</p>
+    <% } %>
+
+    <!-- Note -->
+    <div class="tkw-pricing-note">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+      <p>Giá trên chưa bao gồm VAT. Liên hệ để được tư vấn gói phù hợp và nhận ưu đãi đặc biệt cho dự án của bạn.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="tkw-faq">
+  <div class="tkw-inner">
+    <div class="tkw-section-head">
+      <p class="tkw-tag">Câu hỏi thường gặp</p>
+      <h2>Giải đáp <span>thắc mắc</span></h2>
+    </div>
+    <div class="tkw-faq__list">
+      <% const faqs = [
+        { q: 'Thời gian hoàn thành website là bao lâu?', a: 'Tùy theo độ phức tạp, thông thường từ 7-30 ngày làm việc. Chúng tôi sẽ thống nhất timeline cụ thể trước khi bắt đầu.' },
+        { q: 'Tôi có được chỉnh sửa nội dung sau khi bàn giao không?', a: 'Có. Tất cả website đều có hệ thống quản trị nội dung (CMS) dễ sử dụng, bạn có thể tự cập nhật nội dung bất kỳ lúc nào.' },
+        { q: 'Website có chuẩn SEO không?', a: 'Có. Mọi website Devora xây dựng đều được tối ưu SEO on-page: cấu trúc URL, meta tags, tốc độ tải, schema markup...' },
+        { q: 'Sau khi bàn giao có được hỗ trợ không?', a: 'Có. Chúng tôi hỗ trợ kỹ thuật miễn phí trong thời gian bảo hành theo gói, và có gói bảo trì dài hạn nếu bạn cần.' },
+        { q: 'Tôi cần chuẩn bị gì trước khi làm website?', a: 'Bạn cần chuẩn bị: logo, nội dung văn bản, hình ảnh sản phẩm/dịch vụ và ý tưởng về màu sắc/phong cách mong muốn.' },
+      ]; %>
+      <% faqs.forEach(function(faq, i) { %>
+      <details class="tkw-faq__item">
+        <summary><%= faq.q %><span class="tkw-faq__arrow">&#8964;</span></summary>
+        <p><%= faq.a %></p>
+      </details>
+      <% }); %>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="tkw-cta">
+  <div class="tkw-cta__inner">
+    <h2>Chưa tìm được gói phù hợp?</h2>
+    <p>Liên hệ để được tư vấn gói tùy chỉnh theo đúng nhu cầu và ngân sách của bạn.</p>
+    <div class="tkw-cta__btns">
+      <a href="/lien-he" class="tkw-btn tkw-btn--white">Liên hệ ngay</a>
+      <a href="/thiet-ke-website/portfolio" class="tkw-btn tkw-btn--outline-white">Xem Portfolio</a>
+    </div>
+  </div>
+</section>

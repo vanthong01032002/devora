@@ -1,0 +1,94 @@
+<section class="admin-panel">
+  <div class="admin-panel__head">
+    <h1 class="admin-panel__title"><%= sv ? 'Sửa dịch vụ' : 'Thêm dịch vụ mới' %></h1>
+    <hr class="admin-panel__rule">
+  </div>
+
+  <form action="<%= action %>" method="POST" enctype="multipart/form-data" class="admin-form">
+
+    <div class="admin-form__row">
+      <label class="admin-form__label">Tên dịch vụ <span>*</span></label>
+      <input type="text" name="title" class="admin-form__input" required
+             value="<%= sv ? sv.title : '' %>" placeholder="VD: Thiết kế website chuẩn SEO">
+    </div>
+
+    <div class="admin-form__row">
+      <label class="admin-form__label">Mô tả</label>
+      <textarea name="description" class="admin-form__input admin-form__textarea" rows="4"
+                placeholder="Mô tả chi tiết về dịch vụ..."><%= sv ? sv.description : '' %></textarea>
+    </div>
+
+    <div class="admin-form__row">
+      <label class="admin-form__label">Tags (phân cách bằng dấu phẩy)</label>
+      <input type="text" name="tags" class="admin-form__input"
+             value="<%= sv ? sv.tags : '' %>" placeholder="VD: Responsive,Chuẩn SEO,Tốc độ cao">
+    </div>
+
+    <div class="admin-form__row">
+      <label class="admin-form__label">Hình ảnh minh họa</label>
+      <div class="admin-upload-area" id="uploadArea">
+        <img src="<%= sv && sv.image_path ? sv.image_path : '/images/default.png' %>"
+             class="admin-upload-preview" id="imgPreview"
+             style="<%= sv && sv.image_path ? '' : 'display:none' %>">
+        <div class="admin-upload-placeholder" id="uploadPlaceholder"
+             style="<%= sv && sv.image_path ? 'display:none' : '' %>">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.35 10.04A7.49 7.49 0 0012 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 000 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/></svg>
+          <p>Kéo thả hoặc <span>chọn ảnh</span></p>
+        </div>
+        <input type="file" name="image" id="imageInput" accept="image/*" style="display:none">
+      </div>
+    </div>
+
+    <div class="admin-form__row admin-form__row--half">
+      <div>
+        <label class="admin-form__label">Màu icon</label>
+        <select name="icon_color" class="admin-form__input">
+          <% ['blue','green','orange','purple','teal','pink'].forEach(function(c) { %>
+          <option value="<%= c %>" <%= sv && sv.icon_color === c ? 'selected' : '' %>><%= c %></option>
+          <% }); %>
+        </select>
+      </div>
+      <div>
+        <label class="admin-form__label">Thứ tự</label>
+        <input type="number" name="display_order" class="admin-form__input" min="0"
+               value="<%= sv ? sv.display_order : 0 %>">
+      </div>
+    </div>
+
+    <div class="admin-form__row">
+      <label class="admin-form__label">Trạng thái</label>
+      <select name="is_active" class="admin-form__input" style="max-width:200px">
+        <option value="1" <%= !sv || sv.is_active ? 'selected' : '' %>>Hiển thị</option>
+        <option value="0" <%= sv && !sv.is_active ? 'selected' : '' %>>Ẩn</option>
+      </select>
+    </div>
+
+    <div class="admin-form__actions">
+      <button type="submit" class="admin-btn admin-btn--green">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>
+        Lưu
+      </button>
+      <a href="/admin/content/services" class="admin-btn admin-btn--gray">Hủy</a>
+    </div>
+  </form>
+</section>
+
+<script>
+const uploadArea = document.getElementById('uploadArea');
+const imageInput = document.getElementById('imageInput');
+const imgPreview = document.getElementById('imgPreview');
+const placeholder = document.getElementById('uploadPlaceholder');
+
+uploadArea.addEventListener('click', () => imageInput.click());
+uploadArea.addEventListener('dragover', e => { e.preventDefault(); uploadArea.classList.add('drag-over'); });
+uploadArea.addEventListener('dragleave', () => uploadArea.classList.remove('drag-over'));
+uploadArea.addEventListener('drop', e => { e.preventDefault(); uploadArea.classList.remove('drag-over'); if (e.dataTransfer.files[0]) previewFile(e.dataTransfer.files[0]); });
+imageInput.addEventListener('change', function() { if (this.files[0]) previewFile(this.files[0]); });
+
+function previewFile(file) {
+  const reader = new FileReader();
+  reader.onload = e => { imgPreview.src = e.target.result; imgPreview.style.display = 'block'; placeholder.style.display = 'none'; };
+  reader.readAsDataURL(file);
+  const dt = new DataTransfer(); dt.items.add(file); imageInput.files = dt.files;
+}
+</script>

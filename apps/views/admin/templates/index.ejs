@@ -1,0 +1,107 @@
+<section class="admin-panel">
+  <div class="admin-panel__head">
+    <h1 class="admin-panel__title">Quản lý / Kho giao diện Website</h1>
+    <hr class="admin-panel__rule">
+  </div>
+
+  <% if (success) { %><div class="admin-alert admin-alert--success"><%= success %></div><% } %>
+  <% if (error) { %><div class="admin-alert admin-alert--error"><%= error %></div><% } %>
+
+  <div class="admin-panel__toolbar">
+    <a href="/admin/media/templates/create" class="admin-btn admin-btn--green">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+      Thêm giao diện
+    </a>
+  </div>
+
+  <div class="admin-panel__search">
+    <label>Tìm kiếm</label>
+    <div class="admin-search-box">
+      <input type="text" id="searchInput" placeholder="Tìm kiếm...">
+      <button><svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg></button>
+    </div>
+  </div>
+
+  <div class="admin-table-wrap">
+    <table class="admin-table" id="tplTable">
+      <thead>
+        <tr>
+          <th width="50">STT</th>
+          <th width="110">HÌNH ẢNH</th>
+          <th>TÊN GIAO DIỆN</th>
+          <th width="120">DANH MỤC</th>
+          <th width="80">LƯỢT DÙNG</th>
+          <th width="90">NỔI BẬT</th>
+          <th width="100">HIỂN THỊ</th>
+          <th width="100">THAO TÁC</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (templates.length === 0) { %>
+        <tr><td colspan="8" class="admin-table__empty">Chưa có giao diện nào</td></tr>
+        <% } %>
+        <% templates.forEach(function(tpl, i) { %>
+        <tr data-name="<%= tpl.name.toLowerCase() %>">
+          <td><%= i + 1 %></td>
+          <td>
+            <% if (tpl.image_path) { %>
+              <img src="<%= tpl.image_path %>" class="admin-thumb" style="width:90px;height:60px;" alt="">
+            <% } else { %>
+              <div class="admin-thumb-empty" style="width:90px;height:60px;border-radius:6px;">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+              </div>
+            <% } %>
+          </td>
+          <td>
+            <strong><%= tpl.name %></strong>
+            <% if (tpl.description) { %><div class="admin-table__sub"><%= tpl.description.substring(0,60) %>...</div><% } %>
+          </td>
+          <td><span class="admin-badge"><%= tpl.category_label %></span></td>
+          <td style="text-align:center;font-weight:700;color:#1565c0;"><%= tpl.uses %></td>
+          <td>
+            <% if (tpl.is_hot) { %><span class="admin-badge admin-badge--gold">⭐ Ưa chuộng</span><% } else { %><span style="color:#aaa;font-size:0.8rem;">—</span><% } %>
+          </td>
+          <td>
+            <label class="admin-toggle">
+              <input type="checkbox" class="toggle-active" data-id="<%= tpl.id %>" <%= tpl.is_active ? 'checked' : '' %>>
+              <span class="admin-toggle__slider"></span>
+            </label>
+          </td>
+          <td class="admin-table__actions">
+            <a href="/admin/media/templates/edit/<%= tpl.id %>" class="admin-action admin-action--edit" title="Sửa">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 000-1.41l-2.34-2.34a1 1 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+            </a>
+            <button class="admin-action admin-action--delete btn-delete" data-id="<%= tpl.id %>" title="Xóa">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+            </button>
+          </td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<script>
+document.getElementById('searchInput').addEventListener('input', function() {
+  const q = this.value.toLowerCase();
+  document.querySelectorAll('#tplTable tbody tr[data-name]').forEach(r => {
+    r.style.display = r.dataset.name.includes(q) ? '' : 'none';
+  });
+});
+document.querySelectorAll('.toggle-active').forEach(t => {
+  t.addEventListener('change', function() {
+    fetch('/admin/media/templates/toggle/' + this.dataset.id, {
+      method: 'POST', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ is_active: this.checked ? 1 : 0 })
+    });
+  });
+});
+document.querySelectorAll('.btn-delete').forEach(btn => {
+  btn.addEventListener('click', function() {
+    if (!confirm('Xóa giao diện này?')) return;
+    fetch('/admin/media/templates/' + this.dataset.id, { method: 'DELETE' })
+      .then(r => r.json()).then(d => { if (d.success) location.reload(); });
+  });
+});
+</script>

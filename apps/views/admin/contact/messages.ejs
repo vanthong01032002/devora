@@ -1,0 +1,57 @@
+<section class="admin-panel">
+  <div class="admin-panel__head">
+    <h1 class="admin-panel__title">Quản lý / Tin nhắn liên hệ</h1>
+    <hr class="admin-panel__rule">
+  </div>
+
+  <% if (success) { %><div class="admin-alert admin-alert--success"><%= success %></div><% } %>
+
+  <div class="admin-table-wrap">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th width="50">STT</th>
+          <th>HỌ TÊN</th>
+          <th>EMAIL / SĐT</th>
+          <th>CHỦ ĐỀ</th>
+          <th>NỘI DUNG</th>
+          <th width="130">THỜI GIAN</th>
+          <th width="80">THAO TÁC</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (messages.length === 0) { %>
+        <tr><td colspan="7" class="admin-table__empty">Chưa có tin nhắn nào</td></tr>
+        <% } %>
+        <% messages.forEach(function(msg, i) { %>
+        <tr class="<%= !msg.is_read ? 'msg-unread' : '' %>">
+          <td><%= i + 1 %></td>
+          <td><strong><%= msg.full_name %></strong></td>
+          <td>
+            <% if (msg.email) { %><div><%= msg.email %></div><% } %>
+            <% if (msg.phone) { %><div><%= msg.phone %></div><% } %>
+          </td>
+          <td><%= msg.subject || '—' %></td>
+          <td class="msg-content"><%= (msg.message || '').substring(0, 80) %><%= msg.message && msg.message.length > 80 ? '...' : '' %></td>
+          <td style="font-size:0.78rem;color:#888;"><%= new Date(msg.created_at).toLocaleString('vi-VN') %></td>
+          <td>
+            <button class="admin-action admin-action--delete btn-delete-msg" data-id="<%= msg.id %>" title="Xóa">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+            </button>
+          </td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<script>
+document.querySelectorAll('.btn-delete-msg').forEach(btn => {
+  btn.addEventListener('click', function() {
+    if (!confirm('Xóa tin nhắn này?')) return;
+    fetch('/admin/mail/contact/' + this.dataset.id, { method: 'DELETE' })
+      .then(r => r.json()).then(d => { if (d.success) location.reload(); });
+  });
+});
+</script>
