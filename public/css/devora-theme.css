@@ -18,7 +18,7 @@ body {
 strong, b { font-family: 'Arsenal', Arial, sans-serif; font-weight: 700; }
 
 h1, h2 {
-  font-family: 'Anton', 'Arsenal', sans-serif;
+  font-family: 'Be Vietnam Pro', 'Arsenal', sans-serif;
   text-transform: uppercase;
   letter-spacing: .02em;
   font-weight: 400;
@@ -49,7 +49,7 @@ h1, h2 {
 .site-header { background: #fff; }
 .header-logo__img { max-height: 64px; width: auto; }
 .nav-menu > li > a {
-  font-family: 'Anton', sans-serif;
+  font-family: 'Be Vietnam Pro', sans-serif;
   text-transform: uppercase;
   letter-spacing: .03em;
   color: #1c2733;
@@ -59,7 +59,7 @@ h1, h2 {
 .btn-contact {
   background: var(--dv-blue) !important;
   color: #fff !important;
-  font-family: 'Anton', sans-serif;
+  font-family: 'Be Vietnam Pro', sans-serif;
   letter-spacing: .04em;
 }
 .btn-contact:hover { background: var(--dv-blue-dark) !important; }
@@ -68,7 +68,7 @@ h1, h2 {
 .btn-primary, .btn-submit, button[type="submit"].btn {
   background: var(--dv-blue);
   color: #fff;
-  font-family: 'Anton', sans-serif;
+  font-family: 'Be Vietnam Pro', sans-serif;
   text-transform: uppercase;
 }
 .btn-primary:hover, .btn-submit:hover { background: var(--dv-blue-dark); }
@@ -76,7 +76,7 @@ h1, h2 {
 /* --- Footer nền xanh dương đậm như mẫu --- */
 .site-footer { background: var(--dv-navy); }
 .footer-col__title {
-  font-family: 'Anton', sans-serif;
+  font-family: 'Be Vietnam Pro', sans-serif;
   text-transform: uppercase;
   letter-spacing: .03em;
 }
@@ -84,7 +84,7 @@ h1, h2 {
 /* --- Bảng giá kiểu digiz --- */
 .pricing-note { text-align: center; color: #7a8794; font-size: 14px; margin-top: 18px; }
 .pricing-card { border: 1px solid #e3ebf4; border-radius: 20px; background: #fff; }
-.pricing-card__amount { font-family: 'Anton', sans-serif; color: var(--dv-blue); letter-spacing: .02em; }
+.pricing-card__amount { font-family: 'Be Vietnam Pro', sans-serif; color: var(--dv-blue); letter-spacing: .02em; }
 .pricing-card__badge {
   background: var(--dv-yellow); color: #5b4a00; font-family: 'Arsenal', sans-serif; font-weight: 700;
   border-radius: 999px; padding: 5px 14px;
@@ -115,7 +115,7 @@ h1, h2 {
   background-image: radial-gradient(rgba(255,255,255,.5) 1.6px, transparent 1.7px); background-size: 16px 16px;
 }
 .dv-contact__left, .dv-contact__card { position: relative; z-index: 1; }
-.dv-contact__kicker { font-family: 'Anton', sans-serif; letter-spacing: .22em; font-size: 13px; color: var(--dv-yellow); margin-bottom: 14px; }
+.dv-contact__kicker { font-family: 'Be Vietnam Pro', sans-serif; letter-spacing: .22em; font-size: 13px; color: var(--dv-yellow); margin-bottom: 14px; }
 .dv-contact__left h2 { font-size: 40px; line-height: 1.15; color: #fff; margin-bottom: 14px; }
 .dv-contact__sub { color: rgba(255,255,255,.85); font-size: 16.5px; max-width: 92%; }
 .dv-contact__info { list-style: none; margin-top: 30px; display: grid; gap: 20px; }
@@ -129,7 +129,7 @@ h1, h2 {
 .dv-contact__info strong { font-size: 16.5px; }
 .dv-contact__info a { color: #fff; text-decoration: none; }
 .dv-contact__card { background: #fff; color: #1c2733; border-radius: 20px; padding: 30px; box-shadow: 0 18px 40px rgba(0,0,0,.18); }
-.dv-contact__card h3 { font-family: 'Anton', sans-serif; font-size: 21px; letter-spacing: .02em; margin-bottom: 18px; color: var(--dv-navy); }
+.dv-contact__card h3 { font-family: 'Be Vietnam Pro', sans-serif; font-size: 21px; letter-spacing: .02em; margin-bottom: 18px; color: var(--dv-navy); }
 .dv-contact__row { margin-bottom: 13px; }
 .dv-contact__row--2 { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; }
 .dv-contact input[type="text"], .dv-contact input[type="tel"], .dv-contact input[type="email"], .dv-contact textarea {
@@ -148,7 +148,7 @@ h1, h2 {
 .dv-contact__btn {
   width: 100%; border: none; cursor: pointer; padding: 15px; border-radius: 999px;
   background: linear-gradient(90deg, #0d6cb8, var(--dv-blue-dark)); color: #fff;
-  font-family: 'Anton', sans-serif; font-size: 16px; letter-spacing: .05em; text-transform: uppercase;
+  font-family: 'Be Vietnam Pro', sans-serif; font-size: 16px; letter-spacing: .05em; text-transform: uppercase;
 }
 .dv-contact__btn:hover { filter: brightness(1.1); }
 .dv-contact__note { text-align: center; color: #93a1af; font-size: 12.5px; margin-top: 13px; }
@@ -162,7 +162,7 @@ h1, h2 {
 .dv-projects { padding: 76px 15px 60px; background: radial-gradient(900px 420px at 85% 0%, rgba(11,95,165,.07), transparent 60%), #fff; }
 .dv-projects__inner { max-width: 1200px; margin: 0 auto; }
 .dv-projects__heading { text-align: center; max-width: 720px; margin: 0 auto 42px; }
-.dv-projects__tag { font-family: 'Anton', sans-serif; letter-spacing: .22em; font-size: 13px; color: var(--dv-blue); text-transform: uppercase; }
+.dv-projects__tag { font-family: 'Be Vietnam Pro', sans-serif; letter-spacing: .22em; font-size: 13px; color: var(--dv-blue); text-transform: uppercase; }
 .dv-projects__heading h2 { font-size: 40px; margin: 10px 0 12px; color: var(--dv-navy); }
 .dv-projects__heading h2 span { color: var(--dv-blue); }
 .dv-projects__heading p { color: #66727f; font-size: 16.5px; }
@@ -182,14 +182,14 @@ h1, h2 {
 .dv-project__meta { display: flex; align-items: center; gap: 10px; margin-top: 16px; }
 .dv-project__pill { background: rgba(11,95,165,.1); color: var(--dv-blue); font-weight: 700; font-size: 13px; border-radius: 999px; padding: 4px 13px; }
 .dv-project__cat { color: #8494a5; font-size: 14px; }
-.dv-project h3 { font-family: 'Anton', sans-serif; font-size: 21px; letter-spacing: .02em; margin: 9px 0 6px; color: var(--dv-navy); text-transform: uppercase; }
+.dv-project h3 { font-family: 'Be Vietnam Pro', sans-serif; font-size: 21px; letter-spacing: .02em; margin: 9px 0 6px; color: var(--dv-navy); text-transform: uppercase; }
 .dv-project p { color: #66727f; font-size: 15px; }
 .dv-project__chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
 .dv-chip { background: #f2f6fa; color: #41505f; font-size: 13px; border-radius: 999px; padding: 5px 12px; }
 .dv-projects__more { text-align: center; margin-top: 36px; }
 .dv-projects__btn {
   display: inline-block; padding: 13px 30px; border-radius: 999px; border: 2px solid var(--dv-blue);
-  color: var(--dv-blue); font-family: 'Anton', sans-serif; letter-spacing: .04em; text-decoration: none; text-transform: uppercase;
+  color: var(--dv-blue); font-family: 'Be Vietnam Pro', sans-serif; letter-spacing: .04em; text-decoration: none; text-transform: uppercase;
 }
 .dv-projects__btn:hover { background: var(--dv-blue); color: #fff; }
 @media (max-width: 900px) {
@@ -197,3 +197,10 @@ h1, h2 {
   .dv-project--big { grid-row: auto; }
   .dv-projects__heading h2 { font-size: 30px; }
 }
+
+/* Tieu de Be Vietnam Pro dam */
+h1, h2, h3 { font-weight: 800; }
+/* Icon cac buoc quy trinh (SVG inline) */
+.process-step__icon { width: 54px; height: 54px; flex: 0 0 54px; border-radius: 15px; background: #eef4fb; color: var(--dv-blue); display: flex; align-items: center; justify-content: center; }
+.process-step__icon svg { width: 27px; height: 27px; }
+.process-label__img { background: radial-gradient(300px 200px at 70% 20%, rgba(11,95,165,.14), transparent 70%); border-radius: 20px; }

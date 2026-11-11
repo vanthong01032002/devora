@@ -322,7 +322,7 @@ document.getElementById('domainInput').addEventListener('keydown', function(e) {
 
       <!-- Center image -->
       <div class="brand-image">
-        <img src="/images/hero-main2.png" alt="Website chuyên nghiệp">
+        <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=1200&auto=format&fit=crop" alt="Website chuyên nghiệp">
       </div>
 
       <!-- Right -->
@@ -390,7 +390,25 @@ document.getElementById('domainInput').addEventListener('keydown', function(e) {
       <h2>Thiết kế website</h2>
       <p class="process-label__sub">Chỉ với 5 bước đơn giản dưới đây bạn đã sở hữu một website chuyên nghiệp.</p>
       <div class="process-label__img">
-        <img src="/images/procedure.avif" alt="Quy trình thiết kế website">
+        <svg viewBox="0 0 360 260" style="width:100%;height:auto;display:block" role="img" aria-label="Quy trình thiết kế website">
+  <rect x="30" y="26" width="250" height="180" rx="14" fill="#ffffff" stroke="#dbe7f3" stroke-width="2"/>
+  <rect x="30" y="26" width="250" height="34" rx="14" fill="#0b5fa5"/>
+  <circle cx="52" cy="43" r="5" fill="#f26d6d"/><circle cx="72" cy="43" r="5" fill="#f5bf4f"/><circle cx="92" cy="43" r="5" fill="#57c46a"/>
+  <rect x="48" y="76" width="96" height="14" rx="7" fill="#0b5fa5" opacity=".85"/>
+  <rect x="48" y="100" width="150" height="9" rx="4.5" fill="#c9d9ea"/>
+  <rect x="48" y="118" width="128" height="9" rx="4.5" fill="#c9d9ea"/>
+  <rect x="48" y="146" width="70" height="24" rx="12" fill="#fce26c"/>
+  <rect x="160" y="140" width="100" height="56" rx="10" fill="#eef4fb"/>
+  <path d="M176 182l14-20 12 14 10-9 18 15z" fill="#0b5fa5" opacity=".55"/>
+  <circle cx="238" cy="152" r="5" fill="#e79bb5"/>
+  <rect x="238" y="52" width="92" height="118" rx="12" fill="#083d6e"/>
+  <rect x="252" y="68" width="64" height="8" rx="4" fill="#7fb2dd"/>
+  <rect x="252" y="86" width="64" height="8" rx="4" fill="#ffffff" opacity=".55"/>
+  <rect x="252" y="104" width="46" height="8" rx="4" fill="#ffffff" opacity=".35"/>
+  <rect x="252" y="128" width="64" height="26" rx="8" fill="#fce26c"/>
+  <circle cx="322" cy="196" r="26" fill="#0b5fa5"/>
+  <path d="M311 196l8 8 15-16" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
       </div>
     </div>
 
@@ -400,9 +418,8 @@ document.getElementById('domainInput').addEventListener('keydown', function(e) {
         <% processSteps.forEach(function(step, i) { %>
         <div class="process-row" style="<%= shiftMap[i % shiftMap.length] > 0 ? 'margin-left:' + shiftMap[i % shiftMap.length] + 'px' : '' %>">
           <div class="process-step__cube process-cube--<%= step.color %>"><%= String(step.step_number).padStart(2,'0') %></div>
-          <% if (step.image_path) { %>
-          <div class="process-step__img"><img src="<%= step.image_path %>" alt="<%= step.title %>"></div>
-          <% } %>
+<% const stepIcons = ['M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z', 'M3 17.25V21h3.75L17.8 9.94l-3.75-3.75L3 17.25zM20.7 7.04a1 1 0 000-1.41l-2.34-2.34a1 1 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z', 'M12 4.5C7 4.5 2.7 7.6 1 12c1.7 4.4 6 7.5 11 7.5s9.3-3.1 11-7.5c-1.7-4.4-6-7.5-11-7.5zM12 17a5 5 0 110-10 5 5 0 010 10zm0-8a3 3 0 100 6 3 3 0 000-6z', 'M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z', 'M12 2a10 10 0 100 20 10 10 0 000-20zm-2 15l-5-5 1.4-1.4L10 14.2l7.6-7.6L19 8l-9 9z']; %>
+          <div class="process-step__icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="<%= stepIcons[i % stepIcons.length] %>"/></svg></div>
           <div class="process-step__info">
             <span>BƯỚC <%= String(step.step_number).padStart(2,'0') %></span>
             <h4><%= step.title %></h4>
@@ -474,8 +491,8 @@ document.getElementById('domainInput').addEventListener('keydown', function(e) {
     <path d="M0,30 C360,0 1080,40 1440,10 L1440,40 L0,40 Z" fill="#f8fbff"/>
   </svg>
 </div>
-<% if (typeof homeTemplates !== 'undefined' && homeTemplates && homeTemplates.length > 0) { %>
-<!-- ===== DỰ ÁN TIÊU BIỂU (kiểu digiz) ===== -->
+<!-- ===== DỰ ÁN TIÊU BIỂU (kiểu digiz — dự án thật của khách DEVORA) ===== -->
+<% if (typeof homeProjects !== 'undefined' && homeProjects && homeProjects.length > 0) { %>
 <section class="dv-projects">
   <div class="dv-projects__inner">
     <div class="dv-projects__heading">
@@ -484,24 +501,23 @@ document.getElementById('domainInput').addEventListener('keydown', function(e) {
       <p>Mỗi dự án là một bài toán riêng — được giải bằng thiết kế chỉn chu và công nghệ phù hợp.</p>
     </div>
     <div class="dv-projects__grid">
-      <% homeTemplates.slice(0, 5).forEach(function(tpl, i) { %>
-      <a href="/kho-giao-dien" class="dv-project <%= i === 0 ? 'dv-project--big' : '' %>">
+      <% homeProjects.forEach(function(prj, i) { %>
+      <a href="https://<%= prj.url %>" target="_blank" rel="noopener" class="dv-project <%= i === 0 ? 'dv-project--big' : '' %>">
         <span class="dv-browser">
           <span class="dv-browser__bar">
             <span class="dv-browser__dots"><i></i><i></i><i></i></span>
-            <span class="dv-browser__url">devora.vn/kho-giao-dien</span>
+            <span class="dv-browser__url"><%= prj.url %></span>
           </span>
-          <img src="<%= tpl.image_path || '/images/default.png' %>" alt="<%= tpl.name %>" loading="lazy">
+          <img src="<%= prj.image %>" alt="<%= prj.name %>" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=1200&auto=format&fit=crop';">
         </span>
         <span class="dv-project__meta">
           <span class="dv-project__pill">Website</span>
-          <span class="dv-project__cat"><%= tpl.category_label || '' %></span>
+          <span class="dv-project__cat"><%= prj.cat %></span>
         </span>
-        <h3><%= tpl.name %></h3>
-        <% if (tpl.description) { %><p><%= tpl.description %></p><% } %>
+        <h3><%= prj.name %></h3>
+        <p><%= prj.desc %></p>
         <span class="dv-project__chips">
-          <% var chipMap = { bds: ['Giới thiệu dự án','Lead form','SEO'], fnb: ['Menu online','Đặt bàn','SEO'], xaydung: ['Hồ sơ năng lực','Dự án','Báo giá'], noithat: ['Thư viện dự án','Tư vấn','SEO'], dulich: ['Đặt tour','Thanh toán online','Đa ngôn ngữ'], lamdep: ['Đặt lịch','Bảng giá','SEO'], giaoduc: ['Khoá học','Đăng ký online','SEO'], banhang: ['Giỏ hàng','Thanh toán online','Khuyến mãi'] }; %>
-          <% (chipMap[tpl.category] || ['Thiết kế độc bản','Chuẩn SEO','Responsive']).forEach(function(chip) { %>
+          <% prj.chips.forEach(function(chip) { %>
           <span class="dv-chip"><%= chip %></span>
           <% }); %>
         </span>
@@ -509,7 +525,7 @@ document.getElementById('domainInput').addEventListener('keydown', function(e) {
       <% }); %>
     </div>
     <div class="dv-projects__more">
-      <a href="/kho-giao-dien" class="dv-projects__btn">Xem tất cả dự án &rarr;</a>
+      <a href="/khach-hang" class="dv-projects__btn">Xem tất cả dự án &rarr;</a>
     </div>
   </div>
 </section>
@@ -534,7 +550,7 @@ document.getElementById('domainInput').addEventListener('keydown', function(e) {
           <p><%= pkg.description %></p>
         </div>
         <div class="pricing-card__price">
-          <span class="pricing-card__amount"><%= Number(pkg.price).toLocaleString('vi-VN') %>đ</span>
+          <span class="pricing-card__amount"><% if (Number(pkg.price) > 0) { %><%= Number(pkg.price).toLocaleString('vi-VN') %>đ<% } else { %>Liên hệ<% } %></span>
           <span class="pricing-card__unit">/ <%= pkg.unit %></span>
         </div>
         <ul class="pricing-card__features">

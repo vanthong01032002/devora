@@ -24,7 +24,7 @@
           <p><%= pkg.description %></p>
         </div>
         <div class="pricing-card__price">
-          <span class="pricing-card__amount"><%= Number(pkg.price).toLocaleString('vi-VN') %>đ</span>
+          <span class="pricing-card__amount"><% if (Number(pkg.price) > 0) { %><%= Number(pkg.price).toLocaleString('vi-VN') %>đ<% } else { %>Liên hệ<% } %></span>
           <span class="pricing-card__unit">/ <%= pkg.unit %></span>
         </div>
         <ul class="pricing-card__features">

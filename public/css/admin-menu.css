@@ -2376,3 +2376,7 @@
   background: #0f1117;
   border-bottom-color: #2a2d35;
 }
+
+/* Logo dashboard: sat khung, bot trong */
+.admin-sidebar__brand { padding: 6px 8px !important; }
+.admin-sidebar__logo-img { width: 97% !important; max-width: 97% !important; }
