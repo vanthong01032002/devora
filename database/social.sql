@@ -11,5 +11,5 @@ CREATE TABLE IF NOT EXISTS social_buttons (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO social_buttons (title, link, image_path, bg_color, display_order, is_active) VALUES
-('Zalo', 'https://zalo.me/0912817117', NULL, '#0068ff', 1, 1),
-('Hotline', 'tel:0912817117', NULL, '#1565c0', 2, 1);
+('Zalo', 'https://zalo.me/0866475366', NULL, '#0068ff', 1, 1),
+('Hotline', 'tel:0866475366', NULL, '#1565c0', 2, 1);

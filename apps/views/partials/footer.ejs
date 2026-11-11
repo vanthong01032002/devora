@@ -48,6 +48,11 @@
         <a href="tel:<%= (typeof settings !== 'undefined' && settings.hotline) ? settings.hotline.replace(/\./g,'') : '0866475366' %>" class="footer-support__phone">
           <%= (typeof settings !== 'undefined' && settings.hotline) ? settings.hotline : '0866.475.366' %>
         </a>
+        <% if (typeof settings !== 'undefined' && settings.hotline2) { %>
+        <a href="tel:<%= settings.hotline2.replace(/\./g,'') %>" class="footer-support__phone" style="display:block; margin-top:4px;">
+          <%= settings.hotline2 %>
+        </a>
+        <% } %>
         <p class="footer-support__label" style="margin-top:12px;">Email hỗ trợ:</p>
         <a href="mailto:<%= (typeof settings !== 'undefined' && settings.email) ? settings.email : 'info@devora.vn' %>" class="footer-support__phone footer-support__phone--alt">
           <%= (typeof settings !== 'undefined' && settings.email) ? settings.email : 'info@devora.vn' %>

@@ -30,7 +30,7 @@
         </div>
         <div>
           <strong>Điện thoại</strong>
-          <p><a href="tel:<%= (typeof settings !== 'undefined' && settings.hotline) ? settings.hotline.replace(/\./g,'') : '' %>"><%= (typeof settings !== 'undefined' && settings.hotline) ? settings.hotline : '0912.817.117' %></a></p>
+          <p><a href="tel:<%= (typeof settings !== 'undefined' && settings.hotline) ? settings.hotline.replace(/\./g,'') : '' %>"><%= (typeof settings !== 'undefined' && settings.hotline) ? settings.hotline : '0866.475.366' %></a><% if (typeof settings !== 'undefined' && settings.hotline2) { %><br><a href="tel:<%= settings.hotline2.replace(/\./g,'') %>"><%= settings.hotline2 %></a><% } %></p>
         </div>
       </div>
 
@@ -74,7 +74,7 @@
           </div>
           <div>
             <label>Số điện thoại</label>
-            <input type="tel" name="phone" placeholder="0912.xxx.xxx">
+            <input type="tel" name="phone" placeholder="Nhập số điện thoại của bạn">
           </div>
         </div>
         <div class="contact-form__row">
