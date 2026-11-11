@@ -25,7 +25,7 @@ ON DUPLICATE KEY UPDATE `key` = `key`;
 
 -- Logo và Favicon
 INSERT INTO site_settings (`key`, `value`) VALUES
-('logo_path',    '/images/logodavora.jpg'),
+('logo_path',    '/images/logodavora.png'),
 ('favicon_path', '/images/favicon.ico')
 ON DUPLICATE KEY UPDATE `key` = `key`;
 
