@@ -347,3 +347,9 @@ h1, h2, h3 { font-weight: 800; }
 
 /* Du an: dung 4 cai noi bat — the thu 4 (cuoi) tran hang cho can */
 .dv-projects__grid > *:nth-child(4):last-child { grid-column: 1 / -1; }
+
+/* ===== Du an: bo cuc deu 2x2 (22:47) — bo kieu 1 to 3 nho lech hang ===== */
+.dv-projects__grid { grid-template-columns: 1fr 1fr; gap: 28px; }
+.dv-project--big { grid-row: auto; }
+.dv-projects__grid > *:nth-child(4):last-child { grid-column: auto; }
+.dv-browser img, .dv-project--big .dv-browser img { width: 100%; height: auto; aspect-ratio: 16/10; max-height: none; object-fit: cover; }
