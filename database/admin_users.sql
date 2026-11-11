@@ -10,5 +10,5 @@ CREATE TABLE IF NOT EXISTS admin_users (
 -- Tài khoản mặc định: admin / Admin@123
 -- Hash bcrypt của "Admin@123"
 INSERT INTO admin_users (username, password, full_name) VALUES
-('admin', '$2b$10$rOzJqWmKvXs1N8QpL3mHOeQZ1YkXvN2mP4dR7sT9uV0wX5yA6bC8e', 'Administrator')
+('admin', '$2b$10$gXy2j2EdAW3wejbz.idxy.gZGdMBLQIQ.hUVOFFUWgJFXKDtS0Zym', 'Administrator')
 ON DUPLICATE KEY UPDATE username = username;
