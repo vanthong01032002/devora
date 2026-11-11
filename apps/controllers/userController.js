@@ -38,6 +38,11 @@ const HOME_PROJECTS = [
     { name: 'Golden Jazz KTV', url: 'goldenjazzktv.com', cat: 'Karaoke KTV', desc: 'KTV thương vụ phục vụ khách Hoa tại Quận 5 — giao diện sang trọng, song ngữ Việt – Trung.', image: 'http://goldenjazzktv.com/thumbs/7008x4672x1/upload/seopage/2026/10/07/ahs03880-1-1791332546-5070.webp', chips: ['Song ngữ Việt–Trung', 'SEO', 'Đặt phòng'] },
 ];
 
+// Tat ca du an that (trang chu chi dung 4 muc HOME_PROJECTS; trang Khach hang + Portfolio dung du 5)
+const ALL_PROJECTS = [...HOME_PROJECTS,
+    { name: 'DU XUÂN KTV', url: 'duxuanktvhcm.com', cat: 'Karaoke KTV', desc: 'KTV Quận 1 tại 03 Trần Khắc Chân, Tân Định — 3 hạng phòng CLASSIC / LUXURY / VIP, website chuẩn SEO.', image: 'https://duxuanktvhcm.com/upload/photo/2026/09/30/chatgpt-image-sep-30-2026-091741-pm-1790777878.png', chips: ['Đặt phòng', 'SEO', 'Google Maps'] },
+];
+
 // trang chủ
 exports.home = async (req, res) => {
     try {
@@ -75,7 +80,7 @@ exports.dichVu = async (req, res) => {
 // trang khách hàng
 exports.khachHang = async (req, res) => {
     const [socialButtons, socialFooter, settings, clients] = await Promise.all([getSocialButtons(), getSocialFooter(), getSettings(), ClientModel.getAllActive()]);
-    res.render('user/khach-hang', { layout: 'layouts/main', title: 'Khách hàng - Devora', socialButtons, socialFooter, settings, seo: {}, clients });
+    res.render('user/khach-hang', { layout: 'layouts/main', title: 'Khách hàng - Devora', socialButtons, socialFooter, settings, seo: {}, clients, homeProjects: ALL_PROJECTS });
 };
 
 // trang về chúng tôi
@@ -105,16 +110,19 @@ exports.blog = async (req, res) => {
 
 exports.blogDetail = async (req, res) => {
     try {
-        const [post, socialButtons, socialFooter, settings] = await Promise.all([
-            BlogModel.getBySlug(req.params.slug), getSocialButtons(), getSocialFooter(), getSettings()
+        const [post, socialButtons, socialFooter, settings, allPosts] = await Promise.all([
+            BlogModel.getBySlug(req.params.slug), getSocialButtons(), getSocialFooter(), getSettings(), BlogModel.getAllActive()
         ]);
         if (!post) return res.status(404).render('user/blog', { layout: 'layouts/main', title: 'Không tìm thấy', posts: [], socialButtons, socialFooter, settings });
         if (post.content) { try { post.content = await applyAutoLinks(post.content); } catch (e) { /* bo qua neu loi */ } }
         await BlogModel.incrementViews(post.id);
+        const relatedPosts = (allPosts || []).filter(p => p.id !== post.id).slice(0, 3);
         res.render('user/blog-detail', {
             layout: 'layouts/main',
             title: post.seo_title || post.title,
-            post, socialButtons, socialFooter, settings
+            post, socialButtons, socialFooter, settings,
+            seo: { title: post.seo_title || post.title, description: post.seo_description || post.description || '', keywords: post.seo_keywords || '', og_image: post.thumbnail || '' },
+            relatedPosts
         });
     } catch (err) {
         console.error(err);
@@ -192,8 +200,8 @@ exports.tkwPortfolio = async (req, res) => {
     ]);
     res.render('user/tkw/portfolio', {
         layout: 'layouts/main',
-        title: 'Portfolio - Dự án thiết kế website | Devora',
-        socialButtons, socialFooter, settings, seo: {}
+        title: 'Dự Án Đã Làm - Thiết kế website | Devora',
+        socialButtons, socialFooter, settings, seo: {}, homeProjects: ALL_PROJECTS
     });
 };
 

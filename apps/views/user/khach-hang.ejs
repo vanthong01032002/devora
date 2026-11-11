@@ -1,7 +1,11 @@
 ﻿<!-- ===== HERO ===== -->
-<section class="kh-hero">
+<section class="kh-hero has-decor">
+  <span class="page-ghost" aria-hidden="true">Khách hàng</span>
+  <span class="page-dots" aria-hidden="true"></span>
+  <span class="page-glow" aria-hidden="true"></span>
   <div class="kh-hero__inner">
-    <p class="kh-hero__tag">100+ Dự án thành công</p>
+    <nav class="page-crumb" aria-label="Breadcrumb"><a href="/">Trang chủ</a><span class="sep">/</span><span>Khách hàng</span></nav>
+    <p class="kh-hero__tag">20+ Dự án đã bàn giao</p>
     <h1>Khách hàng của <span>Devora</span></h1>
     <p>Với Devora, mỗi dự án hoàn thành không chỉ là một sản phẩm công nghệ, mà là một lời cảm ơn gửi đến Quý khách hàng. Chúng tôi trân trọng cơ hội được lắng nghe, thấu hiểu và cùng bạn xây dựng một nền tảng website chuyên nghiệp, vững chắc cho sự phát triển lâu dài.</p>
   </div>
@@ -11,16 +15,16 @@
 <section class="kh-stats">
   <div class="kh-stats__inner">
     <div class="kh-stat">
-      <span class="kh-stat__num">100+</span>
-      <span class="kh-stat__label">Website đã triển khai</span>
+      <span class="kh-stat__num">20+</span>
+      <span class="kh-stat__label">Dự án đã bàn giao</span>
     </div>
     <div class="kh-stat">
       <span class="kh-stat__num">100%</span>
-      <span class="kh-stat__label">Khách hàng hài lòng</span>
+      <span class="kh-stat__label">Bàn giao mã nguồn</span>
     </div>
     <div class="kh-stat">
-      <span class="kh-stat__num">95%</span>
-      <span class="kh-stat__label">Tăng trưởng doanh thu</span>
+      <span class="kh-stat__num">24/7</span>
+      <span class="kh-stat__label">Hỗ trợ kỹ thuật</span>
     </div>
     <div class="kh-stat">
       <span class="kh-stat__num">10+</span>
@@ -75,89 +79,21 @@
     </div>
 
     <div class="kh-projects__grid">
+      <% (typeof homeProjects !== 'undefined' && homeProjects ? homeProjects : []).forEach(function(prj) { %>
       <div class="kh-project-card">
         <div class="kh-project-card__img">
-          <img src="/images/tab-combo1.png" alt="Nội thất Mộc Nguyên Cường">
+          <img src="<%= prj.image %>" alt="<%= prj.name %>" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=1200&auto=format&fit=crop'">
           <div class="kh-project-card__overlay">
-            <span>Xem dự án</span>
+            <a href="https://<%= prj.url %>" target="_blank" rel="noopener">Xem dự án</a>
           </div>
         </div>
         <div class="kh-project-card__body">
-          <span class="kh-project-card__cat">Nội thất</span>
-          <h4>Nội thất Mộc Nguyên Cường</h4>
-          <p>Website giới thiệu sản phẩm nội thất cao cấp, chuẩn SEO, tối ưu chuyển đổi.</p>
+          <span class="kh-project-card__cat"><%= prj.cat %></span>
+          <h4><%= prj.name %></h4>
+          <p><%= prj.desc %></p>
         </div>
       </div>
-
-      <div class="kh-project-card">
-        <div class="kh-project-card__img">
-          <img src="/images/tab-combo2.png" alt="Nhà hàng Mộc Chay">
-          <div class="kh-project-card__overlay">
-            <span>Xem dự án</span>
-          </div>
-        </div>
-        <div class="kh-project-card__body">
-          <span class="kh-project-card__cat">Ẩm thực</span>
-          <h4>Chuỗi nhà hàng Mộc Chay</h4>
-          <p>Website đặt bàn online, menu đẹp, tích hợp Google Maps và fanpage.</p>
-        </div>
-      </div>
-
-      <div class="kh-project-card">
-        <div class="kh-project-card__img">
-          <img src="/images/tab-monchay.png" alt="Spa Thiên Nhiên">
-          <div class="kh-project-card__overlay">
-            <span>Xem dự án</span>
-          </div>
-        </div>
-        <div class="kh-project-card__body">
-          <span class="kh-project-card__cat">Làm đẹp</span>
-          <h4>Spa Thiên Nhiên</h4>
-          <p>Website booking dịch vụ spa, giao diện sang trọng, tối ưu mobile.</p>
-        </div>
-      </div>
-
-      <div class="kh-project-card">
-        <div class="kh-project-card__img">
-          <img src="/images/hero-small.png" alt="Công ty ABC">
-          <div class="kh-project-card__overlay">
-            <span>Xem dự án</span>
-          </div>
-        </div>
-        <div class="kh-project-card__body">
-          <span class="kh-project-card__cat">Doanh nghiệp</span>
-          <h4>Công ty TNHH ABC</h4>
-          <p>Website doanh nghiệp đa ngôn ngữ, tích hợp CRM và hệ thống báo giá.</p>
-        </div>
-      </div>
-
-      <div class="kh-project-card">
-        <div class="kh-project-card__img">
-          <img src="/images/tab-combo1.png" alt="Thời trang XYZ">
-          <div class="kh-project-card__overlay">
-            <span>Xem dự án</span>
-          </div>
-        </div>
-        <div class="kh-project-card__body">
-          <span class="kh-project-card__cat">Thời trang</span>
-          <h4>Thời trang XYZ</h4>
-          <p>Website thương mại điện tử thời trang, tích hợp thanh toán online.</p>
-        </div>
-      </div>
-
-      <div class="kh-project-card">
-        <div class="kh-project-card__img">
-          <img src="/images/tab-combo2.png" alt="Giáo dục EduPro">
-          <div class="kh-project-card__overlay">
-            <span>Xem dự án</span>
-          </div>
-        </div>
-        <div class="kh-project-card__body">
-          <span class="kh-project-card__cat">Giáo dục</span>
-          <h4>Trung tâm EduPro</h4>
-          <p>Website đăng ký khóa học online, quản lý học viên và lịch học.</p>
-        </div>
-      </div>
+      <% }); %>
     </div>
   </div>
 </section>

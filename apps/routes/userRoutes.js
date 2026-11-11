@@ -8,6 +8,7 @@ router.get('/login', userController.login);
 router.get('/dich-vu', userController.dichVu);
 router.get('/khach-hang', userController.khachHang);
 router.get('/about', userController.veChungToi);
+router.get('/ve-chung-toi', userController.veChungToi);
 router.get('/kho-giao-dien', userController.khoGiaoDien);
 router.get('/blog', userController.blog);
 router.get('/blog/:slug', userController.blogDetail);

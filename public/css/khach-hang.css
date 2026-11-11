@@ -362,3 +362,12 @@
   .kh-projects__grid { grid-template-columns: 1fr; }
   .kh-stats__inner { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* Giai doan 2: overlay la link ra website that cua du an */
+.kh-project-card__overlay a { color: #fff; font-size: 0.95rem; font-weight: 700; border: 2px solid #fff; padding: 8px 20px; border-radius: 999px; text-decoration: none; }
+
+/* Giai doan 2: chu trang tren the featured — rule chung (.kh-testi-card p,
+   .kh-testi-card__author strong/span) dung SAU rule featured nen lan mau toi */
+.kh-testimonials__grid .kh-testi-card--featured p { color: #fff; }
+.kh-testimonials__grid .kh-testi-card--featured .kh-testi-card__author strong { color: #fff; }
+.kh-testimonials__grid .kh-testi-card--featured .kh-testi-card__author span { color: rgba(255,255,255,0.85); }

@@ -14,6 +14,6 @@
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO clients (full_name, position, company, testimonial, rating, display_order, is_active) VALUES
-('Mr. Lưu Phước Nguyên', 'CEO', 'Nội thất Mộc Nguyên Cường', 'Devora làm việc khá kỹ trong khâu tư vấn và hiểu rõ đặc thù ngành nội thất. Website sau khi hoàn thiện thể hiện được sản phẩm, hình ảnh và phong cách mà chúng tôi mong muốn.', 5, 1, 1),
-('Ms. Trần Hương', 'Giám đốc', 'Spa Thiên Nhiên', 'Đội ngũ Devora rất chuyên nghiệp, tư vấn tận tình và giao website đúng hạn. Chúng tôi rất hài lòng với kết quả nhận được.', 5, 2, 1),
-('Mr. Minh Khoa', 'Chủ chuỗi', 'Nhà hàng Mộc Chay', 'Website sau khi làm xong đã giúp chúng tôi tăng đơn hàng online rõ rệt. SEO lên top nhanh hơn mong đợi, rất đáng đầu tư.', 5, 3, 1);
+('Chinatown Karaoke', 'Chuỗi KTV', 'Chinatown Karaoke', 'Website song ngữ Việt – Trung giúp khách hàng Trung Quốc tìm thấy và liên hệ đặt phòng dễ dàng hơn hẳn. Đội ngũ hỗ trợ nhanh, chỉnh sửa tận tâm theo đúng nhu cầu vận hành của chuỗi.', 5, 1, 1),
+('90S House - Private Lounge', 'Karaoke & Lounge', '90S House - Private Lounge', 'Trang web tải nhanh, giao diện đúng chất lounge cao cấp, khách xem phòng và gọi đặt bàn ngay trên điện thoại rất tiện. Từ ngày có website, lượng khách biết đến quán qua Google tăng rõ rệt.', 5, 2, 1),
+('Golden Jazz KTV', 'KTV phục vụ khách Hoa', 'Golden Jazz KTV', 'Devora quản trị nội dung và làm SEO đều tay cho quán, bài viết lên đều, khách quốc tế tìm thấy quán qua Google nhiều hơn trước. Có vấn đề gì nhắn là được hỗ trợ ngay.', 5, 3, 1);

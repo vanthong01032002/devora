@@ -353,3 +353,32 @@ h1, h2, h3 { font-weight: 800; }
 .dv-project--big { grid-row: auto; }
 .dv-projects__grid > *:nth-child(4):last-child { grid-column: auto; }
 .dv-browser img, .dv-project--big .dv-browser img { width: 100%; height: auto; aspect-ratio: 16/10; max-height: none; object-fit: cover; }
+
+/* ===== MOBILE FIX (23:03): Quy trinh bo le bac thang (inline margin), Du an ve 1 cot ===== */
+@media (max-width: 900px) {
+  .dv-projects__grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+  .process-row { margin-left: 0 !important; gap: 10px; padding: 12px; }
+  .process-step__info { min-width: 0; flex: 1; }
+  .dv-cube { width: 60px; height: 60px; flex-basis: 60px; }
+}
+
+/* ===== TRANG TRONG — GIAI DOAN 2 (00:05 12/11): decor chung ghost/cham/quang sang tong xanh DEVORA ===== */
+.has-decor { position: relative; overflow: hidden; }
+.has-decor > :not(.page-ghost):not(.page-dots):not(.page-glow) { position: relative; z-index: 1; }
+.has-decor h1 { font-family: 'Montserrat', sans-serif; text-transform: uppercase; }
+.page-ghost { position: absolute; bottom: 2px; right: -8px; z-index: 0; font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: clamp(64px, 10vw, 128px); line-height: 1; letter-spacing: .02em; text-transform: uppercase; color: transparent; -webkit-text-stroke: 1.5px rgba(11,95,165,.08); pointer-events: none; user-select: none; white-space: nowrap; }
+.page-ghost--light { -webkit-text-stroke-color: rgba(255,255,255,.07); }
+.page-dots { position: absolute; top: 18px; right: 16px; width: 220px; height: 220px; background-image: radial-gradient(rgba(11,95,165,.13) 1.6px, transparent 1.8px); background-size: 18px 18px; pointer-events: none; z-index: 0; }
+.page-dots--light { background-image: radial-gradient(rgba(255,255,255,.16) 1.6px, transparent 1.8px); }
+.page-glow { position: absolute; top: -120px; left: -110px; width: 320px; height: 320px; border-radius: 50%; background: radial-gradient(circle, rgba(87,168,236,.16), transparent 65%); pointer-events: none; z-index: 0; }
+.page-glow--light { background: radial-gradient(circle, rgba(144,202,249,.20), transparent 65%); }
+.page-crumb { display: flex; gap: 6px; align-items: center; justify-content: center; flex-wrap: wrap; font-size: .82rem; color: #7a8aa0; margin-bottom: 14px; }
+.page-crumb a { color: #1565c0; text-decoration: none; font-weight: 600; }
+.page-crumb a:hover { text-decoration: underline; }
+.page-crumb .sep { color: #b0becf; }
+.page-crumb--left { justify-content: flex-start; }
+.page-crumb--light { color: rgba(255,255,255,.7); }
+.page-crumb--light a { color: rgba(255,255,255,.9); }
+.page-crumb--light .sep { color: rgba(255,255,255,.5); }

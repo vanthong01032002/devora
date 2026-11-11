@@ -1,6 +1,8 @@
 <article class="blog-detail">
   <div class="blog-detail__inner">
 
+    <nav class="page-crumb page-crumb--left" aria-label="Breadcrumb"><a href="/">Trang chủ</a><span class="sep">/</span><a href="/blog">Blog</a><span class="sep">/</span><span><%= post.title %></span></nav>
+
     <div class="blog-detail__header">
       <div class="blog-detail__meta">
         <span><%= new Date(post.created_at).toLocaleDateString('vi-VN') %></span>
@@ -26,3 +28,28 @@
 
   </div>
 </article>
+
+<!-- Bài viết liên quan -->
+<% if (typeof relatedPosts !== 'undefined' && relatedPosts && relatedPosts.length > 0) { %>
+<section class="blog-related has-decor">
+  <span class="page-ghost" aria-hidden="true">Blog</span>
+  <div class="blog-related__inner">
+    <h2>Bài viết liên quan</h2>
+    <div class="blog-grid">
+      <% relatedPosts.forEach(function(rp) { %>
+      <article class="blog-card">
+        <a href="/blog/<%= rp.slug %>" class="blog-card__img">
+          <img src="<%= rp.thumbnail || '/images/default.png' %>" alt="<%= rp.title %>" loading="lazy">
+        </a>
+        <div class="blog-card__body">
+          <div class="blog-card__meta"><span><%= new Date(rp.created_at).toLocaleDateString('vi-VN') %></span></div>
+          <h2 class="blog-card__title"><a href="/blog/<%= rp.slug %>"><%= rp.title %></a></h2>
+          <p class="blog-card__desc"><%= rp.description || '' %></p>
+          <a href="/blog/<%= rp.slug %>" class="blog-card__btn">Đọc tiếp</a>
+        </div>
+      </article>
+      <% }); %>
+    </div>
+  </div>
+</section>
+<% } %>

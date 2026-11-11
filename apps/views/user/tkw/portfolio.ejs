@@ -1,15 +1,28 @@
 ﻿<!-- Hero -->
-<section class="tkw-hero tkw-hero--sm">
+<section class="tkw-hero tkw-hero--sm has-decor">
+  <span class="page-ghost page-ghost--light" aria-hidden="true">Dự án</span>
+  <span class="page-dots page-dots--light" aria-hidden="true"></span>
+  <span class="page-glow page-glow--light" aria-hidden="true"></span>
   <div class="tkw-hero__inner tkw-hero__inner--center">
     <div class="tkw-breadcrumb">
       <a href="/">Trang chủ</a> <span>/</span>
-      <a href="/dich-vu">Dịch vụ</a> <span>/</span>
-      <span>Portfolio</span>
+      <a href="/thiet-ke-website">Thiết kế Website</a> <span>/</span>
+      <span>Dự Án Đã Làm</span>
     </div>
-    <h1>Portfolio <span>Dự án thực tế</span></h1>
+    <h1>Dự Án <span>Đã Làm</span></h1>
     <p>Những website chúng tôi đã xây dựng — mỗi dự án là một câu chuyện thành công.</p>
   </div>
 </section>
+
+<!-- Sub-nav -->
+<nav class="tkw-subnav">
+  <div class="tkw-subnav__inner">
+    <a href="/thiet-ke-website" class="tkw-subnav__link">Tổng quan</a>
+    <a href="/thiet-ke-website/gioi-thieu" class="tkw-subnav__link">Website Doanh Nghiệp</a>
+    <a href="/thiet-ke-website/bang-gia" class="tkw-subnav__link">Bảng giá</a>
+    <a href="/thiet-ke-website/portfolio" class="tkw-subnav__link tkw-subnav__link--active">Dự Án Đã Làm</a>
+  </div>
+</nav>
 
 <!-- Filter + Grid -->
 <section class="tkw-portfolio-section">
@@ -18,34 +31,20 @@
     <!-- Filter tabs -->
     <div class="tkw-filter-tabs" id="portfolioFilters">
       <button class="tkw-filter active" data-filter="all">Tất cả</button>
-      <button class="tkw-filter" data-filter="bds">Bất động sản</button>
-      <button class="tkw-filter" data-filter="fnb">F&B</button>
-      <button class="tkw-filter" data-filter="noithat">Nội thất</button>
-      <button class="tkw-filter" data-filter="giaoduc">Giáo dục</button>
-      <button class="tkw-filter" data-filter="lamdep">Làm đẹp</button>
-      <button class="tkw-filter" data-filter="banhang">Bán hàng</button>
+      <button class="tkw-filter" data-filter="ktv">Karaoke KTV</button>
+      <button class="tkw-filter" data-filter="lounge">Karaoke &amp; Lounge</button>
     </div>
 
     <!-- Grid -->
     <div class="tkw-portfolio-grid" id="portfolioGrid">
-      <% const projects = [
-        { cat:'bds',     catLabel:'Bất động sản', name:'Website BĐS Luxury',       desc:'Website bất động sản cao cấp, tích hợp bản đồ và lọc dự án.',  img:'/images/banner_main.jpg',  tags:['SEO','Responsive','Maps'] },
-        { cat:'fnb',     catLabel:'F&B',           name:'Nhà hàng Mộc Chay',        desc:'Website đặt bàn online, menu đẹp, tích hợp fanpage.',           img:'/images/tab-monchay.png',  tags:['Booking','SEO','Mobile'] },
-        { cat:'noithat', catLabel:'Nội thất',       name:'Nội thất Mộc Nguyên',      desc:'Showcase sản phẩm nội thất cao cấp, gallery đẹp.',              img:'/images/tab-combo1.png',   tags:['Gallery','SEO','CMS'] },
-        { cat:'fnb',     catLabel:'F&B',            name:'Chuỗi Cafe Devora',        desc:'Website chuỗi cafe với hệ thống quản lý đơn hàng.',             img:'/images/tab-combo2.png',   tags:['Order','SEO','Responsive'] },
-        { cat:'giaoduc', catLabel:'Giáo dục',       name:'Trung tâm EduPro',         desc:'Website đăng ký khóa học, quản lý học viên và lịch học.',       img:'/images/hero-small.png',   tags:['LMS','SEO','Mobile'] },
-        { cat:'lamdep',  catLabel:'Làm đẹp',        name:'Spa Thiên Nhiên',          desc:'Website booking dịch vụ spa, giao diện sang trọng.',            img:'/images/tab-combo1.png',   tags:['Booking','SEO','Luxury'] },
-        { cat:'banhang', catLabel:'Bán hàng',       name:'Shop Thời Trang XYZ',      desc:'Website thương mại điện tử thời trang, thanh toán online.',     img:'/images/tab-combo2.png',   tags:['Ecommerce','SEO','Payment'] },
-        { cat:'bds',     catLabel:'Bất động sản',   name:'Dự án Căn hộ Green',       desc:'Landing page dự án căn hộ với form đăng ký tư vấn.',           img:'/images/banner_main.jpg',  tags:['Landing','SEO','Form'] },
-        { cat:'noithat', catLabel:'Nội thất',       name:'Nội thất Hiện Đại',        desc:'Website nội thất với bộ lọc sản phẩm và so sánh.',             img:'/images/hero-main.png',    tags:['Filter','SEO','CMS'] },
-      ]; %>
+      <% const projects = (typeof homeProjects !== 'undefined' && homeProjects && homeProjects.length ? homeProjects : []).map(function(prj) { return { cat: prj.cat === 'Karaoke / Lounge' ? 'lounge' : 'ktv', catLabel: prj.cat, name: prj.name, desc: prj.desc, img: prj.image, url: prj.url, tags: prj.chips || [] }; }); %>
 
       <% projects.forEach(function(p) { %>
       <div class="tkw-portfolio-card" data-cat="<%= p.cat %>">
         <div class="tkw-portfolio-card__img">
-          <img src="<%= p.img %>" alt="<%= p.name %>">
+          <img src="<%= p.img %>" alt="<%= p.name %>" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=1200&auto=format&fit=crop'">
           <div class="tkw-portfolio-card__overlay">
-            <a href="/lien-he" class="tkw-btn tkw-btn--white-sm">Dự án tương tự</a>
+            <a href="https://<%= p.url %>" target="_blank" rel="noopener" class="tkw-btn tkw-btn--white-sm">Xem website</a>
           </div>
           <span class="tkw-portfolio-card__cat"><%= p.catLabel %></span>
         </div>
@@ -67,10 +66,10 @@
 <section class="tkw-stats">
   <div class="tkw-inner">
     <div class="tkw-stats__grid">
-      <div class="tkw-stat"><span class="stat-number">100+</span><span>Dự án hoàn thành</span></div>
-      <div class="tkw-stat"><span class="stat-number">100%</span><span>Khách hàng hài lòng</span></div>
+      <div class="tkw-stat"><span class="stat-number">20+</span><span>Dự án đã bàn giao</span></div>
+      <div class="tkw-stat"><span class="stat-number">100%</span><span>Bàn giao mã nguồn</span></div>
+      <div class="tkw-stat"><span class="stat-number">24/7</span><span>Hỗ trợ kỹ thuật</span></div>
       <div class="tkw-stat"><span class="stat-number">10+</span><span>Lĩnh vực đa ngành</span></div>
-      <div class="tkw-stat"><span class="stat-number">5+</span><span>Năm kinh nghiệm</span></div>
     </div>
   </div>
 </section>
