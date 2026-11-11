@@ -1,0 +1,96 @@
+/* ============================================================
+   DEVORA THEME — dựng theo hệ thống giao diện demo NASANI
+   (sourcephp85_v5): font Anton + Arsenal, bố cục topbar/header/
+   menu/footer giống mẫu; màu chủ đạo đổi sang xanh DEVORA.
+   ============================================================ */
+@font-face {
+  font-family: 'Arsenal-R';
+  src: url('/fonts/Arsenal-Regular.woff2') format('woff2'),
+       url('/fonts/Arsenal-Regular.woff') format('woff');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Arsenal-B';
+  src: url('/fonts/Arsenal-Bold.woff2') format('woff2'),
+       url('/fonts/Arsenal-Bold.woff') format('woff');
+  font-weight: 700;
+  font-display: swap;
+}
+
+:root {
+  --dv-blue: #0b5fa5;        /* màu chủ đạo DEVORA (thay đỏ #e20702 của mẫu) */
+  --dv-blue-dark: #083d6e;
+  --dv-navy: #0a2e52;        /* nền footer xanh dương đậm như mẫu */
+  --dv-yellow: #fce26c;      /* vàng thanh menu như mẫu */
+  --dv-yellow-btn: #f9c960;
+}
+
+body {
+  font-family: 'Arsenal-R', 'Arsenal', Arial, Helvetica, sans-serif;
+}
+strong, b { font-family: 'Arsenal-B', Arial, sans-serif; }
+
+h1, h2 {
+  font-family: 'Anton', 'Arsenal-B', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: .02em;
+  font-weight: 400;
+}
+
+/* --- Topbar (giống mẫu: trái email | giữa hotline | phải địa chỉ) --- */
+.dv-topbar {
+  background: var(--dv-blue);
+  color: #fff;
+  font-size: 13.5px;
+}
+.dv-topbar__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 6px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.dv-topbar a { color: #fff; text-decoration: none; }
+.dv-topbar__phone { font-family: 'Arsenal-B', sans-serif; letter-spacing: .03em; }
+@media (max-width: 768px) {
+  .dv-topbar__addr { display: none; }
+}
+
+/* --- Header / menu --- */
+.site-header { background: #fff; }
+.header-logo__img { max-height: 64px; width: auto; }
+.nav-menu > li > a {
+  font-family: 'Anton', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+  color: #1c2733;
+}
+.nav-menu > li > a:hover,
+.nav-menu > li > a.active { color: var(--dv-blue); }
+.btn-contact {
+  background: var(--dv-blue) !important;
+  color: #fff !important;
+  font-family: 'Anton', sans-serif;
+  letter-spacing: .04em;
+}
+.btn-contact:hover { background: var(--dv-blue-dark) !important; }
+
+/* --- Nút bấm chính --- */
+.btn-primary, .btn-submit, button[type="submit"].btn {
+  background: var(--dv-blue);
+  color: #fff;
+  font-family: 'Anton', sans-serif;
+  text-transform: uppercase;
+}
+.btn-primary:hover, .btn-submit:hover { background: var(--dv-blue-dark); }
+
+/* --- Footer nền xanh dương đậm như mẫu --- */
+.site-footer { background: var(--dv-navy); }
+.footer-col__title {
+  font-family: 'Anton', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+}
