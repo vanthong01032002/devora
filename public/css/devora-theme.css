@@ -279,7 +279,16 @@ h1, h2, h3 { font-weight: 800; }
 .hero-btn--ghost { background: rgba(255,255,255,.14); color: #fff; border: 1.5px solid rgba(255,255,255,.65); }
 .hero-btn:hover { transform: translateY(-2px) scale(1.02); }
 .slide-btn, .slide-dots { z-index: 5; }
-@media (max-width: 640px) { .hero-overlay__sub { display: none; } .hero-btn { padding: 10px 18px; font-size: 13.5px; } }
+@media (max-width: 640px) {
+  .hero-overlay__sub { display: none; }
+  .hero-btn { padding: 10px 18px; font-size: 13.5px; }
+  /* Mobile: chu slideshow nho lai cho vua khung 220px, tranh mui ten de len chu */
+  .hero-overlay__inner { padding: 0 30px; }
+  .hero-overlay__kick { font-size: 10.5px; padding: 5px 11px; margin-bottom: 10px; letter-spacing: .05em; }
+  .hero-overlay h1 { font-size: 19px; line-height: 1.25; margin-bottom: 10px; }
+  .hero-overlay__cta { gap: 8px; }
+  .hero-btn { padding: 9px 15px; font-size: 12.5px; }
+}
 
 /* ===== TIEU DE MUC DUNG CHUNG ===== */
 .dv-sec__kick { text-align: center; color: var(--dv-blue); font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 10px; }
