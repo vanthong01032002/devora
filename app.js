@@ -103,6 +103,8 @@ app.use('/admin', adminAuth);
 // Middleware: inject adminSiteUrl từ settings vào mọi trang admin
 const SettingsModel = require('./apps/models/settingsModel');
 const ContactModel = require('./apps/models/contactModel');
+const SocialModel = require('./apps/models/socialModel');
+const SocialFooterModel = require('./apps/models/socialFooterModel');
 app.use('/admin', async (req, res, next) => {
     try {
         const s = await SettingsModel.getAll();
@@ -124,6 +126,23 @@ app.use('/admin', async (req, res, next) => {
 });
 
 app.use('/', adminRoutes);
+
+// ===== 404: trang khong ton tai =====
+app.use(async (req, res) => {
+    res.status(404);
+    if (req.path.startsWith('/admin')) {
+        return res.send('<!DOCTYPE html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>404 - TEKORA Admin</title><style>body{font-family:Arial,sans-serif;background:#f2f6fb;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0}.box{text-align:center;background:#fff;padding:44px 40px;border-radius:16px;box-shadow:0 10px 34px rgba(21,101,192,.13);max-width:420px}h1{font-size:52px;margin:0;color:#1565c0}p{color:#546e7a}a{display:inline-block;margin-top:14px;background:#1565c0;color:#fff;padding:11px 22px;border-radius:9px;text-decoration:none;font-weight:700}</style></head><body><div class="box"><h1>404</h1><p>Trang quan tri nay khong ton tai hoac da duoc di chuyen.</p><a href="/admin">Ve Bang dieu khien</a></div></body></html>');
+    }
+    let settings = {}, socialButtons = [], socialFooter = [];
+    try { settings = await SettingsModel.getAll(); } catch {}
+    try { socialButtons = await SocialModel.getAllActive(); } catch {}
+    try { socialFooter = await SocialFooterModel.getAllActive(); } catch {}
+    res.render('user/404', {
+        layout: 'layouts/main',
+        seo: { title: '404 - Khong Tim Thay Trang | TEKORA', description: 'Trang ban tim khong ton tai tren website TEKORA.', keywords: '', image: '' },
+        settings, siteSettings: settings, socialButtons, socialFooter
+    });
+});
 
 // start server
 const PORT = process.env.PORT || 3000;
