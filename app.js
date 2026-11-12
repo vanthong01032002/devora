@@ -4,6 +4,7 @@ const express = require('express');
 const path = require('path');
 const expressLayouts = require('express-ejs-layouts');
 const session = require('express-session');
+const MySQLStore = require('express-mysql-session')(session);
 const { seoRedirectMiddleware } = require('./apps/middleware/seoTools');
 
 const app = express();
@@ -22,12 +23,24 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Session
+// Session — lưu vào MySQL (không để trong RAM) để restart app / nhiều tiến trình
+// trên hosting không làm mất đăng nhập admin; hạn 7 ngày + rolling (đang dùng là tự gia hạn).
+// Store dùng chung kết nối DB sẵn có của app (config/db) để không phải khai lại thông tin.
+const dbConnection = require('./config/db');
+const sessionStore = new MySQLStore({
+    createDatabaseTable: true,
+    clearExpired: true,
+    checkExpirationInterval: 15 * 60 * 1000,
+    expiration: 7 * 24 * 60 * 60 * 1000
+}, dbConnection);
+sessionStore.on('error', (err) => console.error('Session store lỗi:', err && err.message));
 app.use(session({
     secret: process.env.SESSION_SECRET || 'devora_secret_2024',
+    store: sessionStore,
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 24 * 60 * 60 * 1000 } // 1 ngày
+    rolling: true,
+    cookie: { maxAge: 7 * 24 * 60 * 60 * 1000 } // 7 ngày
 }));
 
 // Visitor tracking

@@ -20,7 +20,7 @@
 
         <div class="admin-topbar__right">
             <span class="admin-topbar__version" title="Phiên bản quản trị">VERSION 1.0.0</span>
-            <a href="<%= typeof adminSiteUrl !== 'undefined' ? adminSiteUrl : '/' %>"
+            <a href="/"
                target="_blank"
                class="admin-topbar__icon-btn admin-topbar__view-site"
                title="Xem Website"
@@ -74,6 +74,10 @@
                     <a href="/admin/history" class="aud-item">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></svg>
                         Lịch sử
+                    </a>
+                    <a href="/admin/account" class="aud-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                        Tài khoản
                     </a>
                     <div class="aud-divider"></div>
                     <a href="/admin/user/logout" class="aud-item aud-item--danger">
