@@ -1,5 +1,5 @@
 -- ============================================================
--- DEVORA — Công cụ hệ thống admin (Thùng rác + Lịch sử thao tác)
+-- TEKORA — Công cụ hệ thống admin (Thùng rác + Lịch sử thao tác)
 -- Chạy kèm devora-database-full.sql / devora-update-du-lieu.sql
 -- ============================================================
 

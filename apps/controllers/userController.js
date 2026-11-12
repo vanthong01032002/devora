@@ -30,7 +30,7 @@ exports.login = (req, res) => {
     res.render('user/login');
 };
 
-// Dự án tiêu biểu thật của khách DEVORA (ảnh lấy trực tiếp từ website khách)
+// Dự án tiêu biểu thật của khách TEKORA (ảnh lấy trực tiếp từ website khách)
 const HOME_PROJECTS = [
     { name: 'Chinatown Karaoke', url: 'chinatownkaraokektv.com', cat: 'Karaoke KTV', desc: 'Hệ thống karaoke phục vụ khách Hoa tại KDC Trung Sơn — website đa ngôn ngữ, chuẩn SEO.', image: 'https://chinatownkaraokektv.com/upload/photo/2026/10/10/img0864-1791596290.jpg', chips: ['Đa ngôn ngữ', 'SEO', 'Google Maps'] },
     { name: '90S House - Private Lounge', url: '90shousektv.com', cat: 'Karaoke / Lounge', desc: 'Website karaoke lounge tại Quận 1 — giới thiệu hạng phòng, video và đặt phòng nhanh.', image: 'https://90shousektv.com/thumbs/470x440x1/upload/photo/2026/10/27/s2net-1793063717-1257.webp', chips: ['Đặt phòng', 'Video', 'SEO'] },
@@ -70,17 +70,17 @@ exports.home = async (req, res) => {
 exports.dichVu = async (req, res) => {
     try {
         const [services, socialButtons, socialFooter, settings, seo] = await Promise.all([ServicesModel.getAllActive(), getSocialButtons(), getSocialFooter(), getSettings(), SeoModel.getByKey('services')]);
-        res.render('user/dich-vu', { layout: 'layouts/main', title: seo.title || 'Dịch vụ - Devora', services, socialButtons, socialFooter, settings, seo });
+        res.render('user/dich-vu', { layout: 'layouts/main', title: seo.title || 'Dịch vụ - Tekora', services, socialButtons, socialFooter, settings, seo });
     } catch (error) {
         console.error(error);
-        res.render('user/dich-vu', { layout: 'layouts/main', title: 'Dịch vụ - Devora', services: [], socialButtons: [], socialFooter: [], settings: {}, seo: {} });
+        res.render('user/dich-vu', { layout: 'layouts/main', title: 'Dịch vụ - Tekora', services: [], socialButtons: [], socialFooter: [], settings: {}, seo: {} });
     }
 };
 
 // trang khách hàng
 exports.khachHang = async (req, res) => {
     const [socialButtons, socialFooter, settings, clients] = await Promise.all([getSocialButtons(), getSocialFooter(), getSettings(), ClientModel.getAllActive()]);
-    res.render('user/khach-hang', { layout: 'layouts/main', title: 'Khách hàng - Devora', socialButtons, socialFooter, settings, seo: {}, clients, homeProjects: ALL_PROJECTS });
+    res.render('user/khach-hang', { layout: 'layouts/main', title: 'Khách hàng - Tekora', socialButtons, socialFooter, settings, seo: {}, clients, homeProjects: ALL_PROJECTS });
 };
 
 // trang về chúng tôi
@@ -88,7 +88,7 @@ exports.veChungToi = async (req, res) => {
     const [socialButtons, socialFooter, settings, team] = await Promise.all([
         getSocialButtons(), getSocialFooter(), getSettings(), TeamModel.getAllActive()
     ]);
-    res.render('user/ve-chung-toi', { layout: 'layouts/main', title: 'Về chúng tôi - Devora', socialButtons, socialFooter, settings, seo: {}, team });
+    res.render('user/ve-chung-toi', { layout: 'layouts/main', title: 'Về chúng tôi - Tekora', socialButtons, socialFooter, settings, seo: {}, team });
 };
 
 // kho giao diện
@@ -96,7 +96,7 @@ exports.khoGiaoDien = async (req, res) => {
     const [socialButtons, socialFooter, settings, templates] = await Promise.all([
         getSocialButtons(), getSocialFooter(), getSettings(), TemplateModel.getAllActive()
     ]);
-    res.render('user/kho-giao-dien', { layout: 'layouts/main', title: 'Kho giao diện website - Devora', socialButtons, socialFooter, settings, seo: {}, templates });
+    res.render('user/kho-giao-dien', { layout: 'layouts/main', title: 'Kho giao diện website - Tekora', socialButtons, socialFooter, settings, seo: {}, templates });
 };
 
 // blog
@@ -105,7 +105,7 @@ exports.blog = async (req, res) => {
     const [posts, socialButtons, socialFooter, settings, seo] = await Promise.all([
         BlogModel.getAllActive(), getSocialButtons(), getSocialFooter(), getSettings(), SeoModel.getByKey('news')
     ]);
-    res.render('user/blog', { layout: 'layouts/main', title: seo.title || 'Blog - Devora', posts, socialButtons, socialFooter, settings, seo });
+    res.render('user/blog', { layout: 'layouts/main', title: seo.title || 'Blog - Tekora', posts, socialButtons, socialFooter, settings, seo });
 };
 
 exports.blogDetail = async (req, res) => {
@@ -142,7 +142,7 @@ exports.lienHe = async (req, res) => {
     const [contactPage, socialButtons, socialFooter, settings] = await Promise.all([
         ContactModel.getPage(), getSocialButtons(), getSocialFooter(), getSettings()
     ]);
-    res.render('user/lien-he', { layout: 'layouts/main', title: 'Liên hệ - Devora', contactPage, socialButtons, socialFooter, settings, sent: false });
+    res.render('user/lien-he', { layout: 'layouts/main', title: 'Liên hệ - Tekora', contactPage, socialButtons, socialFooter, settings, sent: false });
 };
 
 exports.lienHeSend = async (req, res) => {
@@ -152,7 +152,7 @@ exports.lienHeSend = async (req, res) => {
         const [contactPage, socialButtons, socialFooter, settings] = await Promise.all([
             ContactModel.getPage(), getSocialButtons(), getSocialFooter(), getSettings()
         ]);
-        res.render('user/lien-he', { layout: 'layouts/main', title: 'Liên hệ - Devora', contactPage, socialButtons, socialFooter, settings, sent: true });
+        res.render('user/lien-he', { layout: 'layouts/main', title: 'Liên hệ - Tekora', contactPage, socialButtons, socialFooter, settings, sent: true });
     } catch (err) {
         console.error(err);
         res.redirect('/lien-he');
@@ -169,7 +169,7 @@ exports.tkwIndex = async (req, res) => {
     ]);
     res.render('user/tkw/index', {
         layout: 'layouts/main',
-        title: 'Thiết kế Website chuyên nghiệp | Devora',
+        title: 'Thiết kế Website chuyên nghiệp | Tekora',
         pricing, services, socialButtons, socialFooter, settings, seo: {}
     });
 };
@@ -181,7 +181,7 @@ exports.tkwGioiThieu = async (req, res) => {
     ]);
     res.render('user/tkw/gioi-thieu', {
         layout: 'layouts/main',
-        title: 'Giới thiệu dịch vụ thiết kế website | Devora',
+        title: 'Giới thiệu dịch vụ thiết kế website | Tekora',
         socialButtons, socialFooter, settings, seo
     });
 };
@@ -193,7 +193,7 @@ exports.tkwBangGia = async (req, res) => {
     ]);
     res.render('user/tkw/bang-gia', {
         layout: 'layouts/main',
-        title: 'Bảng giá thiết kế website | Devora',
+        title: 'Bảng giá thiết kế website | Tekora',
         pricing, socialButtons, socialFooter, settings, seo: {}
     });
 };
@@ -205,7 +205,7 @@ exports.tkwPortfolio = async (req, res) => {
     ]);
     res.render('user/tkw/portfolio', {
         layout: 'layouts/main',
-        title: 'Dự Án Đã Làm - Thiết kế website | Devora',
+        title: 'Dự Án Đã Làm - Thiết kế website | Tekora',
         socialButtons, socialFooter, settings, seo: {}, homeProjects: ALL_PROJECTS
     });
 };

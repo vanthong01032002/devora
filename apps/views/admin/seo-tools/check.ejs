@@ -23,13 +23,13 @@
   <% if (success) { %><div class="admin-alert admin-alert--success"><%= success %></div><% } %>
   <% if (error) { %><div class="admin-alert admin-alert--error"><%= error %></div><% } %>
 
-  <p style="color:#66727f; max-width:860px;">Nhập URL bất kỳ (trang của mình hoặc của đối thủ) và từ khóa mục tiêu — hệ thống tải trang thật và chấm điểm onpage theo chuẩn Devora: meta description đúng 160 ký tự, từ khóa mở đầu nội dung, mỗi trang đúng 1 H1, ảnh có alt…</p>
+  <p style="color:#66727f; max-width:860px;">Nhập URL bất kỳ (trang của mình hoặc của đối thủ) và từ khóa mục tiêu — hệ thống tải trang thật và chấm điểm onpage theo chuẩn Tekora: meta description đúng 160 ký tự, từ khóa mở đầu nội dung, mỗi trang đúng 1 H1, ảnh có alt…</p>
 
   <form action="/admin/seo-tools/check" method="POST" class="admin-form" style="background:#f7fbff; border:1px solid #e3edf7; border-radius:12px; padding:18px; margin:16px 0 14px;">
     <div style="display:grid; grid-template-columns: 1.8fr 1fr auto; gap:12px; align-items:end;">
       <div class="admin-form__row" style="margin:0;">
         <label class="admin-form__label">URL cần kiểm tra</label>
-        <input type="text" id="seockUrl" name="url" class="admin-form__input" required placeholder="https://devora.vn/thiet-ke-website hoặc /dich-vu" value="<%= form.url %>">
+        <input type="text" id="seockUrl" name="url" class="admin-form__input" required placeholder="https://tekora.vn/thiet-ke-website hoặc /dich-vu" value="<%= form.url %>">
       </div>
       <div class="admin-form__row" style="margin:0;">
         <label class="admin-form__label">Từ khóa mục tiêu</label>

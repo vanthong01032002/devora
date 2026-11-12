@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS contact_page (
 
 INSERT INTO contact_page (title, description, image_path) VALUES
 ('Liên hệ với chúng tôi',
- 'Hãy để lại thông tin, chúng tôi sẽ liên hệ lại trong thời gian sớm nhất. Devora luôn sẵn sàng lắng nghe và hỗ trợ bạn.',
+ 'Hãy để lại thông tin, chúng tôi sẽ liên hệ lại trong thời gian sớm nhất. Tekora luôn sẵn sàng lắng nghe và hỗ trợ bạn.',
  NULL);
 
 -- Lưu tin nhắn từ form liên hệ

@@ -6,21 +6,21 @@
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO site_settings (`key`, `value`) VALUES
-('site_name',       'Công ty TNHH Công Nghệ Devora'),
-('site_title',      'Devora - Thiết kế website chuyên nghiệp'),
+('site_name',       'Công ty TNHH Công Nghệ Tekora'),
+('site_title',      'Tekora - Thiết kế website chuyên nghiệp'),
 ('address',         '213 Chu Văn An, Phường 26, Quận Bình Thạnh, TPHCM'),
 ('phone',           '0866.475.366'),
 ('phone2',          '0909.961.037'),
 ('hotline',         '0866.475.366'),
 ('hotline2',        '0909.961.037'),
-('email',           'info@devora.vn'),
-('website',         'https://devora.vn'),
+('email',           'info@tekora.vn'),
+('website',         'https://tekora.vn'),
 ('zalo',            'https://zalo.me/0866475366'),
-('fanpage',         'https://www.facebook.com/devora.vn'),
+('fanpage',         'https://www.facebook.com/tekora.vn'),
 ('google_maps',     'https://maps.google.com'),
 ('working_hours',   '8h00 đến 17h30 (Thứ 2 - Thứ 7)'),
-('copyright',       'Copyright © 2012. Bản quyền website Devora'),
-('fanpage_embed',   'https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fdevora.vn&tabs=timeline&width=260&height=200&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=true')
+('copyright',       'Copyright © 2012. Bản quyền website Tekora'),
+('fanpage_embed',   'https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Ftekora.vn&tabs=timeline&width=260&height=200&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=true')
 ON DUPLICATE KEY UPDATE `key` = `key`;
 
 -- Logo và Favicon

@@ -22,11 +22,11 @@ INSERT INTO blog_posts (title, slug, description, content, is_featured, is_activ
  'Tìm hiểu về thiết kế website chuẩn SEO và tại sao doanh nghiệp cần đầu tư vào nó.',
  '<h2>Thiết kế website chuẩn SEO</h2><p>Nội dung bài viết mẫu...</p>',
  1, 1, 1,
- 'Thiết kế website chuẩn SEO là gì? | Devora',
+ 'Thiết kế website chuẩn SEO là gì? | Tekora',
  'Tìm hiểu về thiết kế website chuẩn SEO và tại sao doanh nghiệp cần đầu tư vào nó ngay hôm nay.'),
 ('5 lý do doanh nghiệp cần website chuyên nghiệp', '5-ly-do-doanh-nghiep-can-website-chuyen-nghiep',
  '5 lý do quan trọng giải thích tại sao mọi doanh nghiệp đều cần một website chuyên nghiệp.',
  '<h2>5 lý do cần website</h2><p>Nội dung bài viết mẫu...</p>',
  0, 1, 2,
- '5 lý do doanh nghiệp cần website chuyên nghiệp | Devora',
+ '5 lý do doanh nghiệp cần website chuyên nghiệp | Tekora',
  '5 lý do quan trọng giải thích tại sao mọi doanh nghiệp đều cần một website chuyên nghiệp.');

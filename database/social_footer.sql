@@ -10,6 +10,6 @@
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO social_footer (title, link, icon_type, display_order, is_active) VALUES
-('Facebook', 'https://www.facebook.com/devora.vn', 'facebook', 1, 1),
-('YouTube', 'https://www.youtube.com/@devora', 'youtube', 2, 1),
+('Facebook', 'https://www.facebook.com/tekora.vn', 'facebook', 1, 1),
+('YouTube', 'https://www.youtube.com/@tekora', 'youtube', 2, 1),
 ('Zalo', 'https://zalo.me/0866475366', 'zalo', 3, 1);

@@ -121,7 +121,7 @@
             <label class="admin-form__label" for="schemaJson">Schema JSON (Tiếng Việt):</label>
             <textarea name="schema_json" id="schemaJson" class="admin-form__input admin-form__textarea seo-schema-input" rows="8"
                       spellcheck="false"
-                      placeholder='{"@context": "https://schema.org", "@type": "Article", "headline": "Tiêu đề bài viết", "author": {"@type": "Organization", "name": "Devora"}, "publisher": {"@type": "Organization", "name": "Devora"}}'><%= post ? (post.schema_json || '') : '' %></textarea>
+                      placeholder='{"@context": "https://schema.org", "@type": "Article", "headline": "Tiêu đề bài viết", "author": {"@type": "Organization", "name": "Tekora"}, "publisher": {"@type": "Organization", "name": "Tekora"}}'><%= post ? (post.schema_json || '') : '' %></textarea>
             <p class="admin-form__hint">Dán đoạn mã Schema JSON-LD (chỉ phần JSON, không cần thẻ &lt;script&gt;). Hệ thống chỉ hiển thị ra trang bài viết khi JSON hợp lệ. Để trống nếu không dùng.</p>
           </div>
         </div>
@@ -193,7 +193,7 @@
           <h3 class="blog-form__section-title">Xem trước Google</h3>
           <div class="seo-preview">
             <div class="seo-preview__title" id="prevTitle"><%= post && post.seo_title ? post.seo_title : (post ? post.title : 'Tiêu đề bài viết') %></div>
-            <div class="seo-preview__url">devora.vn/blog/<span id="prevSlug"><%= post ? post.slug : 'duong-dan' %></span></div>
+            <div class="seo-preview__url">tekora.vn/blog/<span id="prevSlug"><%= post ? post.slug : 'duong-dan' %></span></div>
             <div class="seo-preview__desc" id="prevDesc"><%= post && post.seo_description ? post.seo_description : 'Mô tả SEO sẽ hiển thị ở đây...' %></div>
           </div>
         </div>

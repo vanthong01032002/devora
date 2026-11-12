@@ -14,7 +14,7 @@
 
 /* Watermark text mờ */
 .footer-main::before {
-  content: 'DEVORA';
+  content: 'TEKORA';
   position: absolute;
   bottom: -20px;
   left: 50%;

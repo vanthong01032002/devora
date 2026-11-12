@@ -1081,7 +1081,7 @@ exports.clientIndex = async (req, res) => {
     try {
         const clients = await ClientModel.getAll();
         res.render('admin/clients/index', {
-            layout: 'layouts/admin', title: 'Khách hàng của Devora',
+            layout: 'layouts/admin', title: 'Khách hàng của Tekora',
             clients, success: req.query.success || null, error: req.query.error || null
         });
     } catch (err) { res.redirect('/admin?error=Lỗi tải khách hàng'); }

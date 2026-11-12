@@ -137,7 +137,7 @@ exports.checkRun = async (req, res) => {
         const resp = await fetch(url, {
             redirect: 'follow',
             signal: AbortSignal.timeout(15000),
-            headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126 Safari/537.36 DevoraSEOCheck/1.0' },
+            headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126 Safari/537.36 TekoraSEOCheck/1.0' },
         });
         const html = await resp.text();
         const loadMs = Date.now() - t0;

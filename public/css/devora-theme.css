@@ -1,11 +1,11 @@
 /* ============================================================
-   DEVORA THEME — dựng theo hệ thống giao diện demo NASANI
+   TEKORA THEME — dựng theo hệ thống giao diện demo NASANI
    (sourcephp85_v5): font Anton + Arsenal, bố cục topbar/header/
-   menu/footer giống mẫu; màu chủ đạo đổi sang xanh DEVORA.
+   menu/footer giống mẫu; màu chủ đạo đổi sang xanh TEKORA.
    ============================================================ */
 
 :root {
-  --dv-blue: #0b5fa5;        /* màu chủ đạo DEVORA (thay đỏ #e20702 của mẫu) */
+  --dv-blue: #0b5fa5;        /* màu chủ đạo TEKORA (thay đỏ #e20702 của mẫu) */
   --dv-blue-dark: #083d6e;
   --dv-navy: #0a2e52;        /* nền footer xanh dương đậm như mẫu */
   --dv-yellow: #fce26c;      /* vàng thanh menu như mẫu */
@@ -97,7 +97,7 @@ h1, h2 {
 .pricing-card--featured h3 { color: #fff; }
 .pricing-card--featured .pricing-card__btn { background: #fff; color: var(--dv-blue); }
 
-/* --- Panel LIÊN HỆ kiểu digiz (tông xanh DEVORA + decor) --- */
+/* --- Panel LIÊN HỆ kiểu digiz (tông xanh TEKORA + decor) --- */
 .dv-contact { padding: 70px 15px; background: #f4f8fc; }
 .dv-contact__panel {
   position: relative; overflow: hidden; max-width: 1200px; margin: 0 auto;
@@ -222,7 +222,7 @@ h1, h2, h3 { font-weight: 800; }
 .process-section::before { content: ''; position: absolute; left: -140px; top: 60px; width: 400px; height: 400px; border-radius: 50%; background: radial-gradient(circle, rgba(11,95,165,.13), transparent 65%); pointer-events: none; }
 .dv-tri { position: absolute; width: 0; height: 0; border-left: 9px solid transparent; border-right: 9px solid transparent; border-bottom: 16px solid #f5bf4f; opacity: .85; pointer-events: none; }
 
-/* --- FOOTER dong bo xanh DEVORA --- */
+/* --- FOOTER dong bo xanh TEKORA --- */
 .footer-main { background: linear-gradient(165deg, #0d6cb8 0%, var(--dv-blue) 34%, var(--dv-blue-dark) 68%, #062544 100%) !important; }
 .footer-main::before { color: rgba(255,255,255,.05) !important; }
 .footer-main::after { background: radial-gradient(circle, rgba(87,168,236,.22) 0%, transparent 70%) !important; }
@@ -272,7 +272,7 @@ h1, h2, h3 { font-weight: 800; }
 
 /* ===== DICH VU ===== */
 .dv-services { position: relative; overflow: hidden; padding: 72px 24px; background: linear-gradient(180deg, #ffffff, #eef6fd); }
-.dv-services::before { content: 'DEVORA'; position: absolute; top: 6px; right: -14px; font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: clamp(70px, 11vw, 140px); line-height: 1; color: transparent; -webkit-text-stroke: 1.5px rgba(11,95,165,.09); pointer-events: none; }
+.dv-services::before { content: 'TEKORA'; position: absolute; top: 6px; right: -14px; font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: clamp(70px, 11vw, 140px); line-height: 1; color: transparent; -webkit-text-stroke: 1.5px rgba(11,95,165,.09); pointer-events: none; }
 .dv-services__inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
 .dv-services__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
 .dv-service-card { background: #fff; border: 1px solid #e2edf7; border-radius: 18px; overflow: hidden; box-shadow: 0 6px 20px rgba(8,61,110,.06); transition: transform .25s, box-shadow .25s; }
@@ -364,7 +364,7 @@ h1, h2, h3 { font-weight: 800; }
   .dv-cube { width: 60px; height: 60px; flex-basis: 60px; }
 }
 
-/* ===== TRANG TRONG — GIAI DOAN 2 (00:05 12/11): decor chung ghost/cham/quang sang tong xanh DEVORA ===== */
+/* ===== TRANG TRONG — GIAI DOAN 2 (00:05 12/11): decor chung ghost/cham/quang sang tong xanh TEKORA ===== */
 .has-decor { position: relative; overflow: hidden; }
 .has-decor > :not(.page-ghost):not(.page-dots):not(.page-glow) { position: relative; z-index: 1; }
 .has-decor h1 { font-family: 'Montserrat', sans-serif; text-transform: uppercase; }

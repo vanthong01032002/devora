@@ -1,5 +1,5 @@
 /* ============================================================
-   DEVORA ADMIN — Kiểm tra SEO trực tiếp trong form Tin tức
+   TEKORA ADMIN — Kiểm tra SEO trực tiếp trong form Tin tức
    Chấm 17 điều kiện theo mẫu NASANI, cập nhật ngay khi gõ:
    từ khóa chính / SEO title / SEO description / slug / nội dung
    TinyMCE. So khớp từ khóa không phân biệt hoa thường; URL so
