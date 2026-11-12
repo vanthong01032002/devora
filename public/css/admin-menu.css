@@ -2380,3 +2380,34 @@
 /* Logo dashboard: sat khung, bot trong */
 .admin-sidebar__brand { padding: 6px 8px !important; }
 .admin-sidebar__logo-img { width: 216px !important; max-width: 216px !important; }
+
+/* ========== FIX 2026-11-12 (Admin 8.0): sidebar CO DINH, 2 vung cuon DOC LAP ==========
+   Desktop (>=769px): khoa khung admin bang chieu cao man hinh. Sidebar dung yen mot cho,
+   chi .admin-main cuon noi dung trang, chi .admin-sidebar__nav cuon menu dai.
+   Mobile/tablet dung dang van theo cac media query phia tren. */
+@media (min-width: 769px) {
+  .admin-body {
+    height: 100vh;
+    overflow: hidden;
+  }
+  .admin-sidebar {
+    height: 100vh;
+    min-height: 0;
+  }
+  .admin-sidebar__nav {
+    min-height: 0;
+  }
+  .admin-content {
+    height: 100vh;
+    min-height: 0;
+  }
+  .admin-main {
+    min-height: 0;
+    overflow-y: auto;
+  }
+  /* Thanh action dinh cua form: truoc kia dinh theo trang (top 76px),
+     nay vung cuon la .admin-main nen dinh ngay sat mep tren cua main. */
+  .admin-main .admin-form-actions-bar--sticky {
+    top: 0;
+  }
+}
