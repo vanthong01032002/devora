@@ -1,0 +1,331 @@
+/* ============================================================
+   DEVORA ADMIN — NASANI DEMO STYLE LAYER
+   Layout/phong chu theo admin demo NASANI (Vuexy-based):
+   font Public Sans, sidebar trang + menu pill, the trang vien mong,
+   mau nhan = xanh DEVORA #0b5fa5 (thay do NASANI #c02026).
+   File nay nap SAU admin-menu.css — chi ghi de trinh bay,
+   khong sua logic. Dark mode giu nguyen (chi ap dung khi light).
+   ============================================================ */
+
+:root {
+  --dv-accent: #0b5fa5;
+  --dv-accent-dark: #083d6e;
+  --dv-accent-soft: #e8f1f9;
+  --dv-ink: #2b2c40;
+  --dv-body: #697a8d;
+  --dv-mute: #94a3b8;
+  --dv-line: #e9ebf0;
+  --dv-line-2: #d9dee6;
+  --dv-bg: #f5f6fa;
+  --dv-pill: #f6f7f9;
+  --dv-radius: 10px;
+  --dv-shadow: 0 2px 8px rgba(16, 24, 40, .05);
+}
+
+/* ---------- Font tong the ---------- */
+.admin-body,
+.admin-body button,
+.admin-body input,
+.admin-body select,
+.admin-body textarea {
+  font-family: "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+}
+.admin-body { font-size: 14px; -webkit-font-smoothing: antialiased; }
+html:not([data-theme="dark"]) .admin-body { background: var(--dv-bg); color: var(--dv-body); }
+
+/* ---------- Sidebar ---------- */
+html:not([data-theme="dark"]) .admin-sidebar {
+  background: #ffffff;
+  border-right: 1px solid var(--dv-line);
+  box-shadow: none;
+}
+.admin-sidebar { width: 260px; }
+
+html:not([data-theme="dark"]) .admin-sidebar__brand {
+  display: flex; align-items: center; gap: 10px;
+  margin: 14px 14px 8px; padding: 10px 14px;
+  background: #ffffff; border: 1px solid var(--dv-line);
+  border-radius: var(--dv-radius); box-shadow: var(--dv-shadow);
+}
+.admin-sidebar__logo-img { object-fit: contain; }
+
+.admin-sidebar__nav { padding: 6px 0 18px; }
+.admin-sidebar__section { margin-top: 14px; }
+html:not([data-theme="dark"]) .admin-sidebar__heading {
+  font-size: 11px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase;
+  color: var(--dv-accent); padding: 0 22px; margin: 0 0 6px;
+}
+
+.admin-sidebar__link,
+.admin-sidebar__summary {
+  display: flex; align-items: center; gap: 10px;
+  margin: 2px 12px; padding: 9px 12px; border-radius: 8px;
+  font-size: 13.5px; font-weight: 500; line-height: 1.35;
+  list-style: none; cursor: pointer; transition: background .15s, color .15s;
+}
+html:not([data-theme="dark"]) .admin-sidebar__link,
+html:not([data-theme="dark"]) .admin-sidebar__summary {
+  background: var(--dv-pill); color: var(--dv-ink);
+}
+html:not([data-theme="dark"]) .admin-sidebar__link:hover,
+html:not([data-theme="dark"]) .admin-sidebar__summary:hover { background: #edf1f6; color: var(--dv-accent); }
+.admin-sidebar__ico { flex: none; width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; }
+.admin-sidebar__ico svg { width: 20px; height: 20px; }
+html:not([data-theme="dark"]) .admin-sidebar__ico { color: #64748b; }
+
+html:not([data-theme="dark"]) .admin-sidebar__link.active {
+  background: var(--dv-accent); color: #ffffff; font-weight: 600;
+  box-shadow: 0 4px 10px rgba(11, 95, 165, .28);
+}
+html:not([data-theme="dark"]) .admin-sidebar__link.active .admin-sidebar__ico { color: #ffffff; }
+
+.admin-sidebar__sub { margin: 2px 12px 4px; padding: 2px 0 2px 8px; }
+.admin-sidebar__sub a {
+  display: flex; align-items: center; gap: 8px;
+  padding: 7px 12px; border-radius: 7px; font-size: 13px; font-weight: 500;
+}
+html:not([data-theme="dark"]) .admin-sidebar__sub a { color: var(--dv-body); }
+html:not([data-theme="dark"]) .admin-sidebar__sub a::before {
+  content: ""; flex: none; width: 6px; height: 6px; border-radius: 50%; background: #c3cad4;
+}
+html:not([data-theme="dark"]) .admin-sidebar__sub a:hover { color: var(--dv-accent); background: var(--dv-accent-soft); }
+html:not([data-theme="dark"]) .admin-sidebar__sub a:hover::before { background: var(--dv-accent); }
+
+/* ---------- Topbar ---------- */
+.admin-topbar-wrap { padding: 14px 22px 0; background: transparent; }
+html:not([data-theme="dark"]) .admin-topbar {
+  background: #ffffff; border: 1px solid var(--dv-line); border-radius: 12px;
+  box-shadow: var(--dv-shadow); padding: 10px 16px;
+}
+.admin-topbar__hello { font-size: 14px; }
+html:not([data-theme="dark"]) .admin-topbar__hello { color: var(--dv-body); }
+html:not([data-theme="dark"]) .admin-topbar__hello strong { color: var(--dv-ink); font-weight: 600; }
+
+html:not([data-theme="dark"]) .admin-topbar__search-inner {
+  background: var(--dv-pill); border: 1px solid transparent; border-radius: 8px;
+}
+html:not([data-theme="dark"]) .admin-topbar__search-inner:focus-within {
+  background: #ffffff; border-color: var(--dv-accent);
+  box-shadow: 0 0 0 3px rgba(11, 95, 165, .14);
+}
+.admin-topbar__search { font-size: 13.5px; }
+
+.admin-topbar__icon-btn {
+  width: 38px; height: 38px; border-radius: 8px;
+  display: inline-flex; align-items: center; justify-content: center; transition: background .15s;
+}
+html:not([data-theme="dark"]) .admin-topbar__icon-btn { color: #64748b; background: transparent; border: 0; }
+html:not([data-theme="dark"]) .admin-topbar__icon-btn:hover { background: #f1f5f9; color: var(--dv-accent); }
+html:not([data-theme="dark"]) .admin-topbar__view-site {
+  background: var(--dv-accent); color: #ffffff;
+}
+html:not([data-theme="dark"]) .admin-topbar__view-site:hover { background: var(--dv-accent-dark); color: #ffffff; }
+.admin-topbar__badge { background: #ea5455; border: 2px solid #ffffff; }
+
+html:not([data-theme="dark"]) .admin-user-dropdown {
+  border: 1px solid var(--dv-line); border-radius: 12px; box-shadow: 0 14px 34px rgba(16, 24, 40, .12);
+}
+html:not([data-theme="dark"]) .aud-item:hover { background: var(--dv-accent-soft); color: var(--dv-accent); }
+
+/* ---------- Vung noi dung + the (panel/card) ---------- */
+.admin-main { padding: 18px 22px 30px; }
+html:not([data-theme="dark"]) .admin-panel,
+html:not([data-theme="dark"]) .admin-home-panel,
+html:not([data-theme="dark"]) .admin-dash-card {
+  background: #ffffff; border: 1px solid var(--dv-line);
+  border-radius: 12px; box-shadow: var(--dv-shadow);
+}
+.admin-panel__head { padding: 16px 20px 0; }
+.admin-panel__title, .admin-home-panel__title {
+  font-size: 15px; font-weight: 600; letter-spacing: 0;
+}
+html:not([data-theme="dark"]) .admin-panel__title,
+html:not([data-theme="dark"]) .admin-home-panel__title { color: var(--dv-ink); }
+.admin-panel__rule, .admin-home-panel__rule {
+  width: 38px; height: 3px; border-radius: 3px; border: 0;
+}
+html:not([data-theme="dark"]) .admin-panel__rule,
+html:not([data-theme="dark"]) .admin-home-panel__rule { background: var(--dv-accent); }
+
+/* Dashboard stat cards */
+.admin-dash-card { border-radius: 12px; }
+.admin-dash-card__label { font-size: 13px; }
+html:not([data-theme="dark"]) .admin-dash-card__label { color: var(--dv-mute); }
+.admin-dash-card__more { font-weight: 600; font-size: 13px; }
+html:not([data-theme="dark"]) .admin-dash-card__more { color: var(--dv-accent); }
+
+/* ---------- Form ---------- */
+.admin-form__label { font-size: 13px; font-weight: 500; margin-bottom: 6px; display: block; }
+html:not([data-theme="dark"]) .admin-form__label { color: var(--dv-ink); }
+.admin-form__input,
+.admin-form select.admin-form__input,
+textarea.admin-form__input {
+  border-radius: 8px; padding: 9px 12px; font-size: 13.5px; line-height: 1.5;
+  transition: border-color .15s, box-shadow .15s;
+}
+html:not([data-theme="dark"]) .admin-form__input {
+  background: #ffffff; border: 1px solid var(--dv-line-2); color: var(--dv-ink);
+}
+html:not([data-theme="dark"]) .admin-form__input::placeholder { color: var(--dv-mute); }
+html:not([data-theme="dark"]) .admin-form__input:focus {
+  border-color: var(--dv-accent); outline: none;
+  box-shadow: 0 0 0 3px rgba(11, 95, 165, .14);
+}
+.admin-form__hint { font-size: 12px; }
+html:not([data-theme="dark"]) .admin-form__hint { color: var(--dv-mute); }
+
+html:not([data-theme="dark"]) .admin-upload-area {
+  border: 1.5px dashed #cbd5e1; border-radius: 12px; background: #f8fafc;
+}
+html:not([data-theme="dark"]) .admin-upload-area:hover { border-color: var(--dv-accent); background: var(--dv-accent-soft); }
+
+.admin-form-actions-bar {
+  border-radius: 10px; padding: 10px 12px;
+}
+html:not([data-theme="dark"]) .admin-form-actions-bar {
+  background: rgba(255, 255, 255, .92); border: 1px solid var(--dv-line); box-shadow: var(--dv-shadow);
+}
+
+/* ---------- Nut bam ---------- */
+.admin-btn {
+  border-radius: 8px; padding: 9px 16px; font-size: 13.5px; font-weight: 600;
+  line-height: 1.4; transition: background .15s, box-shadow .15s, border-color .15s;
+}
+html:not([data-theme="dark"]) .admin-btn,
+html:not([data-theme="dark"]) .admin-btn--green {
+  background: var(--dv-accent); border: 1px solid var(--dv-accent); color: #ffffff;
+}
+html:not([data-theme="dark"]) .admin-btn:hover,
+html:not([data-theme="dark"]) .admin-btn--green:hover {
+  background: var(--dv-accent-dark); border-color: var(--dv-accent-dark);
+  box-shadow: 0 6px 14px rgba(11, 95, 165, .25);
+}
+html:not([data-theme="dark"]) .admin-btn--gray {
+  background: #ffffff; border: 1px solid var(--dv-line-2); color: #475569;
+}
+html:not([data-theme="dark"]) .admin-btn--gray:hover {
+  background: #f8fafc; border-color: #b6c0cf; color: var(--dv-ink); box-shadow: none;
+}
+html:not([data-theme="dark"]) .admin-btn--red {
+  background: #ea5455; border: 1px solid #ea5455; color: #ffffff;
+}
+html:not([data-theme="dark"]) .admin-btn--red:hover { background: #d63b3d; border-color: #d63b3d; }
+
+/* ---------- Bang danh sach ---------- */
+html:not([data-theme="dark"]) .admin-table-wrap {
+  border: 1px solid var(--dv-line); border-radius: 12px; overflow: hidden; background: #ffffff;
+}
+.admin-table th {
+  font-size: 11.5px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em;
+  padding: 11px 14px;
+}
+html:not([data-theme="dark"]) .admin-table th { background: #f8fafc; color: #64748b; border-bottom: 1px solid var(--dv-line); }
+.admin-table td { font-size: 13.5px; padding: 11px 14px; }
+html:not([data-theme="dark"]) .admin-table td { color: var(--dv-ink); border-bottom: 1px solid #eef1f5; }
+html:not([data-theme="dark"]) .admin-table tbody tr:hover { background: #f8fafc; }
+.admin-action { border-radius: 7px; }
+html:not([data-theme="dark"]) .admin-action--edit { color: var(--dv-accent); }
+html:not([data-theme="dark"]) .admin-action--edit:hover { background: var(--dv-accent-soft); }
+html:not([data-theme="dark"]) .admin-action--delete { color: #ea5455; }
+html:not([data-theme="dark"]) .admin-action--delete:hover { background: #fdecec; }
+
+html:not([data-theme="dark"]) .admin-search-box input,
+html:not([data-theme="dark"]) .admin-panel__search input {
+  border: 1px solid var(--dv-line-2); border-radius: 8px; background: #ffffff;
+}
+html:not([data-theme="dark"]) .admin-search-box input:focus,
+html:not([data-theme="dark"]) .admin-panel__search input:focus {
+  border-color: var(--dv-accent); outline: none; box-shadow: 0 0 0 3px rgba(11, 95, 165, .14);
+}
+
+/* Toggle switch — nhu mau demo (xanh khi bat) */
+.admin-toggle input:checked + .admin-toggle__slider { background: var(--dv-accent) !important; }
+
+/* Checkbox/radio thuong */
+.admin-body input[type="checkbox"], .admin-body input[type="radio"] { accent-color: var(--dv-accent); }
+
+/* ---------- Alert (truoc khi toast xu ly) ---------- */
+.admin-alert { border-radius: 10px; font-size: 13.5px; }
+
+/* Blog form: tieu de muc */
+.blog-form__section-title { font-size: 14px; font-weight: 600; }
+html:not([data-theme="dark"]) .blog-form__section-title { color: var(--dv-ink); }
+html:not([data-theme="dark"]) .blog-form__sidebar .blog-form__section,
+html:not([data-theme="dark"]) .blog-form__main .blog-form__section {
+  background: #ffffff; border: 1px solid var(--dv-line); border-radius: 12px; box-shadow: var(--dv-shadow);
+}
+
+/* Thanh cuon sidebar mong nhu demo */
+.admin-sidebar::-webkit-scrollbar { width: 5px; }
+.admin-sidebar::-webkit-scrollbar-thumb { background: #d5dbe4; border-radius: 4px; }
+
+/* ============================================================
+   BO SUNG: Dashboard info-box + Topbar version + He thong
+   (theo mau NASANI: info-box icon Tabler trong o mau)
+   ============================================================ */
+
+/* ---------- Topbar: nhan VERSION ---------- */
+.admin-topbar__version {
+  font-size: 13px; font-weight: 700; letter-spacing: .04em;
+  color: #94a3b8; white-space: nowrap; margin-right: 4px;
+}
+
+/* ---------- Dashboard info-box ---------- */
+.dv-infobox-card {
+  background: #ffffff; border: 1px solid var(--dv-line);
+  border-radius: 12px; box-shadow: var(--dv-shadow);
+  margin-bottom: 22px; overflow: hidden;
+}
+.dv-infobox-card__head {
+  padding: 14px 20px; border-bottom: 1px solid var(--dv-line);
+}
+.dv-infobox-card__title {
+  margin: 0; font-size: 15px; font-weight: 600; color: var(--dv-ink);
+}
+.dv-infobox-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 16px; padding: 18px 20px;
+}
+.dv-info-box {
+  display: flex; align-items: center; gap: 14px;
+  padding: 6px 8px; border-radius: 10px; text-decoration: none;
+  transition: background .15s, box-shadow .15s;
+}
+.dv-info-box:hover { background: #f8fafc; box-shadow: 0 4px 14px rgba(16,24,40,.07); }
+.dv-info-box__icon {
+  flex: none; width: 56px; height: 56px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center; color: #ffffff;
+}
+.dv-info-box__icon svg { width: 26px; height: 26px; }
+.dv-info-box__content { display: flex; flex-direction: column; min-width: 0; }
+.dv-info-box__text {
+  font-size: 13.5px; font-weight: 500; color: var(--dv-body);
+  text-transform: capitalize; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.dv-info-box__more { font-size: 17px; font-weight: 600; color: var(--dv-ink); line-height: 1.3; }
+@media (max-width: 1100px) { .dv-infobox-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .dv-infobox-grid { grid-template-columns: 1fr; } }
+
+/* ---------- Quan ly file ---------- */
+.dv-file-thumb {
+  width: 64px; height: 48px; object-fit: cover;
+  border-radius: 6px; border: 1px solid var(--dv-line); background: #f8fafc;
+}
+.dv-file-ext {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 48px; height: 32px; padding: 0 8px; border-radius: 6px;
+  background: var(--dv-accent-soft); color: var(--dv-accent);
+  font-size: 11px; font-weight: 700; letter-spacing: .05em;
+}
+
+/* ---------- Thung rac / Lich su: badge ---------- */
+.dv-trash-type, .dv-log-action {
+  display: inline-block; padding: 3px 9px; border-radius: 999px;
+  font-size: 11.5px; font-weight: 600; line-height: 1.5; white-space: nowrap;
+}
+.dv-trash-type--blog_post { background: #e8f1f9; color: #0b5fa5; }
+.dv-trash-type--client { background: #e6f9ef; color: #1d9d5f; }
+.dv-trash-type--file { background: #fff4e0; color: #b26a00; }
+.dv-log-action--post { background: #e8f1f9; color: #0b5fa5; }
+.dv-log-action--delete { background: #fdecec; color: #d63b3d; }
+.dv-log-action--put, .dv-log-action--patch { background: #fff4e0; color: #b26a00; }

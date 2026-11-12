@@ -6,6 +6,10 @@ const fs = require('fs');
 
 const adminController = require('../controllers/adminController');
 const seoToolsController = require('../controllers/seoToolsController');
+const systemController = require('../controllers/systemController');
+
+// Ghi lịch sử thao tác admin (POST/PUT/PATCH/DELETE) vào bảng admin_logs
+router.use(require('../middleware/adminLogger'));
 
 // ===== MULTER ERROR HANDLER MIDDLEWARE =====
 function handleMulterError(err, req, res, next) {
@@ -335,6 +339,51 @@ router.get('/admin/media/clients/edit/:id',     adminController.clientEdit);
 router.post('/admin/media/clients/update/:id',  uploadClient.single('avatar'), adminController.clientUpdate);
 router.delete('/admin/media/clients/:id',       adminController.clientDelete);
 router.post('/admin/media/clients/toggle/:id',  adminController.clientToggle);
+
+// ===== HỆ THỐNG (Tài khoản / File / Cache / Thùng rác / Lịch sử) =====
+router.get('/admin/account', systemController.accountPage);
+router.post('/admin/account/password', systemController.accountChangePassword);
+router.get('/admin/password', (req, res) => res.redirect('/admin/account#doi-mat-khau'));
+
+// Quản lý file: upload vào public/uploads (chọn thư mục con có sẵn)
+const filesUploadRoot = path.join(__dirname, '../../public/uploads');
+const uploadFiles = multer({
+    storage: multer.diskStorage({
+        destination: (req, file, cb) => {
+            const sub = (req.body && req.body.sub ? String(req.body.sub) : '').replace(/[^a-zA-Z0-9_-]/g, '');
+            let dest = filesUploadRoot;
+            if (sub && fs.existsSync(path.join(filesUploadRoot, sub)) && fs.statSync(path.join(filesUploadRoot, sub)).isDirectory()) {
+                dest = path.join(filesUploadRoot, sub);
+            }
+            cb(null, dest);
+        },
+        filename: (req, file, cb) => {
+            const ext = path.extname(file.originalname).toLowerCase();
+            let base = path.basename(file.originalname, ext).replace(/[^a-zA-Z0-9_-]+/g, '-').replace(/^-+|-+$/g, '') || 'file';
+            let name = base + ext;
+            const sub = (req.body && req.body.sub ? String(req.body.sub) : '').replace(/[^a-zA-Z0-9_-]/g, '');
+            const dir = sub ? path.join(filesUploadRoot, sub) : filesUploadRoot;
+            if (fs.existsSync(path.join(dir, name))) name = base + '_' + Date.now() + ext;
+            cb(null, name);
+        }
+    }),
+    limits: { fileSize: 10 * 1024 * 1024 },
+    fileFilter: (req, file, cb) => {
+        const ok = /jpeg|jpg|png|gif|webp|avif|svg|pdf|zip/.test(path.extname(file.originalname).toLowerCase());
+        ok ? cb(null, true) : cb(new Error('Chỉ chấp nhận file ảnh, PDF hoặc ZIP'));
+    }
+});
+router.get('/admin/files', systemController.filesPage);
+router.post('/admin/files/upload', uploadFiles.single('file'), systemController.filesUpload);
+router.post('/admin/files/delete', systemController.filesDelete);
+
+router.post('/admin/system/clear-cache', systemController.clearCache);
+
+router.get('/admin/trash', systemController.trashPage);
+router.post('/admin/trash/restore/:id', systemController.trashRestore);
+router.post('/admin/trash/purge/:id', systemController.trashPurge);
+
+router.get('/admin/history', systemController.historyPage);
 
 // ===== GLOBAL MULTER ERROR HANDLER =====
 router.use(handleMulterError);

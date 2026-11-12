@@ -1,0 +1,71 @@
+<section class="admin-panel">
+  <div class="admin-panel__head">
+    <h1 class="admin-panel__title">Quản lý file, hình ảnh</h1>
+    <hr class="admin-panel__rule">
+  </div>
+
+  <% if (success) { %><div class="admin-alert admin-alert--success"><%= success %></div><% } %>
+  <% if (error) { %><div class="admin-alert admin-alert--error"><%= error %></div><% } %>
+
+  <form method="POST" action="/admin/files/upload" enctype="multipart/form-data" class="admin-form" style="padding: 18px 25px; display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end;">
+    <div style="min-width: 200px;">
+      <label class="admin-form__label" for="fileSub">Thư mục đích</label>
+      <select id="fileSub" name="sub" class="admin-form__input">
+        <option value="">(Gốc) uploads/</option>
+        <% subdirs.forEach(function(d) { %><option value="<%= d %>">uploads/<%= d %>/</option><% }); %>
+      </select>
+    </div>
+    <div style="flex: 1; min-width: 240px;">
+      <label class="admin-form__label" for="fileInput">Chọn file (ảnh, PDF, ZIP — tối đa 10MB)</label>
+      <input type="file" id="fileInput" name="file" class="admin-form__input" required accept=".jpg,.jpeg,.png,.gif,.webp,.avif,.svg,.pdf,.zip">
+    </div>
+    <button type="submit" class="admin-btn admin-btn--green">Tải lên</button>
+  </form>
+
+  <p style="padding: 0 25px; color: #697a8d; font-size: 13px;">Tổng cộng <strong><%= total %></strong> file trong thư mục uploads/. Xóa file sẽ chuyển vào <a href="/admin/trash">Thùng rác</a> (khôi phục được).</p>
+
+  <% const groupKeys = Object.keys(groups).sort(); %>
+  <% if (total === 0) { %>
+    <p class="admin-table__empty" style="padding: 20px 25px;">Chưa có file nào.</p>
+  <% } %>
+  <% groupKeys.forEach(function(gk) { %>
+  <h3 style="padding: 14px 25px 6px; font-size: 14px; color: #2b2c40;">uploads/<%= gk ? gk + '/' : '' %> <span style="color:#94a3b8; font-weight: 400;">(<%= groups[gk].length %> file)</span></h3>
+  <div class="admin-table-wrap" style="margin: 0 25px 22px;">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th width="90">XEM TRƯỚC</th>
+          <th>TÊN FILE</th>
+          <th width="110">DUNG LƯỢNG</th>
+          <th width="170">NGÀY SỬA</th>
+          <th width="110">THAO TÁC</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% groups[gk].forEach(function(f) { %>
+        <tr>
+          <td>
+            <% if (f.isImage) { %>
+              <a href="<%= f.url %>" target="_blank"><img src="<%= f.url %>" alt="<%= f.name %>" class="dv-file-thumb"></a>
+            <% } else { %>
+              <span class="dv-file-ext"><%= f.name.split('.').pop().toUpperCase() %></span>
+            <% } %>
+          </td>
+          <td><a href="<%= f.url %>" target="_blank"><%= f.rel %></a></td>
+          <td><%= f.size_str %></td>
+          <td><%= f.mtime_str %></td>
+          <td>
+            <form method="POST" action="/admin/files/delete" onsubmit="return confirm('Chuyển file này vào thùng rác?');" style="display:inline;">
+              <input type="hidden" name="path" value="<%= f.rel %>">
+              <button type="submit" class="admin-action admin-action--delete" title="Xóa vào thùng rác" style="background:none;border:none;cursor:pointer;">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+              </button>
+            </form>
+          </td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+  <% }); %>
+</section>

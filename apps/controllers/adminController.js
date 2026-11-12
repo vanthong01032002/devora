@@ -696,9 +696,14 @@ exports.blogUpdate = async (req, res) => {
 exports.blogDelete = async (req, res) => {
     try {
         const post = await BlogModel.getById(req.params.id);
-        if (post && post.thumbnail && post.thumbnail.startsWith('/uploads/')) {
-            const f = pathBlog.join(__dirname, '../../public', post.thumbnail);
-            if (fsBlog.existsSync(f)) fsBlog.unlinkSync(f);
+        if (post) {
+            // Sao chép vào thùng rác trước khi xóa (giữ file ảnh để khôi phục được trọn vẹn)
+            try {
+                await require('../models/systemToolsModel').trashAdd({
+                    item_type: 'blog_post', item_id: post.id, title: post.title,
+                    payload: post, deleted_by: req.session.adminUser ? req.session.adminUser.username : null
+                });
+            } catch (e) { console.error('Trash blog:', e.message); }
         }
         await BlogModel.delete(req.params.id);
         res.json({ success: true });
@@ -1128,9 +1133,14 @@ exports.clientUpdate = async (req, res) => {
 exports.clientDelete = async (req, res) => {
     try {
         const c = await ClientModel.getById(req.params.id);
-        if (c && c.avatar && c.avatar.startsWith('/uploads/')) {
-            const f = pathClient.join(__dirname, '../../public', c.avatar);
-            if (fsClient.existsSync(f)) fsClient.unlinkSync(f);
+        if (c) {
+            // Sao chép vào thùng rác trước khi xóa (giữ file avatar để khôi phục được trọn vẹn)
+            try {
+                await require('../models/systemToolsModel').trashAdd({
+                    item_type: 'client', item_id: c.id, title: c.full_name,
+                    payload: c, deleted_by: req.session.adminUser ? req.session.adminUser.username : null
+                });
+            } catch (e) { console.error('Trash client:', e.message); }
         }
         await ClientModel.delete(req.params.id);
         res.json({ success: true });

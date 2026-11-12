@@ -7,6 +7,11 @@ const AdminUserModel = {
             (err, rows) => err ? reject(err) : resolve(rows[0] || null));
     }),
 
+    findById: (id) => new Promise((resolve, reject) => {
+        db.query('SELECT * FROM admin_users WHERE id = ?', [id],
+            (err, rows) => err ? reject(err) : resolve(rows[0] || null));
+    }),
+
     verifyPassword: (plain, hash) => bcrypt.compare(plain, hash),
 
     // Tạo hash cho password mới

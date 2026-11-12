@@ -1,0 +1,41 @@
+<section class="admin-panel">
+  <div class="admin-panel__head">
+    <h1 class="admin-panel__title">Lịch sử thao tác</h1>
+    <hr class="admin-panel__rule">
+  </div>
+
+  <% if (success) { %><div class="admin-alert admin-alert--success"><%= success %></div><% } %>
+  <% if (error) { %><div class="admin-alert admin-alert--error"><%= error %></div><% } %>
+
+  <p style="padding: 12px 25px 0; color: #697a8d; font-size: 13px;">200 thao tác thay đổi dữ liệu (thêm / sửa / xóa) gần nhất trong khu vực quản trị.</p>
+
+  <div class="admin-table-wrap" style="margin: 16px 25px 22px;">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th width="180">THỜI GIAN</th>
+          <th width="140">NGƯỜI DÙNG</th>
+          <th width="110">HÀNH ĐỘNG</th>
+          <th>ĐƯỜNG DẪN</th>
+          <th width="120">CHI TIẾT</th>
+          <th width="140">IP</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (logs.length === 0) { %>
+        <tr><td colspan="6" class="admin-table__empty">Chưa có lịch sử thao tác</td></tr>
+        <% } %>
+        <% logs.forEach(function(l) { %>
+        <tr>
+          <td><%= l.time_str %></td>
+          <td><%= l.username || '—' %></td>
+          <td><span class="dv-log-action dv-log-action--<%= (l.action || '').toLowerCase() %>"><%= l.action %></span></td>
+          <td style="word-break: break-all;"><%= l.path %></td>
+          <td><%= l.detail || '' %></td>
+          <td><%= l.ip || '' %></td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+</section>

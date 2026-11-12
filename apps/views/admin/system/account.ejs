@@ -1,0 +1,51 @@
+<section class="admin-panel">
+  <div class="admin-panel__head">
+    <h1 class="admin-panel__title">Tài khoản</h1>
+    <hr class="admin-panel__rule">
+  </div>
+
+  <% if (success) { %><div class="admin-alert admin-alert--success"><%= success %></div><% } %>
+  <% if (error) { %><div class="admin-alert admin-alert--error"><%= error %></div><% } %>
+
+  <div style="padding: 20px 25px;">
+    <div class="admin-form__row">
+      <label class="admin-form__label">Tên đăng nhập</label>
+      <input type="text" class="admin-form__input" value="<%= user.username %>" readonly>
+    </div>
+    <div class="admin-form__row">
+      <label class="admin-form__label">Họ tên hiển thị</label>
+      <input type="text" class="admin-form__input" value="<%= user.full_name || '' %>" readonly>
+    </div>
+    <% if (user.created_at) { %>
+    <div class="admin-form__row">
+      <label class="admin-form__label">Ngày tạo tài khoản</label>
+      <input type="text" class="admin-form__input" value="<%= new Date(user.created_at).toLocaleString('vi-VN', { hour12: false }) %>" readonly>
+    </div>
+    <% } %>
+  </div>
+</section>
+
+<section class="admin-panel" id="doi-mat-khau" style="margin-top: 24px;">
+  <div class="admin-panel__head">
+    <h1 class="admin-panel__title">Đổi mật khẩu</h1>
+    <hr class="admin-panel__rule">
+  </div>
+
+  <form method="POST" action="/admin/account/password" class="admin-form" style="padding: 20px 25px;">
+    <div class="admin-form__row">
+      <label class="admin-form__label" for="current_password">Mật khẩu hiện tại</label>
+      <input type="password" id="current_password" name="current_password" class="admin-form__input" required autocomplete="current-password">
+    </div>
+    <div class="admin-form__row">
+      <label class="admin-form__label" for="new_password">Mật khẩu mới (ít nhất 8 ký tự)</label>
+      <input type="password" id="new_password" name="new_password" class="admin-form__input" required minlength="8" autocomplete="new-password">
+    </div>
+    <div class="admin-form__row">
+      <label class="admin-form__label" for="confirm_password">Nhập lại mật khẩu mới</label>
+      <input type="password" id="confirm_password" name="confirm_password" class="admin-form__input" required minlength="8" autocomplete="new-password">
+    </div>
+    <div class="admin-form__actions">
+      <button type="submit" class="admin-btn admin-btn--green">Đổi mật khẩu</button>
+    </div>
+  </form>
+</section>

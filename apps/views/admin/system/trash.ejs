@@ -1,0 +1,48 @@
+<section class="admin-panel">
+  <div class="admin-panel__head">
+    <h1 class="admin-panel__title">Thùng rác</h1>
+    <hr class="admin-panel__rule">
+  </div>
+
+  <% if (success) { %><div class="admin-alert admin-alert--success"><%= success %></div><% } %>
+  <% if (error) { %><div class="admin-alert admin-alert--error"><%= error %></div><% } %>
+
+  <p style="padding: 12px 25px 0; color: #697a8d; font-size: 13px;">Các mục đã xóa từ Tin tức, Khách hàng và Quản lý file được lưu tại đây. Khôi phục sẽ đưa mục trở lại vị trí cũ; Xóa vĩnh viễn không thể hoàn tác.</p>
+
+  <div class="admin-table-wrap" style="margin: 16px 25px 22px;">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th width="60">STT</th>
+          <th width="130">LOẠI</th>
+          <th>TÊN / TIÊU ĐỀ</th>
+          <th width="150">NGƯỜI XÓA</th>
+          <th width="170">THỜI GIAN XÓA</th>
+          <th width="230">THAO TÁC</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (items.length === 0) { %>
+        <tr><td colspan="6" class="admin-table__empty">Thùng rác trống</td></tr>
+        <% } %>
+        <% items.forEach(function(it, i) { %>
+        <tr>
+          <td><%= i + 1 %></td>
+          <td><span class="dv-trash-type dv-trash-type--<%= it.item_type %>"><%= it.type_label %></span></td>
+          <td><%= it.title || ('#' + it.item_id) %></td>
+          <td><%= it.deleted_by || '—' %></td>
+          <td><%= it.deleted_str %></td>
+          <td>
+            <form method="POST" action="/admin/trash/restore/<%= it.id %>" style="display:inline;" onsubmit="return confirm('Khôi phục mục này?');">
+              <button type="submit" class="admin-btn admin-btn--green" style="padding: 6px 12px; font-size: 12.5px;">Khôi phục</button>
+            </form>
+            <form method="POST" action="/admin/trash/purge/<%= it.id %>" style="display:inline;" onsubmit="return confirm('Xóa VĨNH VIỄN mục này? Không thể hoàn tác!');">
+              <button type="submit" class="admin-btn admin-btn--red" style="padding: 6px 12px; font-size: 12.5px;">Xóa vĩnh viễn</button>
+            </form>
+          </td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+</section>
