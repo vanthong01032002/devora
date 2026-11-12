@@ -115,12 +115,17 @@ exports.blogDetail = async (req, res) => {
         ]);
         if (!post) return res.status(404).render('user/blog', { layout: 'layouts/main', title: 'Không tìm thấy', posts: [], socialButtons, socialFooter, settings });
         if (post.content) { try { post.content = await applyAutoLinks(post.content); } catch (e) { /* bo qua neu loi */ } }
+        // Schema JSON-LD: chi render khi JSON hop le, chuan hoa lai bang parse -> stringify
+        let schemaJson = null;
+        if (post.schema_json) {
+            try { schemaJson = JSON.stringify(JSON.parse(post.schema_json)); } catch (e) { schemaJson = null; }
+        }
         await BlogModel.incrementViews(post.id);
         const relatedPosts = (allPosts || []).filter(p => p.id !== post.id).slice(0, 3);
         res.render('user/blog-detail', {
             layout: 'layouts/main',
             title: post.seo_title || post.title,
-            post, socialButtons, socialFooter, settings,
+            post, socialButtons, socialFooter, settings, schemaJson,
             seo: { title: post.seo_title || post.title, description: post.seo_description || post.description || '', keywords: post.seo_keywords || '', og_image: post.thumbnail || '' },
             relatedPosts
         });

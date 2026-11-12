@@ -329,3 +329,29 @@ html:not([data-theme="dark"]) .blog-form__main .blog-form__section {
 .dv-log-action--post { background: #e8f1f9; color: #0b5fa5; }
 .dv-log-action--delete { background: #fdecec; color: #d63b3d; }
 .dv-log-action--put, .dv-log-action--patch { background: #fff4e0; color: #b26a00; }
+
+/* ---------- Kiem tra SEO truc tiep (form tin tuc) ---------- */
+.seo-check__score {
+  display: inline-block; margin: 4px 0 6px; padding: 6px 14px; border-radius: 999px;
+  background: var(--dv-accent-soft); color: var(--dv-accent);
+  font-size: 13px; font-weight: 700;
+}
+.seo-check__list { list-style: none; margin: 8px 0 0; padding: 0; }
+.seo-check__item {
+  display: flex; align-items: flex-start; gap: 9px;
+  padding: 5px 0; font-size: 13.5px; line-height: 1.55;
+}
+.seo-check__icon {
+  flex: none; width: 18px; height: 18px; margin-top: 2px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: #ea5455; color: #ffffff; font-size: 11px; font-weight: 700; line-height: 1;
+}
+.seo-check__item.is-pass .seo-check__icon { background: #28c76f; }
+.seo-check__item.is-fail { color: var(--dv-body); }
+.seo-check__item.is-pass { color: var(--dv-ink); }
+
+/* ---------- Schema JSON (form tin tuc) ---------- */
+.seo-schema-input {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 13px; line-height: 1.6;
+}

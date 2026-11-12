@@ -629,7 +629,7 @@ exports.blogCreate = (req, res) => {
 exports.blogStore = async (req, res) => {
     try {
         const { title, slug, description, content, is_featured, is_active, display_order,
-                seo_title, seo_keywords, seo_description, seo_keyword_main } = req.body;
+                seo_title, seo_keywords, seo_description, seo_keyword_main, schema_json } = req.body;
 
         let finalSlug = slug ? toSlug(slug) : toSlug(title);
         const exists = await BlogModel.slugExists(finalSlug);
@@ -643,7 +643,8 @@ exports.blogStore = async (req, res) => {
             is_active: is_active === '1' ? 1 : 0,
             display_order: parseInt(display_order) || 0,
             seo_title: seo_title || null, seo_keywords: seo_keywords || null,
-            seo_description: seo_description || null, seo_keyword_main: seo_keyword_main || null
+            seo_description: seo_description || null, seo_keyword_main: seo_keyword_main || null,
+            schema_json: schema_json || null
         });
         res.redirect('/admin/content/news?success=Thêm bài viết thành công');
     } catch (err) { console.error(err); res.redirect('/admin/content/news?error=Lỗi thêm bài viết'); }
@@ -666,7 +667,7 @@ exports.blogUpdate = async (req, res) => {
         if (!post) return res.redirect('/admin/content/news?error=Không tìm thấy');
 
         const { title, slug, description, content, is_featured, is_active, display_order,
-                seo_title, seo_keywords, seo_description, seo_keyword_main } = req.body;
+                seo_title, seo_keywords, seo_description, seo_keyword_main, schema_json } = req.body;
 
         let finalSlug = slug ? toSlug(slug) : toSlug(title);
         const exists = await BlogModel.slugExists(finalSlug, req.params.id);
@@ -687,7 +688,8 @@ exports.blogUpdate = async (req, res) => {
             is_active: is_active === '1' ? 1 : 0,
             display_order: parseInt(display_order) || 0,
             seo_title: seo_title || null, seo_keywords: seo_keywords || null,
-            seo_description: seo_description || null, seo_keyword_main: seo_keyword_main || null
+            seo_description: seo_description || null, seo_keyword_main: seo_keyword_main || null,
+            schema_json: schema_json || null
         });
         res.redirect('/admin/content/news?success=Cập nhật thành công');
     } catch (err) { console.error(err); res.redirect('/admin/content/news?error=Lỗi cập nhật'); }

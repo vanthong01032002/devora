@@ -94,12 +94,56 @@
             <div class="seo-bar"><div class="seo-bar__fill" id="barSeoDesc"></div></div>
           </div>
 
+        </div>
+
+        <!-- Kiểm tra SEO trực tiếp (theo mẫu NASANI) -->
+        <div class="blog-form__section seo-check">
+          <h3 class="blog-form__section-title">Kiểm tra SEO</h3>
+
           <div class="admin-form__row">
-            <label class="admin-form__label">Keyword chính:</label>
-            <input type="text" name="seo_keyword_main" class="admin-form__input"
+            <label class="admin-form__label" for="seoKeywordMain">Keyword chính:</label>
+            <input type="text" name="seo_keyword_main" id="seoKeywordMain" class="admin-form__input"
                    value="<%= post ? (post.seo_keyword_main || '') : '' %>"
-                   placeholder="Từ khóa chính của bài viết">
+                   placeholder="Chèn từ khóa bạn muốn xếp hạng">
+            <p class="admin-form__hint">Chèn từ khóa bạn muốn xếp hạng.</p>
           </div>
+
+          <div class="seo-check__score" id="seoCheckScore">Đạt 0/17 điều kiện</div>
+
+          <ul class="seo-check__list" id="seoCheckList">
+            <li class="seo-check__item is-fail" data-key="kw-set"><span class="seo-check__icon">✕</span><span class="seo-check__text">Đặt từ khoá tập trung cho nội dung này</span></li>
+            <li class="seo-check__item is-fail" data-key="kw-in-title"><span class="seo-check__icon">✕</span><span class="seo-check__text">Thêm Từ khóa chính vào tiêu đề SEO.</span></li>
+            <li class="seo-check__item is-fail" data-key="kw-title-start"><span class="seo-check__icon">✕</span><span class="seo-check__text">Sử dụng từ khóa chính gần đầu tiêu đề SEO.</span></li>
+            <li class="seo-check__item is-fail" data-key="title-len"><span class="seo-check__icon">✕</span><span class="seo-check__text">Tiêu đề 0 ký tự (ngắn). Cố gắng có được 70 ký tự</span></li>
+            <li class="seo-check__item is-fail" data-key="kw-in-desc"><span class="seo-check__icon">✕</span><span class="seo-check__text">Thêm Từ khóa tập trung vào Mô tả meta SEO của bạn.</span></li>
+            <li class="seo-check__item is-fail" data-key="desc-len"><span class="seo-check__icon">✕</span><span class="seo-check__text">Mô tả meta SEO có 0 ký tự (ngắn). Cố gắng thành 160 ký tự</span></li>
+            <li class="seo-check__item is-fail" data-key="kw-in-url"><span class="seo-check__icon">✕</span><span class="seo-check__text">Sử dụng từ khóa chính trong URL.</span></li>
+            <li class="seo-check__item is-fail" data-key="url-len"><span class="seo-check__icon">✕</span><span class="seo-check__text">Url có 0 ký tự (dài). Hãy xem xét rút ngắn nó.</span></li>
+            <li class="seo-check__item is-fail" data-key="kw-at-start"><span class="seo-check__icon">✕</span><span class="seo-check__text">Sử dụng từ khóa chính ở đầu nội dung của bạn.</span></li>
+            <li class="seo-check__item is-fail" data-key="kw-in-content"><span class="seo-check__icon">✕</span><span class="seo-check__text">Sử dụng từ khóa chính trong nội dung.</span></li>
+            <li class="seo-check__item is-fail" data-key="content-len"><span class="seo-check__icon">✕</span><span class="seo-check__text">Nội dung phải dài 600-2500 từ (hiện tại: 0 từ).</span></li>
+            <li class="seo-check__item is-fail" data-key="internal-link"><span class="seo-check__icon">✕</span><span class="seo-check__text">Thêm liên kết nội bộ vào nội dung của bạn.</span></li>
+            <li class="seo-check__item is-fail" data-key="kw-in-heading"><span class="seo-check__icon">✕</span><span class="seo-check__text">Sử dụng từ khóa chính trong (các) tiêu đề phụ như H2, H3, H4, v.v..</span></li>
+            <li class="seo-check__item is-fail" data-key="kw-in-alt"><span class="seo-check__icon">✕</span><span class="seo-check__text">Thêm từ khóa vào thuộc tính alt của hình ảnh</span></li>
+            <li class="seo-check__item is-fail" data-key="kw-density"><span class="seo-check__icon">✕</span><span class="seo-check__text">Mật độ từ khóa là 0%. Nhắm đến khoảng 1% Mật độ từ khóa.</span></li>
+            <li class="seo-check__item is-fail" data-key="short-paras"><span class="seo-check__icon">✕</span><span class="seo-check__text">Thêm các đoạn văn ngắn và súc tích để dễ đọc và UX hơn.</span></li>
+            <li class="seo-check__item is-fail" data-key="has-image"><span class="seo-check__icon">✕</span><span class="seo-check__text">Thêm một vài hình ảnh để làm cho nội dung của bạn hấp dẫn.</span></li>
+          </ul>
+        </div>
+
+        <!-- Schema JSON -->
+        <div class="blog-form__section">
+          <h3 class="blog-form__section-title">Schema JSON</h3>
+          <div class="admin-form__row">
+            <label class="admin-form__label" for="schemaJson">Schema JSON (Tiếng Việt):</label>
+            <textarea name="schema_json" id="schemaJson" class="admin-form__input admin-form__textarea seo-schema-input" rows="8"
+                      spellcheck="false"
+                      placeholder='{"@context": "https://schema.org", "@type": "Article", "headline": "Tiêu đề bài viết", "author": {"@type": "Organization", "name": "Devora"}, "publisher": {"@type": "Organization", "name": "Devora"}}'><%= post ? (post.schema_json || '') : '' %></textarea>
+            <p class="admin-form__hint">Dán đoạn mã Schema JSON-LD (chỉ phần JSON, không cần thẻ &lt;script&gt;). Hệ thống chỉ hiển thị ra trang bài viết khi JSON hợp lệ. Để trống nếu không dùng.</p>
+          </div>
+        </div>
+
+      </div>
         </div>
 
       </div>
@@ -261,3 +305,4 @@ document.getElementById('seoDesc').addEventListener('input', function() {
 // Init slug check
 if (slugInput.value) checkSlug(slugInput.value);
 </script>
+<script src="/js/seo-check.js"></script>

@@ -23,19 +23,19 @@ const BlogModel = {
     }),
 
     create: (data) => new Promise((resolve, reject) => {
-        const sql = `INSERT INTO blog_posts (title, slug, description, content, thumbnail, is_featured, is_active, display_order, seo_title, seo_keywords, seo_description, seo_keyword_main)
-                     VALUES (?,?,?,?,?,?,?,?,?,?,?,?)`;
+        const sql = `INSERT INTO blog_posts (title, slug, description, content, thumbnail, is_featured, is_active, display_order, seo_title, seo_keywords, seo_description, seo_keyword_main, schema_json)
+                     VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)`;
         db.query(sql, [data.title, data.slug, data.description, data.content, data.thumbnail,
             data.is_featured, data.is_active, data.display_order,
-            data.seo_title, data.seo_keywords, data.seo_description, data.seo_keyword_main],
+            data.seo_title, data.seo_keywords, data.seo_description, data.seo_keyword_main, data.schema_json],
             (err, result) => err ? reject(err) : resolve(result));
     }),
 
     update: (id, data) => new Promise((resolve, reject) => {
-        const sql = `UPDATE blog_posts SET title=?, slug=?, description=?, content=?, thumbnail=?, is_featured=?, is_active=?, display_order=?, seo_title=?, seo_keywords=?, seo_description=?, seo_keyword_main=? WHERE id=?`;
+        const sql = `UPDATE blog_posts SET title=?, slug=?, description=?, content=?, thumbnail=?, is_featured=?, is_active=?, display_order=?, seo_title=?, seo_keywords=?, seo_description=?, seo_keyword_main=?, schema_json=? WHERE id=?`;
         db.query(sql, [data.title, data.slug, data.description, data.content, data.thumbnail,
             data.is_featured, data.is_active, data.display_order,
-            data.seo_title, data.seo_keywords, data.seo_description, data.seo_keyword_main, id],
+            data.seo_title, data.seo_keywords, data.seo_description, data.seo_keyword_main, data.schema_json, id],
             (err, result) => err ? reject(err) : resolve(result));
     }),
 
