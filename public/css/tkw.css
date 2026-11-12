@@ -214,3 +214,37 @@
   .tkw-subnav__inner { overflow-x: auto; gap: 0; }
   .tkw-subnav__link { padding: 12px 14px; font-size: 0.85rem; }
 }
+
+/* ===== POLISH: khung thẻ dự án đồng bộ với kho giao diện ===== */
+.tkw-portfolio-card {
+  border: 1px solid #e4ecf4;
+  border-radius: 20px;
+  box-shadow: 0 2px 10px rgba(13,51,84,0.05);
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+}
+.tkw-portfolio-card:hover {
+  box-shadow: 0 18px 40px rgba(13,71,161,0.16);
+  border-color: #c9dcf2;
+}
+.tkw-portfolio-card__img { aspect-ratio: 16/10; }
+.tkw-portfolio-card__cat {
+  background: rgba(18,40,63,0.85);
+  color: #fff;
+  backdrop-filter: blur(4px);
+  border-radius: 999px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+.tkw-portfolio-card__body { display: flex; flex-direction: column; flex: 1; padding: 20px 22px 22px; }
+.tkw-portfolio-card__body h4 { font-family: 'Montserrat', sans-serif; font-size: 1.05rem; font-weight: 800; color: #16283c; }
+.tkw-portfolio-card__body p {
+  color: #5f7082; line-height: 1.6;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+}
+.tkw-portfolio-card__tags { margin-top: auto; padding-top: 14px; }
+.tkw-portfolio-card__tags span {
+  background: #eef4fb; color: #33506e; border: 1px solid #dde8f3;
+  border-radius: 999px; font-weight: 600;
+}

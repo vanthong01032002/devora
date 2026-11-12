@@ -30,6 +30,7 @@
       <button class="kgd-filter active" data-filter="all">Tất cả</button>
       <button class="kgd-filter" data-filter="bds">Bất động sản</button>
       <button class="kgd-filter" data-filter="fnb">F&B</button>
+      <button class="kgd-filter" data-filter="xaydung">Xây dựng</button>
       <button class="kgd-filter" data-filter="noithat">Nội thất</button>
       <button class="kgd-filter" data-filter="dulich">Du lịch</button>
       <button class="kgd-filter" data-filter="giaoduc">Giáo dục</button>
@@ -43,24 +44,51 @@
 
       <% if (typeof templates !== 'undefined' && templates && templates.length > 0) { %>
         <% templates.forEach(function(t) { %>
+        <% var hasImg = !!(t.image_path && !/default\.png$/.test(t.image_path)); %>
+        <% var descAttr = (t.description || '').replace(/"/g, '&quot;'); %>
         <div class="kgd-card" data-cat="<%= t.category %>" data-name="<%= t.name.toLowerCase() %>">
-          <div class="kgd-card__img">
-            <img src="<%= t.image_path || '/images/default.png' %>" alt="<%= t.name %>">
+          <div class="kgd-card__media kgd-card__media--<%= t.category %>">
+            <% if (hasImg) { %>
+            <img src="<%= t.image_path %>" alt="<%= t.name %>" loading="lazy">
+            <% } else { %>
+            <div class="kgd-cover kgd-cover--<%= t.category %>" aria-hidden="true">
+              <div class="kgd-cover__bar"><span class="kgd-cover__dots"><i></i><i></i><i></i></span><span class="kgd-cover__url">demo.tekora.id.vn</span></div>
+              <div class="kgd-cover__body">
+                <span class="kgd-cover__ghost"><%= (t.category_label || 'T').charAt(0) %></span>
+                <span class="kgd-cover__wire"><i style="width:54%"></i><i style="width:84%"></i><i style="width:36%"></i></span>
+                <span class="kgd-cover__label"><%= t.category_label %></span>
+              </div>
+            </div>
+            <% } %>
+            <% if (t.is_hot) { %><span class="kgd-card__badge">★ Ưa chuộng</span><% } %>
             <div class="kgd-card__overlay">
               <a href="#" class="kgd-card__preview"
-                 data-img="<%= t.image_path || '/images/default.png' %>"
+                 data-img="<%= hasImg ? t.image_path : '' %>"
                  data-name="<%= t.name %>"
-                 data-cat="<%= t.category_label %>">Xem trước</a>
+                 data-cat="<%= t.category_label %>"
+                 data-catkey="<%= t.category %>"
+                 data-desc="<%= descAttr %>">Xem trước</a>
               <a href="/lien-he" class="kgd-card__use">Dùng mẫu này</a>
             </div>
-            <% if (t.is_hot) { %><span class="kgd-card__badge">Ưa chuộng</span><% } %>
           </div>
           <div class="kgd-card__body">
-            <span class="kgd-card__cat"><%= t.category_label %></span>
+            <div class="kgd-card__row">
+              <span class="kgd-card__cat"><%= t.category_label %></span>
+              <span class="kgd-card__uses">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                <%= t.uses %> lượt sử dụng
+              </span>
+            </div>
             <h4><%= t.name %></h4>
-            <div class="kgd-card__meta">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
-              <%= t.uses %> lượt sử dụng
+            <% if (t.description) { %><p class="kgd-card__desc"><%= t.description %></p><% } %>
+            <div class="kgd-card__actions">
+              <a href="#" class="kgd-btn kgd-btn--ghost kgd-card__preview"
+                 data-img="<%= hasImg ? t.image_path : '' %>"
+                 data-name="<%= t.name %>"
+                 data-cat="<%= t.category_label %>"
+                 data-catkey="<%= t.category %>"
+                 data-desc="<%= descAttr %>">Xem trước</a>
+              <a href="/lien-he" class="kgd-btn kgd-btn--solid">Dùng mẫu này</a>
             </div>
           </div>
         </div>
@@ -94,11 +122,20 @@
     </button>
     <div class="kgd-lightbox__img-wrap">
       <img id="lbImg" src="" alt="Preview">
+      <div class="kgd-cover kgd-cover--lg" id="lbCover" style="display:none" aria-hidden="true">
+        <div class="kgd-cover__bar"><span class="kgd-cover__dots"><i></i><i></i><i></i></span><span class="kgd-cover__url">demo.tekora.id.vn</span></div>
+        <div class="kgd-cover__body">
+          <span class="kgd-cover__ghost" id="lbGhost">T</span>
+          <span class="kgd-cover__wire"><i style="width:54%"></i><i style="width:84%"></i><i style="width:36%"></i></span>
+          <span class="kgd-cover__label" id="lbCoverLabel"></span>
+        </div>
+      </div>
     </div>
     <div class="kgd-lightbox__footer">
       <div>
         <span class="kgd-lightbox__cat" id="lbCat"></span>
         <h3 class="kgd-lightbox__name" id="lbName"></h3>
+        <p class="kgd-lightbox__desc" id="lbDesc"></p>
       </div>
       <a href="/lien-he" class="kgd-lightbox__btn">Dùng mẫu này</a>
     </div>
@@ -140,17 +177,34 @@ document.addEventListener('DOMContentLoaded', function () {
   // ===== LIGHTBOX =====
   const lightbox     = document.getElementById('kgdLightbox');
   const lbImg        = document.getElementById('lbImg');
+  const lbCover      = document.getElementById('lbCover');
+  const lbGhost      = document.getElementById('lbGhost');
+  const lbCoverLabel = document.getElementById('lbCoverLabel');
   const lbName       = document.getElementById('lbName');
   const lbCat        = document.getElementById('lbCat');
+  const lbDesc       = document.getElementById('lbDesc');
   const lbClose      = document.getElementById('lbClose');
 
   document.addEventListener('click', function(e) {
     const btn = e.target.closest('.kgd-card__preview');
     if (!btn) return;
     e.preventDefault();
-    lbImg.src  = btn.dataset.img  || '/images/default.png';
+    const img = btn.dataset.img || '';
+    if (img) {
+      lbImg.src = img;
+      lbImg.style.display = '';
+      lbCover.style.display = 'none';
+    } else {
+      lbImg.removeAttribute('src');
+      lbImg.style.display = 'none';
+      lbCover.className = 'kgd-cover kgd-cover--lg kgd-cover--' + (btn.dataset.catkey || 'khac');
+      lbGhost.textContent = (btn.dataset.cat || 'T').charAt(0);
+      lbCoverLabel.textContent = btn.dataset.cat || '';
+      lbCover.style.display = '';
+    }
     lbName.textContent = btn.dataset.name || '';
     lbCat.textContent  = btn.dataset.cat  || '';
+    lbDesc.textContent = btn.dataset.desc || '';
     lightbox.classList.add('is-open');
     document.body.style.overflow = 'hidden';
   });
@@ -158,7 +212,7 @@ document.addEventListener('DOMContentLoaded', function () {
   function closeLightbox() {
     lightbox.classList.remove('is-open');
     document.body.style.overflow = '';
-    lbImg.src = '';
+    lbImg.removeAttribute('src');
   }
 
   lbClose.addEventListener('click', closeLightbox);
