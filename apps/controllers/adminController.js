@@ -754,6 +754,49 @@ exports.contactPageSave = async (req, res) => {
     } catch (err) { res.redirect('/admin/pages/contact?error=Lỗi lưu'); }
 };
 
+// ===== Trang Giới thiệu (Về chúng tôi): nội dung lưu trong site_settings, khóa tiền tố about_ =====
+const ABOUT_TEXT_KEYS = [
+    'about_hero_heading', 'about_hero_highlight', 'about_intro',
+    'about_badge1_num', 'about_badge1_label', 'about_badge2_num', 'about_badge2_label',
+    'about_story_heading', 'about_story_highlight', 'about_story_p1', 'about_story_p2',
+    'about_points', 'about_exp_num', 'about_exp_label',
+    'about_stat1_num', 'about_stat1_label', 'about_stat2_num', 'about_stat2_label',
+    'about_stat3_num', 'about_stat3_label', 'about_stat4_num', 'about_stat4_label',
+    'about_cta_title', 'about_cta_text'
+];
+
+exports.aboutPageIndex = async (req, res) => {
+    try {
+        const settings = await SettingsModel.getAll();
+        res.render('admin/about/index', {
+            layout: 'layouts/admin', title: 'Quản lý trang Giới thiệu',
+            about: settings, success: req.query.success || null, error: req.query.error || null
+        });
+    } catch (err) { res.redirect('/admin?error=Lỗi tải trang giới thiệu'); }
+};
+
+exports.aboutPageSave = async (req, res) => {
+    try {
+        const current = await SettingsModel.getAll();
+        const data = {};
+        ABOUT_TEXT_KEYS.forEach(k => { if (typeof req.body[k] !== 'undefined') data[k] = req.body[k]; });
+        const files = req.files || {};
+        [['hero_image', 'about_hero_image'], ['story_image', 'about_story_image']].forEach(([field, key]) => {
+            const f = files[field] && files[field][0];
+            if (f) {
+                const old = current[key];
+                if (old && old.startsWith('/uploads/about/')) {
+                    const oldPath = path.join(__dirname, '../../public', old);
+                    if (fs.existsSync(oldPath)) fs.unlinkSync(oldPath);
+                }
+                data[key] = '/uploads/about/' + f.filename;
+            }
+        });
+        await SettingsModel.saveAll(data);
+        res.redirect('/admin/pages/about?success=Cập nhật thành công');
+    } catch (err) { res.redirect('/admin/pages/about?error=Lỗi lưu'); }
+};
+
 exports.contactMessages = async (req, res) => {
     try {
         const messages = await ContactModel.getMessages();

@@ -1,0 +1,151 @@
+<section class="admin-panel">
+  <div class="admin-panel__head">
+    <h1 class="admin-panel__title">Quản lý / Trang Giới thiệu</h1>
+    <hr class="admin-panel__rule">
+  </div>
+
+  <% if (success) { %><div class="admin-alert admin-alert--success"><%= success %></div><% } %>
+  <% if (error) { %><div class="admin-alert admin-alert--error"><%= error %></div><% } %>
+
+  <% const A = about || {}; %>
+  <form action="/admin/pages/about" method="POST" enctype="multipart/form-data" class="admin-form">
+
+    <h3 style="margin:18px 0 6px;">Mục đầu trang</h3>
+
+    <div class="admin-form__row">
+      <label class="admin-form__label">Tiêu đề chính</label>
+      <input type="text" name="about_hero_heading" class="admin-form__input"
+             value="<%= A.about_hero_heading || 'Chúng tôi là' %>">
+    </div>
+    <div class="admin-form__row">
+      <label class="admin-form__label">Phần chữ nổi bật trong tiêu đề</label>
+      <input type="text" name="about_hero_highlight" class="admin-form__input"
+             value="<%= A.about_hero_highlight || 'Tekora' %>">
+    </div>
+    <div class="admin-form__row">
+      <label class="admin-form__label">Đoạn giới thiệu</label>
+      <textarea name="about_intro" class="admin-form__input admin-form__textarea" rows="4"><%= A.about_intro || 'Tekora là đơn vị thiết kế website và chuyển đổi số đáng tin cậy của doanh nghiệp Việt. Chúng tôi đồng hành cùng bạn từ ý tưởng đến sản phẩm hoàn chỉnh, giúp thương hiệu tỏa sáng trên nền tảng số.' %></textarea>
+    </div>
+    <div class="admin-form__row">
+      <label class="admin-form__label">Ảnh minh họa đầu trang</label>
+      <div class="admin-upload-area" data-upload>
+        <img src="<%= A.about_hero_image || '/images/illustration-about-hero.png' %>" class="admin-upload-preview">
+        <div class="admin-upload-placeholder" style="display:none">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.35 10.04A7.49 7.49 0 0012 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 000 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/></svg>
+          <p>Kéo thả hoặc <span>chọn ảnh</span></p>
+        </div>
+        <input type="file" name="hero_image" accept="image/*" style="display:none">
+      </div>
+    </div>
+    <div class="admin-form__row">
+      <label class="admin-form__label">Huy hiệu 1 (số / nhãn)</label>
+      <div style="display:flex;gap:10px;">
+        <input type="text" name="about_badge1_num" class="admin-form__input" style="max-width:140px;" value="<%= A.about_badge1_num || '20+' %>">
+        <input type="text" name="about_badge1_label" class="admin-form__input" value="<%= A.about_badge1_label || 'Dự án đã bàn giao' %>">
+      </div>
+    </div>
+    <div class="admin-form__row">
+      <label class="admin-form__label">Huy hiệu 2 (số / nhãn)</label>
+      <div style="display:flex;gap:10px;">
+        <input type="text" name="about_badge2_num" class="admin-form__input" style="max-width:140px;" value="<%= A.about_badge2_num || '100%' %>">
+        <input type="text" name="about_badge2_label" class="admin-form__input" value="<%= A.about_badge2_label || 'Bàn giao mã nguồn' %>">
+      </div>
+    </div>
+
+    <h3 style="margin:26px 0 6px;">Câu chuyện của chúng tôi</h3>
+
+    <div class="admin-form__row">
+      <label class="admin-form__label">Tiêu đề câu chuyện</label>
+      <div style="display:flex;gap:10px;">
+        <input type="text" name="about_story_heading" class="admin-form__input" value="<%= A.about_story_heading || 'Từ đam mê đến' %>">
+        <input type="text" name="about_story_highlight" class="admin-form__input" value="<%= A.about_story_highlight || 'sứ mệnh' %>">
+      </div>
+    </div>
+    <div class="admin-form__row">
+      <label class="admin-form__label">Đoạn văn 1</label>
+      <textarea name="about_story_p1" class="admin-form__input admin-form__textarea" rows="4"><%= A.about_story_p1 || 'Tekora ra đời với niềm tin rằng mỗi doanh nghiệp Việt đều xứng đáng có một nền tảng số vững chắc. Chúng tôi bắt đầu từ một nhóm nhỏ những người đam mê công nghệ và thiết kế, với mong muốn mang lại giải pháp website thực sự hiệu quả cho doanh nghiệp.' %></textarea>
+    </div>
+    <div class="admin-form__row">
+      <label class="admin-form__label">Đoạn văn 2</label>
+      <textarea name="about_story_p2" class="admin-form__input admin-form__textarea" rows="4"><%= A.about_story_p2 || 'Qua nhiều năm phát triển, Tekora đã trở thành đối tác tin cậy của hàng trăm doanh nghiệp thuộc nhiều lĩnh vực khác nhau. Mỗi dự án là một hành trình, mỗi website là một câu chuyện thành công mà chúng tôi tự hào được góp phần tạo nên.' %></textarea>
+    </div>
+    <div class="admin-form__row">
+      <label class="admin-form__label">Các điểm nổi bật (mỗi dòng 1 điểm)</label>
+      <textarea name="about_points" class="admin-form__input admin-form__textarea" rows="4"><%= A.about_points || 'Thiết kế chuẩn SEO, tối ưu chuyển đổi\nHỗ trợ tận tâm, đồng hành lâu dài\nMinh bạch, đúng hạn, đúng cam kết' %></textarea>
+    </div>
+    <div class="admin-form__row">
+      <label class="admin-form__label">Ảnh câu chuyện</label>
+      <div class="admin-upload-area" data-upload>
+        <img src="<%= A.about_story_image || '/images/illustration-about-story.png' %>" class="admin-upload-preview">
+        <div class="admin-upload-placeholder" style="display:none">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.35 10.04A7.49 7.49 0 0012 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 000 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/></svg>
+          <p>Kéo thả hoặc <span>chọn ảnh</span></p>
+        </div>
+        <input type="file" name="story_image" accept="image/*" style="display:none">
+      </div>
+    </div>
+    <div class="admin-form__row">
+      <label class="admin-form__label">Huy hiệu kinh nghiệm (số / nhãn)</label>
+      <div style="display:flex;gap:10px;">
+        <input type="text" name="about_exp_num" class="admin-form__input" style="max-width:140px;" value="<%= A.about_exp_num || '5+' %>">
+        <input type="text" name="about_exp_label" class="admin-form__input" value="<%= A.about_exp_label || 'Năm kinh nghiệm' %>">
+      </div>
+    </div>
+
+    <h3 style="margin:26px 0 6px;">Số liệu nổi bật</h3>
+
+    <% for (let i = 1; i <= 4; i++) {
+         const defN = ['20+','100%','24/7','10+'][i-1];
+         const defL = ['Dự án đã bàn giao','Bàn giao mã nguồn','Hỗ trợ kỹ thuật','Lĩnh vực đa ngành'][i-1]; %>
+    <div class="admin-form__row">
+      <label class="admin-form__label">Số liệu <%= i %> (số / nhãn)</label>
+      <div style="display:flex;gap:10px;">
+        <input type="text" name="about_stat<%= i %>_num" class="admin-form__input" style="max-width:140px;" value="<%= A['about_stat' + i + '_num'] || defN %>">
+        <input type="text" name="about_stat<%= i %>_label" class="admin-form__input" value="<%= A['about_stat' + i + '_label'] || defL %>">
+      </div>
+    </div>
+    <% } %>
+
+    <h3 style="margin:26px 0 6px;">Kêu gọi hành động (cuối trang)</h3>
+
+    <div class="admin-form__row">
+      <label class="admin-form__label">Tiêu đề CTA</label>
+      <input type="text" name="about_cta_title" class="admin-form__input"
+             value="<%= A.about_cta_title || 'Sẵn sàng hợp tác cùng Tekora?' %>">
+    </div>
+    <div class="admin-form__row">
+      <label class="admin-form__label">Mô tả CTA</label>
+      <input type="text" name="about_cta_text" class="admin-form__input"
+             value="<%= A.about_cta_text || 'Hãy để chúng tôi giúp bạn xây dựng nền tảng số vững chắc và phát triển bền vững.' %>">
+    </div>
+
+    <div class="admin-form__actions">
+      <button type="submit" class="admin-btn admin-btn--green">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>
+        Lưu
+      </button>
+      <a href="/ve-chung-toi" target="_blank" class="admin-btn admin-btn--gray">Xem trang</a>
+    </div>
+  </form>
+</section>
+
+<script>
+document.querySelectorAll('[data-upload]').forEach(function(area) {
+  const input = area.querySelector('input[type="file"]');
+  const img = area.querySelector('.admin-upload-preview');
+  const ph = area.querySelector('.admin-upload-placeholder');
+  area.addEventListener('click', () => input.click());
+  area.addEventListener('dragover', e => { e.preventDefault(); area.classList.add('drag-over'); });
+  area.addEventListener('dragleave', () => area.classList.remove('drag-over'));
+  area.addEventListener('drop', e => {
+    e.preventDefault(); area.classList.remove('drag-over');
+    if (e.dataTransfer.files[0]) { const dt = new DataTransfer(); dt.items.add(e.dataTransfer.files[0]); input.files = dt.files; show(e.dataTransfer.files[0]); }
+  });
+  input.addEventListener('change', function() { if (this.files[0]) show(this.files[0]); });
+  function show(file) {
+    const reader = new FileReader();
+    reader.onload = e => { img.src = e.target.result; img.style.display = 'block'; if (ph) ph.style.display = 'none'; };
+    reader.readAsDataURL(file);
+  }
+});
+</script>

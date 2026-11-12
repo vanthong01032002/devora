@@ -141,6 +141,23 @@ const uploadContact = multer({
 
 router.get('/admin/pages/contact',       adminController.contactPageIndex);
 router.post('/admin/pages/contact',      uploadContact.single('image'), adminController.contactPageSave);
+
+// Trang Giới thiệu (Về chúng tôi)
+const aboutUploadDir = path.join(__dirname, '../../public/uploads/about');
+if (!fs.existsSync(aboutUploadDir)) fs.mkdirSync(aboutUploadDir, { recursive: true });
+const uploadAbout = multer({
+    storage: multer.diskStorage({
+        destination: (req, file, cb) => cb(null, aboutUploadDir),
+        filename: (req, file, cb) => cb(null, 'about_' + Date.now() + path.extname(file.originalname))
+    }),
+    limits: { fileSize: 5 * 1024 * 1024 },
+    fileFilter: (req, file, cb) => {
+        const ok = /jpeg|jpg|png|gif|webp|avif/.test(path.extname(file.originalname).toLowerCase());
+        ok ? cb(null, true) : cb(new Error('Chỉ chấp nhận file ảnh'));
+    }
+});
+router.get('/admin/pages/about',  adminController.aboutPageIndex);
+router.post('/admin/pages/about', uploadAbout.fields([{ name: 'hero_image', maxCount: 1 }, { name: 'story_image', maxCount: 1 }]), adminController.aboutPageSave);
 router.get('/admin/mail/contact',        adminController.contactMessages);
 router.delete('/admin/mail/contact/:id', adminController.contactMessageDelete);
 

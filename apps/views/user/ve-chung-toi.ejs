@@ -7,22 +7,22 @@
     <div class="about-hero__text">
       <nav class="page-crumb page-crumb--left" aria-label="Breadcrumb"><a href="/">Trang chủ</a><span class="sep">/</span><span>Về chúng tôi</span></nav>
       <p class="about-hero__tag">Về chúng tôi</p>
-      <h1>Chúng tôi là <span>Tekora</span></h1>
-      <p>Tekora là đơn vị thiết kế website và chuyển đổi số đáng tin cậy của doanh nghiệp Việt. Chúng tôi đồng hành cùng bạn từ ý tưởng đến sản phẩm hoàn chỉnh, giúp thương hiệu tỏa sáng trên nền tảng số.</p>
+      <h1><%= settings.about_hero_heading || 'Chúng tôi là' %> <span><%= settings.about_hero_highlight || 'Tekora' %></span></h1>
+      <p><%= settings.about_intro || 'Tekora là đơn vị thiết kế website và chuyển đổi số đáng tin cậy của doanh nghiệp Việt. Chúng tôi đồng hành cùng bạn từ ý tưởng đến sản phẩm hoàn chỉnh, giúp thương hiệu tỏa sáng trên nền tảng số.' %></p>
       <div class="about-hero__actions">
         <a href="/lien-he" class="about-btn about-btn--primary">Liên hệ ngay</a>
         <a href="/dich-vu" class="about-btn about-btn--outline">Xem dịch vụ</a>
       </div>
     </div>
     <div class="about-hero__img">
-      <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1200&auto=format&fit=crop'" alt="Đội ngũ Tekora">
+      <img src="<%= settings.about_hero_image || '/images/illustration-about-hero.png' %>" alt="Đội ngũ Tekora">
       <div class="about-hero__badge about-hero__badge--1">
-        <span class="about-hero__badge-num">20+</span>
-        <span>Dự án đã bàn giao</span>
+        <span class="about-hero__badge-num"><%= settings.about_badge1_num || '20+' %></span>
+        <span><%= settings.about_badge1_label || 'Dự án đã bàn giao' %></span>
       </div>
       <div class="about-hero__badge about-hero__badge--2">
-        <span class="about-hero__badge-num">100%</span>
-        <span>Bàn giao mã nguồn</span>
+        <span class="about-hero__badge-num"><%= settings.about_badge2_num || '100%' %></span>
+        <span><%= settings.about_badge2_label || 'Bàn giao mã nguồn' %></span>
       </div>
     </div>
   </div>
@@ -32,30 +32,25 @@
 <section class="about-story">
   <div class="about-inner">
     <div class="about-story__img">
-      <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1200&auto=format&fit=crop" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop'" alt="Câu chuyện Tekora">
+      <img src="<%= settings.about_story_image || '/images/illustration-about-story.png' %>" alt="Câu chuyện Tekora">
       <div class="about-story__exp">
-        <strong>5+</strong>
-        <span>Năm kinh nghiệm</span>
+        <strong><%= settings.about_exp_num || '5+' %></strong>
+        <span><%= settings.about_exp_label || 'Năm kinh nghiệm' %></span>
       </div>
     </div>
     <div class="about-story__content">
       <p class="about-label">Câu chuyện của chúng tôi</p>
-      <h2>Từ đam mê đến <span>sứ mệnh</span></h2>
-      <p>Tekora ra đời với niềm tin rằng mỗi doanh nghiệp Việt đều xứng đáng có một nền tảng số vững chắc. Chúng tôi bắt đầu từ một nhóm nhỏ những người đam mê công nghệ và thiết kế, với mong muốn mang lại giải pháp website thực sự hiệu quả cho doanh nghiệp.</p>
-      <p>Qua nhiều năm phát triển, Tekora đã trở thành đối tác tin cậy của hàng trăm doanh nghiệp thuộc nhiều lĩnh vực khác nhau. Mỗi dự án là một hành trình, mỗi website là một câu chuyện thành công mà chúng tôi tự hào được góp phần tạo nên.</p>
+      <h2><%= settings.about_story_heading || 'Từ đam mê đến' %> <span><%= settings.about_story_highlight || 'sứ mệnh' %></span></h2>
+      <p><%= settings.about_story_p1 || 'Tekora ra đời với niềm tin rằng mỗi doanh nghiệp Việt đều xứng đáng có một nền tảng số vững chắc. Chúng tôi bắt đầu từ một nhóm nhỏ những người đam mê công nghệ và thiết kế, với mong muốn mang lại giải pháp website thực sự hiệu quả cho doanh nghiệp.' %></p>
+      <p><%= settings.about_story_p2 || 'Qua nhiều năm phát triển, Tekora đã trở thành đối tác tin cậy của hàng trăm doanh nghiệp thuộc nhiều lĩnh vực khác nhau. Mỗi dự án là một hành trình, mỗi website là một câu chuyện thành công mà chúng tôi tự hào được góp phần tạo nên.' %></p>
       <div class="about-story__points">
+        <% const _pts = (settings.about_points ? String(settings.about_points).split(/\r?\n/).map(s => s.trim()).filter(Boolean) : []); const _showPts = _pts.length ? _pts : ['Thiết kế chuẩn SEO, tối ưu chuyển đổi', 'Hỗ trợ tận tâm, đồng hành lâu dài', 'Minh bạch, đúng hạn, đúng cam kết']; %>
+        <% _showPts.forEach(function(pt) { %>
         <div class="about-story__point">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
-          Thiết kế chuẩn SEO, tối ưu chuyển đổi
+          <%= pt %>
         </div>
-        <div class="about-story__point">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
-          Hỗ trợ tận tâm, đồng hành lâu dài
-        </div>
-        <div class="about-story__point">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
-          Minh bạch, đúng hạn, đúng cam kết
-        </div>
+        <% }); %>
       </div>
     </div>
   </div>
@@ -65,20 +60,20 @@
 <section class="about-stats">
   <div class="about-stats__inner">
     <div class="about-stat">
-      <span class="about-stat__num">20+</span>
-      <span class="about-stat__label">Dự án đã bàn giao</span>
+      <span class="about-stat__num"><%= settings.about_stat1_num || '20+' %></span>
+      <span class="about-stat__label"><%= settings.about_stat1_label || 'Dự án đã bàn giao' %></span>
     </div>
     <div class="about-stat">
-      <span class="about-stat__num">100%</span>
-      <span class="about-stat__label">Bàn giao mã nguồn</span>
+      <span class="about-stat__num"><%= settings.about_stat2_num || '100%' %></span>
+      <span class="about-stat__label"><%= settings.about_stat2_label || 'Bàn giao mã nguồn' %></span>
     </div>
     <div class="about-stat">
-      <span class="about-stat__num">24/7</span>
-      <span class="about-stat__label">Hỗ trợ kỹ thuật</span>
+      <span class="about-stat__num"><%= settings.about_stat3_num || '24/7' %></span>
+      <span class="about-stat__label"><%= settings.about_stat3_label || 'Hỗ trợ kỹ thuật' %></span>
     </div>
     <div class="about-stat">
-      <span class="about-stat__num">10+</span>
-      <span class="about-stat__label">Lĩnh vực đa ngành</span>
+      <span class="about-stat__num"><%= settings.about_stat4_num || '10+' %></span>
+      <span class="about-stat__label"><%= settings.about_stat4_label || 'Lĩnh vực đa ngành' %></span>
     </div>
   </div>
 </section>
@@ -166,8 +161,8 @@
 <!-- ===== CTA ===== -->
 <section class="about-cta">
   <div class="about-cta__inner">
-    <h2>Sẵn sàng hợp tác cùng Tekora?</h2>
-    <p>Hãy để chúng tôi giúp bạn xây dựng nền tảng số vững chắc và phát triển bền vững.</p>
+    <h2><%= settings.about_cta_title || 'Sẵn sàng hợp tác cùng Tekora?' %></h2>
+    <p><%= settings.about_cta_text || 'Hãy để chúng tôi giúp bạn xây dựng nền tảng số vững chắc và phát triển bền vững.' %></p>
     <div class="about-cta__actions">
       <a href="/lien-he" class="about-btn about-btn--white">Liên hệ tư vấn</a>
       <a href="/dich-vu" class="about-btn about-btn--outline-white">Xem dịch vụ</a>
