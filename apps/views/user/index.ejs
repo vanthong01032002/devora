@@ -90,6 +90,27 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 </script>
+<script>
+// Mobile: cac hang the (Dich vu / Du an / Bang gia / Cam nhan) tu truot ngang,
+// cham vao thi tam dung vai giay, chay het hang thi quay ve dau.
+document.addEventListener('DOMContentLoaded', function () {
+  if (!window.matchMedia('(max-width: 768px)').matches) return;
+  document.querySelectorAll('.dv-services__grid, .dv-projects__grid, .pricing-grid, .dv-testi__grid').forEach(function (row) {
+    if (row.scrollWidth <= row.clientWidth + 4) return;
+    var paused = false, resumeTimer;
+    function pause() { paused = true; clearTimeout(resumeTimer); resumeTimer = setTimeout(function () { paused = false; }, 3500); }
+    ['touchstart', 'pointerdown', 'wheel'].forEach(function (ev) { row.addEventListener(ev, pause, { passive: true }); });
+    setInterval(function () {
+      if (paused || document.hidden) return;
+      var card = row.querySelector(':scope > *');
+      var step = card ? card.getBoundingClientRect().width + 14 : row.clientWidth * 0.85;
+      var max = row.scrollWidth - row.clientWidth;
+      var next = row.scrollLeft + step;
+      row.scrollTo({ left: next >= max - 4 ? 0 : next, behavior: 'smooth' });
+    }, 3200);
+  });
+});
+</script>
 
 <!-- ===== DOMAIN CHECK ===== -->
 <section class="domain-check">

@@ -413,3 +413,38 @@ h1, h2, h3 { font-weight: 800; }
 .dv-chip { border: 1px solid #e2eaf2; }
 .dv-project:hover h3 { color: var(--dv-blue); }
 .dv-project h3 { transition: color 0.2s; }
+
+
+/* ===== MOBILE (2026-11-12): luoi the dai -> 1 HANG NGANG TU CHAY =====
+   Dich vu / Du an / Bang gia / Cam nhan: thay vi xep chong doc rat dai,
+   tren mobile gom thanh 1 hang ngang, tu truot qua tung the (JS o index.ejs),
+   khach van vuot tay duoc. */
+@media (max-width: 768px) {
+  .dv-services__grid,
+  .dv-projects__grid,
+  .pricing-grid,
+  .dv-testi__grid {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 14px;
+    padding: 6px 2px 16px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .dv-services__grid::-webkit-scrollbar,
+  .dv-projects__grid::-webkit-scrollbar,
+  .pricing-grid::-webkit-scrollbar,
+  .dv-testi__grid::-webkit-scrollbar { display: none; }
+  .dv-services__grid > *,
+  .dv-projects__grid > *,
+  .pricing-grid > *,
+  .dv-testi__grid > * {
+    flex: 0 0 82%;
+    max-width: 82%;
+    scroll-snap-align: start;
+    margin: 0;
+  }
+  .dv-projects__grid > * { flex-basis: 85%; max-width: 85%; }
+}
