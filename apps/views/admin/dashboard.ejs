@@ -1,4 +1,25 @@
-<!-- Bảng điều khiển: info-box theo mẫu NASANI -->
+<% const fmtDT = (d) => new Date(d).toLocaleString('vi-VN', { hour: '2-digit', minute: '2-digit', day: '2-digit', month: '2-digit', year: 'numeric' }); %>
+<% const displayName = (typeof adminUser !== 'undefined' && adminUser && adminUser.full_name) ? adminUser.full_name : 'Admin'; %>
+
+<!-- ===== Welcome ===== -->
+<section class="dash-welcome">
+  <div class="dash-welcome__text">
+    <h2>Xin chào, <%= displayName %> 👋</h2>
+    <p><%= new Date().toLocaleDateString('vi-VN', { weekday: 'long', day: '2-digit', month: '2-digit', year: 'numeric' }) %> · Hôm nay có <strong><%= totalToday %></strong> lượt truy cập<% if (unreadMessages > 0) { %> và <strong><%= unreadMessages %></strong> thư liên hệ chưa đọc<% } %>.</p>
+  </div>
+  <div class="dash-welcome__actions">
+    <a href="/admin/content/news/create" class="dash-btn dash-btn--primary">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+      Viết bài mới
+    </a>
+    <a href="/" target="_blank" class="dash-btn dash-btn--ghost">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      Xem website
+    </a>
+  </div>
+</section>
+
+<!-- ===== Quick info boxes (mẫu NASANI) ===== -->
 <section class="dv-infobox-card">
   <div class="dv-infobox-card__head">
     <h5 class="dv-infobox-card__title">Bảng điều khiển</h5>
@@ -10,6 +31,15 @@
       </span>
       <span class="dv-info-box__content">
         <span class="dv-info-box__text">Cấu hình website</span>
+        <span class="dv-info-box__more">Xem thêm</span>
+      </span>
+    </a>
+    <a class="dv-info-box" href="/admin/content/news/create" title="Viết bài mới">
+      <span class="dv-info-box__icon" style="background:#ff9f43;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+      </span>
+      <span class="dv-info-box__content">
+        <span class="dv-info-box__text">Viết bài mới</span>
         <span class="dv-info-box__more">Xem thêm</span>
       </span>
     </a>
@@ -40,10 +70,19 @@
         <span class="dv-info-box__more">Xem thêm <% if (unreadMessages > 0) { %><span class="dash-badge"><%= unreadMessages %></span><% } %></span>
       </span>
     </a>
+    <a class="dv-info-box" href="/admin/seo-tools/check" title="Check SEO">
+      <span class="dv-info-box__icon" style="background:#7367f0;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/><path d="M8.5 11l2 2 3.5-4"/></svg>
+      </span>
+      <span class="dv-info-box__content">
+        <span class="dv-info-box__text">Check SEO</span>
+        <span class="dv-info-box__more">Xem thêm</span>
+      </span>
+    </a>
   </div>
 </section>
 
-<!-- Stats row -->
+<!-- ===== KPI stats ===== -->
 <div class="dash-stats">
   <div class="dash-stat-card">
     <div class="dash-stat-card__icon" style="background:#e8f0fe;color:#1565c0;">
@@ -52,6 +91,9 @@
     <div>
       <div class="dash-stat-card__num"><%= totalToday %></div>
       <div class="dash-stat-card__label">Lượt xem hôm nay</div>
+      <% if (totalYesterday > 0 || totalToday > 0) { %>
+      <div class="dash-stat-card__delta <%= deltaPct >= 0 ? 'is-up' : 'is-down' %>"><%= deltaPct >= 0 ? '▲' : '▼' %> <%= Math.abs(deltaPct) %>% so với hôm qua</div>
+      <% } %>
     </div>
   </div>
   <div class="dash-stat-card">
@@ -61,30 +103,110 @@
     <div>
       <div class="dash-stat-card__num"><%= totalMonth %></div>
       <div class="dash-stat-card__label">Lượt xem 30 ngày</div>
+      <div class="dash-stat-card__sub"><%= typeof topIPs !== 'undefined' ? topIPs.length : 0 %> IP truy cập</div>
     </div>
   </div>
-  <div class="dash-stat-card">
+  <a class="dash-stat-card" href="/admin/mail/contact" style="text-decoration:none;">
     <div class="dash-stat-card__icon" style="background:#fff3e0;color:#e65100;">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
     </div>
     <div>
       <div class="dash-stat-card__num"><%= unreadMessages %></div>
       <div class="dash-stat-card__label">Tin nhắn chưa đọc</div>
+      <div class="dash-stat-card__sub"><%= unreadMessages > 0 ? 'Cần xử lý ngay' : 'Đã xử lý hết' %></div>
     </div>
-  </div>
-  <div class="dash-stat-card">
+  </a>
+  <a class="dash-stat-card" href="/admin/content/news" style="text-decoration:none;">
     <div class="dash-stat-card__icon" style="background:#f3e5f5;color:#6a1b9a;">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93V18c0-.55-.45-1-1-1s-1 .45-1 1v1.93C7.06 19.44 4.56 16.94 4.07 13H6c.55 0 1-.45 1-1s-.45-1-1-1H4.07C4.56 7.06 7.06 4.56 11 4.07V6c0 .55.45 1 1 1s1-.45 1-1V4.07C16.94 4.56 19.44 7.06 19.93 11H18c-.55 0-1 .45-1 1s.45 1 1 1h1.93c-.49 3.94-2.99 6.44-6.93 6.93z"/></svg>
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
     </div>
     <div>
-      <div class="dash-stat-card__num"><%= topIPs.length %></div>
-      <div class="dash-stat-card__label">IP truy cập (30 ngày)</div>
+      <div class="dash-stat-card__num"><%= postsTotal %></div>
+      <div class="dash-stat-card__label">Tổng bài viết</div>
+      <div class="dash-stat-card__sub"><%= servicesTotal %> dịch vụ đang chạy</div>
     </div>
-  </div>
+  </a>
 </div>
 
-<!-- Quick links -->
-<!-- Analytics -->
+<!-- ===== Traffic chart 14 ngày ===== -->
+<section class="dash-card dash-chart-card">
+  <h3 class="dash-card__title">
+    <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M5 9.2h3V19H5V9.2zM10.6 5h2.8v14h-2.8V5zm5.6 8H19v6h-2.8v-6z"/></svg>
+    Lưu lượng truy cập 14 ngày gần nhất
+  </h3>
+  <% const _daily = (typeof dailyStats !== 'undefined' && dailyStats) ? dailyStats : []; %>
+  <% const _maxDay = Math.max.apply(null, _daily.map(d => d.total).concat([1])); %>
+  <% if (_daily.length && _daily.some(d => d.total > 0)) { %>
+  <div class="dash-chart">
+    <% _daily.forEach(function(d) { %>
+    <div class="dash-chart__col<%= d.isToday ? ' is-today' : '' %>" title="<%= d.dateLabel %>: <%= d.total %> lượt">
+      <span class="dash-chart__val"><%= d.total > 0 ? d.total : '' %></span>
+      <div class="dash-chart__bar" style="height:<%= Math.max(3, Math.round(d.total / _maxDay * 100)) %>%"></div>
+      <span class="dash-chart__day"><%= d.isToday ? 'Nay' : d.label %></span>
+      <span class="dash-chart__date"><%= d.dateLabel %></span>
+    </div>
+    <% }); %>
+  </div>
+  <% } else { %>
+  <p class="dash-empty">Chưa có dữ liệu truy cập trong 14 ngày qua.</p>
+  <% } %>
+</section>
+
+<!-- ===== Recent: messages + posts ===== -->
+<div class="dash-recent-grid">
+  <section class="dash-card">
+    <h3 class="dash-card__title">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      Thư liên hệ mới nhất
+    </h3>
+    <% const _msgs = (typeof recentMessages !== 'undefined' && recentMessages) ? recentMessages : []; %>
+    <% if (_msgs.length === 0) { %>
+      <p class="dash-empty">Chưa có thư liên hệ nào.</p>
+    <% } else { %>
+    <div class="dash-msg-list">
+      <% _msgs.forEach(function(m) { %>
+      <a href="/admin/mail/contact" class="dash-msg<%= m.is_read ? '' : ' dash-msg--unread' %>">
+        <span class="dash-msg__avatar"><%= (m.full_name || '?').trim().charAt(0).toUpperCase() %></span>
+        <span class="dash-msg__body">
+          <span class="dash-msg__name"><%= m.full_name %><% if (m.phone) { %> · <%= m.phone %><% } %></span>
+          <span class="dash-msg__text"><%= (m.message || m.subject || '').slice(0, 90) %><%= (m.message || m.subject || '').length > 90 ? '…' : '' %></span>
+          <span class="dash-msg__time"><%= fmtDT(m.created_at) %></span>
+        </span>
+        <% if (!m.is_read) { %><span class="dash-msg__dot"></span><% } %>
+      </a>
+      <% }); %>
+    </div>
+    <a href="/admin/mail/contact" class="dash-card__more">Xem tất cả thư liên hệ →</a>
+    <% } %>
+  </section>
+
+  <section class="dash-card">
+    <h3 class="dash-card__title">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+      Bài viết mới nhất
+    </h3>
+    <% const _posts = (typeof recentPosts !== 'undefined' && recentPosts) ? recentPosts : []; %>
+    <% if (_posts.length === 0) { %>
+      <p class="dash-empty">Chưa có bài viết nào.</p>
+    <% } else { %>
+    <div class="dash-post-list">
+      <% _posts.forEach(function(p) { %>
+      <a href="/admin/content/news/edit/<%= p.id %>" class="dash-post">
+        <% const _img = p.thumbnail || p.image || p.image_path || ''; %>
+        <% if (_img) { %><img src="<%= _img %>" class="dash-post__thumb" alt=""><% } %>
+        <span class="dash-post__body">
+          <span class="dash-post__title"><%= p.title %></span>
+          <span class="dash-post__meta"><%= fmtDT(p.created_at) %> · <span class="dash-post__status <%= p.is_active ? 'is-on' : 'is-off' %>"><%= p.is_active ? 'Đang hiển thị' : 'Đang ẩn' %></span></span>
+        </span>
+      </a>
+      <% }); %>
+    </div>
+    <a href="/admin/content/news" class="dash-card__more">Quản lý tất cả bài viết →</a>
+    <% } %>
+  </section>
+</div>
+
+<!-- ===== Analytics ===== -->
 <div class="dash-analytics">
 
   <!-- Top IPs -->

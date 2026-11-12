@@ -102,6 +102,7 @@ app.use('/admin', adminAuth);
 
 // Middleware: inject adminSiteUrl từ settings vào mọi trang admin
 const SettingsModel = require('./apps/models/settingsModel');
+const ContactModel = require('./apps/models/contactModel');
 app.use('/admin', async (req, res, next) => {
     try {
         const s = await SettingsModel.getAll();
@@ -110,6 +111,15 @@ app.use('/admin', async (req, res, next) => {
     } catch {
         res.locals.adminSiteUrl = '/';
     }
+    // Thông báo: số thư chưa đọc + 5 thư mới nhất cho chuông thông báo
+    res.locals.adminNotify = { unread: 0, items: [] };
+    try {
+        const [unread, items] = await Promise.all([
+            ContactModel.countUnread(),
+            ContactModel.getRecent(5)
+        ]);
+        res.locals.adminNotify = { unread: unread || 0, items: items || [] };
+    } catch { /* bỏ qua nếu lỗi DB */ }
     next();
 });
 

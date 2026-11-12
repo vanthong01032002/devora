@@ -56,7 +56,21 @@ const VisitorModel = {
     getTotalMonth: () => new Promise((resolve, reject) => {
         db.query(`SELECT COUNT(*) as total FROM visitor_logs WHERE visited_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)`,
             (err, rows) => err ? reject(err) : resolve(rows[0]?.total || 0));
+    }),
+
+    getTotalYesterday: () => new Promise((resolve, reject) => {
+        db.query(`SELECT COUNT(*) as total FROM visitor_logs WHERE DATE(visited_at) = DATE_SUB(CURDATE(), INTERVAL 1 DAY)`,
+            (err, rows) => err ? reject(err) : resolve(rows[0]?.total || 0));
+    }),
+
+    // Luot truy cap theo ngay trong N ngay gan nhat (chi tra ve ngay co du lieu)
+    getDailyStats: (days = 14) => new Promise((resolve, reject) => {
+        db.query(`SELECT DATE(visited_at) as day, COUNT(*) as total FROM visitor_logs
+                  WHERE visited_at >= DATE_SUB(CURDATE(), INTERVAL ? DAY)
+                  GROUP BY DATE(visited_at) ORDER BY day ASC`, [Math.max(1, parseInt(days) || 14)],
+            (err, rows) => err ? reject(err) : resolve(rows));
     })
+
 };
 
 module.exports = { VisitorModel, detectBrowser, detectDevice };

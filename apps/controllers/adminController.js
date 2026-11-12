@@ -5,27 +5,68 @@ const path = require('path');
 const fs = require('fs');
 
 exports.dashboard = async (req, res) => {
+    const ContactModel = require('../models/contactModel');
+    const safe = (p, dflt) => Promise.resolve(p).catch(() => dflt);
     try {
-        const [topIPs, browsers, devices, totalToday, totalMonth, unreadMessages] = await Promise.all([
+        const [topIPs, browsers, devices, totalToday, totalYesterday, totalMonth, unreadMessages,
+               dailyRows, recentMessages, recentPosts, postsTotal, servicesTotal] = await Promise.all([
             VisitorModel.getTopIPs(10),
             VisitorModel.getBrowserStats(),
             VisitorModel.getDeviceStats(),
             VisitorModel.getTotalToday(),
+            safe(VisitorModel.getTotalYesterday(), 0),
             VisitorModel.getTotalMonth(),
-            require('../models/contactModel').getMessages().then(msgs => msgs.filter(m => !m.is_read).length).catch(() => 0)
+            safe(ContactModel.countUnread(), 0),
+            safe(VisitorModel.getDailyStats(14), []),
+            safe(ContactModel.getRecent(5), []),
+            safe(require('../models/blogModel').getAllActive(5), []),
+            safe(require('../models/blogModel').getAll().then(r => r.length), 0),
+            safe(require('../models/servicesModel').getAll().then(r => r.length), 0)
         ]);
+        // Dien du 14 ngay (ngay khong co luot xem = 0) cho bieu do
+        const byDay = {};
+        (dailyRows || []).forEach(r => {
+            const key = r.day instanceof Date ? r.day.toISOString().slice(0, 10) : String(r.day).slice(0, 10);
+            byDay[key] = r.total;
+        });
+        const weekdayVN = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'];
+        const dailyStats = [];
+        for (let i = 13; i >= 0; i--) {
+            const d = new Date(); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() - i);
+            const key = d.toISOString().slice(0, 10);
+            dailyStats.push({
+                label: weekdayVN[d.getDay()],
+                dateLabel: String(d.getDate()).padStart(2, '0') + '/' + String(d.getMonth() + 1).padStart(2, '0'),
+                total: byDay[key] || 0,
+                isToday: i === 0
+            });
+        }
+        const deltaPct = totalYesterday > 0
+            ? Math.round((totalToday - totalYesterday) / totalYesterday * 100)
+            : (totalToday > 0 ? 100 : 0);
         res.render('admin/dashboard', {
             layout: 'layouts/admin',
-            title: 'Dashboard',
-            topIPs, browsers, devices, totalToday, totalMonth, unreadMessages
+            title: 'Bảng điều khiển',
+            topIPs, browsers, devices, totalToday, totalYesterday, totalMonth, unreadMessages,
+            dailyStats, deltaPct, recentMessages, recentPosts, postsTotal, servicesTotal,
+            adminUser: req.session && req.session.adminUser ? req.session.adminUser : null
         });
     } catch (err) {
         console.error(err);
         res.render('admin/dashboard', {
-            layout: 'layouts/admin', title: 'Dashboard',
-            topIPs: [], browsers: [], devices: [], totalToday: 0, totalMonth: 0, unreadMessages: 0
+            layout: 'layouts/admin', title: 'Bảng điều khiển',
+            topIPs: [], browsers: [], devices: [], totalToday: 0, totalYesterday: 0, totalMonth: 0,
+            unreadMessages: 0, dailyStats: [], deltaPct: 0, recentMessages: [], recentPosts: [],
+            postsTotal: 0, servicesTotal: 0, adminUser: null
         });
     }
+};
+
+exports.contactMarkAllRead = async (req, res) => {
+    try {
+        await require('../models/contactModel').markAllRead();
+        res.json({ ok: true });
+    } catch (err) { res.status(500).json({ ok: false }); }
 };
 
 // ===== SLIDESHOW =====

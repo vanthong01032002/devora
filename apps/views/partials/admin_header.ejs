@@ -36,10 +36,37 @@
             <!--  <button type="button" class="admin-topbar__icon-btn" title="Lưới ứng dụng" aria-label="Lưới ứng dụng">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
             </button> -->
-            <button type="button" class="admin-topbar__icon-btn admin-topbar__icon-btn--notify" title="Thông báo" aria-label="Thông báo, 2 chưa đọc">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-                <span class="admin-topbar__badge">2</span>
-            </button>
+            <% const _notify = (typeof adminNotify !== 'undefined' && adminNotify) ? adminNotify : { unread: 0, items: [] }; %>
+            <div class="admin-notify" id="adminNotify">
+                <button type="button" class="admin-topbar__icon-btn admin-topbar__icon-btn--notify" id="adminNotifyBtn" title="Thông báo" aria-label="Thông báo" aria-expanded="false">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                    <% if (_notify.unread > 0) { %><span class="admin-topbar__badge" id="adminNotifyBadge"><%= _notify.unread > 99 ? '99+' : _notify.unread %></span><% } %>
+                </button>
+                <div class="admin-notify-dropdown" id="adminNotifyDropdown">
+                    <div class="and-head">
+                        <strong>Thông báo</strong>
+                        <% if (_notify.unread > 0) { %><button type="button" class="and-readall" id="adminNotifyReadAll">Đánh dấu đã đọc</button><% } %>
+                    </div>
+                    <% if (_notify.items && _notify.items.length) { %>
+                    <div class="and-list">
+                        <% _notify.items.forEach(function(m) { %>
+                        <a href="/admin/mail/contact" class="and-item<%= m.is_read ? '' : ' and-item--unread' %>">
+                            <span class="and-item__avatar"><%= (m.full_name || '?').trim().charAt(0).toUpperCase() %></span>
+                            <span class="and-item__body">
+                                <span class="and-item__name"><%= m.full_name %><% if (m.subject) { %> · <%= m.subject %><% } %></span>
+                                <span class="and-item__msg"><%= (m.message || '').slice(0, 80) %><%= (m.message || '').length > 80 ? '…' : '' %></span>
+                                <span class="and-item__time"><%= new Date(m.created_at).toLocaleString('vi-VN', { hour: '2-digit', minute: '2-digit', day: '2-digit', month: '2-digit', year: 'numeric' }) %></span>
+                            </span>
+                            <% if (!m.is_read) { %><span class="and-item__dot"></span><% } %>
+                        </a>
+                        <% }); %>
+                    </div>
+                    <% } else { %>
+                    <p class="and-empty">Chưa có thông báo nào.</p>
+                    <% } %>
+                    <a href="/admin/mail/contact" class="and-foot">Xem tất cả thư liên hệ</a>
+                </div>
+            </div>
 
             <!-- User dropdown -->
             <div class="admin-user-menu" id="adminUserMenu">

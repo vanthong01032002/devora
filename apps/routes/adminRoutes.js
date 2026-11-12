@@ -159,6 +159,7 @@ const uploadAbout = multer({
 router.get('/admin/pages/about',  adminController.aboutPageIndex);
 router.post('/admin/pages/about', uploadAbout.fields([{ name: 'hero_image', maxCount: 1 }, { name: 'story_image', maxCount: 1 }]), adminController.aboutPageSave);
 router.get('/admin/mail/contact',        adminController.contactMessages);
+router.post('/admin/mail/contact/read-all', adminController.contactMarkAllRead);
 router.delete('/admin/mail/contact/:id', adminController.contactMessageDelete);
 
 // SEO Pages

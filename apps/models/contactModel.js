@@ -27,7 +27,23 @@ const ContactModel = {
 
     deleteMessage: (id) => new Promise((resolve, reject) => {
         db.query('DELETE FROM contact_messages WHERE id=?', [id], (err, r) => err ? reject(err) : resolve(r));
+    }),
+
+    getRecent: (limit = 5) => new Promise((resolve, reject) => {
+        db.query('SELECT * FROM contact_messages ORDER BY created_at DESC LIMIT ?', [Math.max(1, parseInt(limit) || 5)],
+            (err, rows) => err ? reject(err) : resolve(rows));
+    }),
+
+    countUnread: () => new Promise((resolve, reject) => {
+        db.query('SELECT COUNT(*) as total FROM contact_messages WHERE is_read = 0',
+            (err, rows) => err ? reject(err) : resolve(rows[0]?.total || 0));
+    }),
+
+    markAllRead: () => new Promise((resolve, reject) => {
+        db.query('UPDATE contact_messages SET is_read = 1 WHERE is_read = 0',
+            (err, r) => err ? reject(err) : resolve(r));
     })
+
 };
 
 module.exports = ContactModel;
