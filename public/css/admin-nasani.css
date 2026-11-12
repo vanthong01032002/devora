@@ -355,3 +355,71 @@ html:not([data-theme="dark"]) .blog-form__main .blog-form__section {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-size: 13px; line-height: 1.6;
 }
+
+/* ---------- Form tin tuc: card hinh + trang thai kieu NASANI demo ---------- */
+.nasani-upload__preview {
+  display: block; width: 100%; max-height: 220px; object-fit: cover;
+  border-radius: 10px; margin-bottom: 12px; background: var(--dv-pill);
+}
+.nasani-upload__drop {
+  border: 2px dashed var(--dv-line-2); border-radius: 10px;
+  padding: 22px 14px 18px; text-align: center; cursor: pointer;
+  background: #fbfdff; transition: border-color .2s, background .2s;
+}
+.nasani-upload__drop:hover,
+.nasani-upload.drag-over .nasani-upload__drop {
+  border-color: var(--dv-accent); background: var(--dv-accent-soft);
+}
+.nasani-upload__drop svg { width: 44px; height: 44px; color: #90b8e0; }
+.nasani-upload__text { margin: 8px 0 2px; font-size: 13.5px; color: var(--dv-body); }
+.nasani-upload__or { margin: 0 0 10px; font-size: 13px; color: var(--dv-body); }
+.nasani-upload__btn {
+  background: var(--dv-accent); color: #ffffff; border: none; cursor: pointer;
+  font-size: 13.5px; font-weight: 600; padding: 8px 22px; border-radius: 8px;
+  transition: background .2s;
+}
+.nasani-upload__btn:hover { background: var(--dv-accent-dark); }
+.nasani-upload__note {
+  margin: 10px 0 0; font-size: 12px; font-weight: 600; color: var(--dv-body);
+}
+[data-theme="dark"] .nasani-upload__drop { background: transparent; }
+
+/* Toggle switch (bat = xanh la #28c76f) */
+.nasani-toggle-row {
+  display: flex; align-items: center; gap: 12px; padding: 7px 0;
+}
+.nasani-toggle-row__label {
+  font-size: 13.5px; font-weight: 600; color: var(--dv-ink); min-width: 62px;
+}
+[data-theme="dark"] .nasani-toggle-row__label { color: #e2e8f0; }
+.nasani-switch {
+  position: relative; display: inline-block; flex: none;
+  width: 44px; height: 24px; margin: 0;
+}
+.nasani-switch input {
+  position: absolute; opacity: 0; width: 0; height: 0; margin: 0;
+}
+.nasani-switch__slider {
+  position: absolute; inset: 0; cursor: pointer; border-radius: 999px;
+  background: #d3d8e0; transition: background .2s;
+}
+.nasani-switch__slider::before {
+  content: ""; position: absolute; left: 3px; top: 3px;
+  width: 18px; height: 18px; border-radius: 50%; background: #ffffff;
+  box-shadow: 0 1px 3px rgba(16, 24, 40, .3); transition: transform .2s;
+}
+.nasani-switch input:checked + .nasani-switch__slider { background: #28c76f; }
+.nasani-switch input:checked + .nasani-switch__slider::before { transform: translateX(20px); }
+.nasani-switch input:focus-visible + .nasani-switch__slider {
+  box-shadow: 0 0 0 3px rgba(11, 95, 165, .25);
+}
+
+/* Layout 2 cot cho form tin tuc o desktop (blog.css khong duoc nap trong admin) */
+@media (min-width: 1025px) {
+  .blog-form__layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 24px;
+    align-items: start;
+  }
+}

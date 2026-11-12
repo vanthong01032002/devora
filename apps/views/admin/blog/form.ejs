@@ -35,23 +35,6 @@
           </div>
         </div>
 
-        <!-- Thumbnail -->
-        <div class="blog-form__section">
-          <h3 class="blog-form__section-title">Hình ảnh đại diện</h3>
-          <div class="admin-upload-area" id="uploadArea">
-            <% if (post && post.thumbnail) { %>
-              <img src="<%= post.thumbnail %>" class="admin-upload-preview" id="imgPreview">
-            <% } else { %>
-              <img src="" class="admin-upload-preview" id="imgPreview" style="display:none">
-            <% } %>
-            <div class="admin-upload-placeholder" id="uploadPlaceholder" style="<%= post && post.thumbnail ? 'display:none' : '' %>">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.35 10.04A7.49 7.49 0 0012 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 000 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/></svg>
-              <p>Kéo thả hoặc <span>chọn ảnh</span></p>
-            </div>
-            <input type="file" name="thumbnail" id="fileInput" accept="image/*" style="display:none">
-          </div>
-        </div>
-
         <!-- TinyMCE Content -->
         <div class="blog-form__section">
           <h3 class="blog-form__section-title">Nội dung</h3>
@@ -144,33 +127,54 @@
         </div>
 
       </div>
+
+      <!-- RIGHT: Thumbnail + Settings -->
+      <div class="blog-form__sidebar">
+
+        <!-- Hinh anh dai dien (dau cot phai, kieu NASANI demo) -->
+        <div class="blog-form__section">
+          <h3 class="blog-form__section-title">Hình ảnh đại diện</h3>
+          <div class="nasani-upload" id="uploadArea">
+            <% if (post && post.thumbnail) { %>
+              <img src="<%= post.thumbnail %>" class="nasani-upload__preview" id="imgPreview">
+            <% } else { %>
+              <img src="" class="nasani-upload__preview" id="imgPreview" style="display:none">
+            <% } %>
+            <div class="nasani-upload__drop" id="uploadPlaceholder">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.35 10.04A7.49 7.49 0 0012 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 000 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/></svg>
+              <p class="nasani-upload__text">Kéo và thả hình vào đây</p>
+              <p class="nasani-upload__or">Hoặc</p>
+              <button type="button" class="nasani-upload__btn">Chọn hình</button>
+            </div>
+            <p class="nasani-upload__note">Width: 500 px - Height: 350 px (jpg, gif, png, jpeg, gif, webp)</p>
+            <input type="file" name="thumbnail" id="fileInput" accept="image/*" style="display:none">
+          </div>
         </div>
 
-      </div>
-
-      <!-- RIGHT: Settings -->
-      <div class="blog-form__sidebar">
+        <!-- Trang thai (toggle switch kieu NASANI demo) -->
         <div class="blog-form__section">
-          <h3 class="blog-form__section-title">Cài đặt</h3>
+          <h3 class="blog-form__section-title">Trạng thái</h3>
 
-          <div class="admin-form__row">
-            <label class="admin-form__label">Trạng thái</label>
-            <select name="is_active" class="admin-form__input">
-              <option value="1" <%= !post || post.is_active ? 'selected' : '' %>>Hiển thị</option>
-              <option value="0" <%= post && !post.is_active ? 'selected' : '' %>>Ẩn</option>
-            </select>
+          <div class="nasani-toggle-row">
+            <span class="nasani-toggle-row__label">Nổi bật:</span>
+            <label class="nasani-switch">
+              <input type="checkbox" id="toggleFeatured" <%= post && post.is_featured ? 'checked' : '' %>>
+              <span class="nasani-switch__slider"></span>
+            </label>
+            <input type="hidden" name="is_featured" id="isFeaturedVal" value="<%= post && post.is_featured ? '1' : '0' %>">
           </div>
 
-          <div class="admin-form__row">
-            <label class="admin-form__label">Bài viết nổi bật</label>
-            <select name="is_featured" class="admin-form__input">
-              <option value="0" <%= !post || !post.is_featured ? 'selected' : '' %>>Không</option>
-              <option value="1" <%= post && post.is_featured ? 'selected' : '' %>>Có</option>
-            </select>
+          <div class="nasani-toggle-row">
+            <span class="nasani-toggle-row__label">Hiển thị:</span>
+            <label class="nasani-switch">
+              <input type="checkbox" id="toggleActive" <%= !post || post.is_active ? 'checked' : '' %>>
+              <span class="nasani-switch__slider"></span>
+            </label>
+            <input type="hidden" name="is_active" id="isActiveVal" value="<%= !post || post.is_active ? '1' : '0' %>">
           </div>
 
-          <div class="admin-form__row">
-            <label class="admin-form__label">Thứ tự</label>
+          <div class="admin-form__row" style="margin-top:10px;">
+            <label class="admin-form__label">Số thứ tự:</label>
             <input type="number" name="display_order" class="admin-form__input" min="0"
                    value="<%= post ? post.display_order : 0 %>">
           </div>
@@ -199,11 +203,13 @@
   </form>
 </section>
 
-<!-- TinyMCE CDN -->
-<script src="https://cdn.tiny.cloud/1/<%= tinymceKey %>/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<!-- TinyMCE self-hosted (khong can API key) -->
+<script src="/vendor/tinymce/tinymce.min.js"></script>
 <script>
 tinymce.init({
   selector: '#blogContent',
+  base_url: '/vendor/tinymce',
+  suffix: '.min',
   language: 'vi',
   height: 500,
   plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
@@ -230,7 +236,7 @@ fileInput.addEventListener('change', function() { if (this.files[0]) previewFile
 
 function previewFile(file) {
   const reader = new FileReader();
-  reader.onload = e => { imgPreview.src = e.target.result; imgPreview.style.display = 'block'; placeholder.style.display = 'none'; };
+  reader.onload = e => { imgPreview.src = e.target.result; imgPreview.style.display = 'block'; };
   reader.readAsDataURL(file);
   const dt = new DataTransfer(); dt.items.add(file); fileInput.files = dt.files;
 }
@@ -301,6 +307,18 @@ document.getElementById('seoTitle').addEventListener('input', function() {
 document.getElementById('seoDesc').addEventListener('input', function() {
   document.getElementById('prevDesc').textContent = this.value || 'Mô tả SEO sẽ hiển thị ở đây...';
 });
+
+// Toggle switch (card Trang thai) -> dong bo hidden input "1"/"0" dung ngu nghia server parse (=== '1')
+function bindToggle(toggleId, hiddenId) {
+  const t = document.getElementById(toggleId);
+  const h = document.getElementById(hiddenId);
+  if (!t || !h) return;
+  const sync = () => { h.value = t.checked ? '1' : '0'; };
+  t.addEventListener('change', sync);
+  sync();
+}
+bindToggle('toggleFeatured', 'isFeaturedVal');
+bindToggle('toggleActive', 'isActiveVal');
 
 // Init slug check
 if (slugInput.value) checkSlug(slugInput.value);
