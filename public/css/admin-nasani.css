@@ -135,7 +135,7 @@ html:not([data-theme="dark"]) .admin-dash-card {
   background: #ffffff; border: 1px solid var(--dv-line);
   border-radius: 12px; box-shadow: var(--dv-shadow);
 }
-.admin-panel__head { padding: 16px 20px 0; }
+.admin-panel__head { padding: 16px 22px 0; }
 .admin-panel__title, .admin-home-panel__title {
   font-size: 15px; font-weight: 600; letter-spacing: 0;
 }
@@ -254,6 +254,12 @@ html:not([data-theme="dark"]) .blog-form__sidebar .blog-form__section,
 html:not([data-theme="dark"]) .blog-form__main .blog-form__section {
   background: #ffffff; border: 1px solid var(--dv-line); border-radius: 12px; box-shadow: var(--dv-shadow);
 }
+/* Dem trong chuan cho moi card cua form tin tuc (ca 2 cot, ca sang & toi):
+   rule padding 20px goc nam o blog.css — file khong duoc nap trong admin
+   nen truoc day section co padding 0, chu dinh sat mep card. */
+.blog-form__section { padding: 20px 22px; margin-bottom: 22px; }
+.blog-form__main .blog-form__section:last-child,
+.blog-form__sidebar .blog-form__section:last-child { margin-bottom: 0; }
 
 /* Thanh cuon sidebar mong nhu demo */
 .admin-sidebar::-webkit-scrollbar { width: 5px; }
@@ -384,9 +390,9 @@ html:not([data-theme="dark"]) .blog-form__main .blog-form__section {
 }
 [data-theme="dark"] .nasani-upload__drop { background: transparent; }
 
-/* Toggle switch (bat = xanh la #28c76f) */
+/* Toggle switch (bat = xanh la #28c76f) — nhan ben trai, cong tac can phai nhu demo */
 .nasani-toggle-row {
-  display: flex; align-items: center; gap: 12px; padding: 7px 0;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 0;
 }
 .nasani-toggle-row__label {
   font-size: 13.5px; font-weight: 600; color: var(--dv-ink); min-width: 62px;
