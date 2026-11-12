@@ -37,11 +37,6 @@
       font-family: 'Montserrat', sans-serif; font-size: 21vw; letter-spacing: .04em; white-space: nowrap;
       color: rgba(11,95,165,0.055); z-index: 0; user-select: none; pointer-events: none;
     }
-    .dv-wm-logo {
-      position: fixed; left: 50%; top: 50%; transform: translate(-50%,-50%);
-      width: 620px; max-width: 88vw; opacity: 0.05; z-index: 0; pointer-events: none;
-    }
-
     /* View website link */
     .view-site {
       position: relative;
@@ -264,9 +259,8 @@
 </head>
 <body>
 
-  <!-- Watermark TEKORA + logo an mo -->
+  <!-- Watermark TEKORA -->
   <div class="dv-wm-text">TEKORA</div>
-  <img class="dv-wm-logo" id="wmLogo" src="" alt="">
 
   <!-- View website -->
   <a href="<%= siteUrl %>" class="view-site" target="_blank">
@@ -333,7 +327,6 @@
   <p class="login-footer">CÔNG TY TNHH CÔNG NGHỆ TEKORA — Hỗ trợ 24/7: 0866.475.366</p>
 
   <script>
-    document.getElementById('wmLogo').src = document.getElementById('loginLogoImg').src;
     const togglePwd = document.getElementById('togglePwd');
     const pwdInput  = document.getElementById('password');
     const eyeOff    = document.getElementById('eyeOff');
