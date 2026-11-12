@@ -226,9 +226,25 @@ h1, h2, h3 { font-weight: 800; }
 .footer-main { background: linear-gradient(165deg, #0d6cb8 0%, var(--dv-blue) 34%, var(--dv-blue-dark) 68%, #062544 100%) !important; }
 .footer-main::before { color: rgba(255,255,255,.05) !important; }
 .footer-main::after { background: radial-gradient(circle, rgba(87,168,236,.22) 0%, transparent 70%) !important; }
+/* Mau chu footer: nang tuong phan tren nen xanh sang (ban cu de chu xam slate cua nen toi nen kho doc) */
+.footer-col { color: #d9e9f8 !important; }
+.footer-col__title { color: #fff !important; border-bottom-color: rgba(255,255,255,.20) !important; }
 .footer-col__title::after { background: linear-gradient(90deg, var(--dv-yellow), #57a8ec) !important; }
-.footer-support__phone { color: #fff !important; font-family: 'Montserrat', sans-serif; font-weight: 800; }
-.footer-support__phone--alt { color: var(--dv-yellow) !important; font-size: 17px; }
+.footer-brand__company { color: #fff !important; font-size: 1.05rem !important; }
+.footer-info li { color: #d0e4f6 !important; }
+.footer-info__icon { color: #9fd0ff !important; }
+.footer-links a { color: #d9e9f8 !important; }
+.footer-links a:hover { color: #fff !important; }
+.footer-links li::before { color: #8ec9f5 !important; }
+.footer-support__label, .footer-support__follow { color: #aacdec !important; }
+/* So dien thoai: ha co chu ve cung thang bac voi footer (ban cu to bat lech), email tra ve kieu chu thuong */
+.footer-support__phone { color: #fff !important; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1.05rem !important; letter-spacing: .01em; }
+.footer-support__phone--alt { color: #d9e9f8 !important; font-family: 'Be Vietnam Pro', sans-serif; font-weight: 600; font-size: .95rem !important; letter-spacing: 0; }
+.footer-support__phone--alt:hover { color: #fff !important; text-decoration: underline; }
+.footer-social__link { background: rgba(255,255,255,.10) !important; border-color: rgba(255,255,255,.16) !important; color: #eaf3fc !important; }
+.footer-social__link:hover { background: rgba(255,255,255,.22) !important; color: #fff !important; }
+.footer-copy p { color: #9db8d2 !important; }
+.footer-copy strong { color: #e6f0fa !important; }
 .footer-fanpage { background: #fff; border-radius: 12px; padding: 8px; overflow: hidden; }
 .dv-footer__logochip { background: #fff; border-radius: 12px; padding: 9px 16px; display: inline-block; margin-bottom: 16px; box-shadow: 0 8px 20px rgba(0,0,0,.18); }
 .dv-footer__logochip img { height: 42px; width: auto; display: block; }
