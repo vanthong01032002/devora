@@ -100,7 +100,7 @@
 
   <!-- Copyright bar -->
   <div class="footer-copy">
-    <p><%= (typeof settings !== 'undefined' && settings.copyright) ? settings.copyright : 'Copyright © 2026 Công ty TNHH Công Nghệ Tekora — Design by Tekora' %></p>
+    <p><%- ((typeof settings !== 'undefined' && settings.copyright) ? settings.copyright : 'Copyright © 2026 Công ty TNHH Công Nghệ Tekora — Design by Tekora').replace('Design by Tekora', '<a href="https://tekora.id.vn" target="_blank" rel="noopener">Design by Tekora</a>') %></p>
   </div>
 
 </footer>
